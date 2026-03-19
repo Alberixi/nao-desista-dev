@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratório de Geração | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .quote-box {
+      background: #111;
+      border-left: 4px solid #0f0;
+      padding: 2rem;
+      margin: 2rem 0;
+      font-size: 1.5rem;
+      font-style: italic;
+      text-align: center;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .terminal-window {
+      margin-top: 2rem;
+    }
+
+    .cmd {
+      background: #000;
+      color: #0f0;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> labs / gerador</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> LABORATÓRIO</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="puzzle-container">
+      <h1 class="puzzle-title">> 🧪 LABORATÓRIO DE GERAÇÃO</h1>
+
+      <div class="quote-box">
+        "Alguns desafios não existem ainda.<br>
+        <strong>O verdadeiro investigador cria os próprios.</strong>"
+      </div>
+
+      <p>Bem-vindo ao laboratório de geração infinita de puzzles. Aqui você não precisa esperar por novos desafios -
+        você os cria.</p>
+
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span style="color: #666;">vagrant@forensics-lab:~$</span>
+        </div>
+        <div class="terminal-content" style="min-height: auto;">
+          <div class="command-line">$ <span style="color: #0f0;">generate-ctf</span></div>
+          <div class="command-line">🧩 GERADOR DE PUZZLES CTF</div>
+          <div class="command-line">📁 Gerando em: /cases/generated</div>
+          <div class="command-line">✅ base64_1.txt criado</div>
+          <div class="command-line">✅ hash_2.txt criado</div>
+          <div class="command-line">✅ zip_3.zip criado (senha: flag3)</div>
+          <div class="command-line">✅ img_4.jpg criado</div>
+          <div class="command-line">✅ strings_5.bin criado</div>
+          <div class="command-line">🎯 Desafios gerados em: /cases/generated</div>
+        </div>
+      </div>
+
+      <h2 style="margin-top: 2rem;">📖 Como usar</h2>
+
+      <h3>1. Suba o laboratório</h3>
+      <div class="code-block">vagrant up</div>
+
+      <h3>2. Acesse a máquina</h3>
+      <div class="code-block">vagrant ssh</div>
+
+      <h3>3. Gere novos desafios</h3>
+      <div class="code-block">generate-ctf</div>
+
+      <h3>4. Encontre os arquivos em</h3>
+      <div class="code-block">cd /cases/generated && ls -la</div>
+
+      <h2 style="margin-top: 2rem;">🎯 Tipos de puzzles gerados</h2>
+      <ul style="color: #ccc;">
+        <li><span class="cmd">base64.txt</span> - Mensagem codificada em Base64</li>
+        <li><span class="cmd">hash.txt</span> - Hash MD5 para quebrar</li>
+        <li><span class="cmd">protected.zip</span> - ZIP com senha</li>
+        <li><span class="cmd">image.jpg</span> - Metadados EXIF escondendo a flag</li>
+        <li><span class="cmd">strings.bin</span> - Arquivo binário com texto oculto</li>
+        <li><span class="cmd">xor.bin</span> - Criptografia XOR simples</li>
+        <li><span class="cmd">hex.txt</span> - Mensagem em hexadecimal</li>
+        <li><span class="cmd">binario.txt</span> - Mensagem em binário</li>
+        <li><span class="cmd">rot13.txt</span> - Cifra ROT13</li>
+        <li><span class="cmd">http.pcap</span> - Captura de rede simulada</li>
+      </ul>
+
+      <div class="hint-box" style="margin-top: 2rem;">
+        <i class="fas fa-lightbulb"></i>
+        <strong>FILOSOFIA DO LABORATÓRIO:</strong><br>
+        Os 50 puzzles fixos são sua jornada principal.<br>
+        Este laboratório é para quando você quiser mais.<br>
+        <strong>Pratique. Experimente. Crie. Nunca desista.</strong>
+      </div>
+
+      <div style="text-align: center; margin: 3rem 0;">
+        <span style="font-size: 3rem;">⚡</span>
+        <p style="color: #0f0;">Puzzles infinitos esperam por você</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Laboratório de Geração Infinita</p>
+    <p class="copyright">"O verdadeiro investigador cria os próprios desafios"</p>
+  </footer>
+  <script src="../assets/js/script.js"></script>
+</body>
+
+</html>

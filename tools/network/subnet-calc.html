@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subnet Calculator | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input,
+    select {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    .network-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .network-item {
+      background: #1a1d24;
+      padding: 0.5rem;
+      border-radius: 3px;
+    }
+
+    .network-label {
+      color: #ffaa00;
+    }
+
+    .network-value {
+      color: #0f0;
+      font-family: monospace;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / network / subnet-calc</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> SUBNET CALCULATOR</h1>
+        <p>Calcule redes, máscaras e endereços IP</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Endereço IP</h3>
+        <input type="text" id="ipAddress" value="192.168.1.0" placeholder="ex: 192.168.1.0">
+
+        <h3>Máscara (CIDR ou decimal)</h3>
+        <div style="display: flex; gap: 1rem;">
+          <input type="text" id="mask" value="24" placeholder="ex: 24 ou 255.255.255.0">
+        </div>
+
+        <button onclick="calculateSubnet()">CALCULAR</button>
+
+        <div id="subnetResult" class="result-box"></div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Tabela de máscaras comuns</h3>
+          <table>
+            <tr>
+              <th>CIDR</th>
+              <th>Máscara</th>
+              <th>Hosts</th>
+            </tr>
+            <tr>
+              <td>/24</td>
+              <td>255.255.255.0</td>
+              <td>254</td>
+            </tr>
+            <tr>
+              <td>/25</td>
+              <td>255.255.255.128</td>
+              <td>126</td>
+            </tr>
+            <tr>
+              <td>/26</td>
+              <td>255.255.255.192</td>
+              <td>62</td>
+            </tr>
+            <tr>
+              <td>/27</td>
+              <td>255.255.255.224</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td>/28</td>
+              <td>255.255.255.240</td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <td>/29</td>
+              <td>255.255.255.248</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>/30</td>
+              <td>255.255.255.252</td>
+              <td>2</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Subnet Calculator</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function calculateSubnet() {
+      const ip = document.getElementById('ipAddress').value;
+      let mask = document.getElementById('mask').value;
+
+      // Converter máscara decimal para CIDR se necessário
+      let cidr = mask;
+      if (mask.includes('.')) {
+        const maskParts = mask.split('.');
+        let bits = 0;
+        maskParts.forEach(part => {
+          const binary = parseInt(part).toString(2);
+          bits += (binary.match(/1/g) || []).length;
+        });
+        cidr = bits.toString();
+      }
+
+      // Simular cálculo de rede
+      const network = ip.split('.').map((octeto, i) => {
+        if (i < Math.floor(cidr / 8)) return octeto;
+        if (i === Math.floor(cidr / 8)) {
+          const bits = parseInt(cidr) % 8;
+          const mask = 256 - Math.pow(2, 8 - bits);
+          return parseInt(octeto) & mask;
+        }
+        return 0;
+      }).join('.');
+
+      const broadcast = ip.split('.').map((octeto, i) => {
+        if (i < Math.floor(cidr / 8)) return octeto;
+        if (i === Math.floor(cidr / 8)) {
+          const bits = parseInt(cidr) % 8;
+          const mask = Math.pow(2, 8 - bits) - 1;
+          return parseInt(octeto) | mask;
+        }
+        return 255;
+      }).join('.');
+
+      const firstHost = network.split('.').map((octeto, i) => {
+        if (i === 3) return parseInt(octeto) + 1;
+        return octeto;
+      }).join('.');
+
+      const lastHost = broadcast.split('.').map((octeto, i) => {
+        if (i === 3) return parseInt(octeto) - 1;
+        return octeto;
+      }).join('.');
+
+      const totalHosts = Math.pow(2, 32 - parseInt(cidr)) - 2;
+
+      const resultHTML = `
+                <div class="network-grid">
+                    <div class="network-item">
+                        <div class="network-label">Endereço IP:</div>
+                        <div class="network-value">${ip}</div>
+                    </div>
+                    <div class="network-item">
+                        <div class="network-label">Máscara CIDR:</div>
+                        <div class="network-value">/${cidr}</div>
+                    </div>
+                    <div class="network-item">
+                        <div class="network-label">Máscara Decimal:</div>
+                        <div class="network-value">${mask.includes('.') ? mask : '255.255.255.' + (256 - Math.pow(2, 32 - parseInt(cidr)))}</div>
+                    </div>
+                    <div class="network-item">
+                        <div class="network-label">Endereço de Rede:</div>
+                        <div class="network-value">${network}</div>
+                    </div>
+                    <div class="network-item">
+                        <div class="network-label">Primeiro Host:</div>
+                        <div class="network-value">${firstHost}</div>
+                    </div>
+                    <div class="network-item">
+                        <div class="network-label">Último Host:</div>
+                        <div class="network-value">${lastHost}</div>
+                    </div>
+                    <div class="network-item">
+                        <div class="network-label">Broadcast:</div>
+                        <div class="network-value">${broadcast}</div>
+                    </div>
+                    <div class="network-item">
+                        <div class="network-label">Total de Hosts:</div>
+                        <div class="network-value">${totalHosts}</div>
+                    </div>
+                </div>
+            `;
+
+      document.getElementById('subnetResult').innerHTML = resultHTML;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livros Recomendados | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .book-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .book-card:hover {
+      border-color: #0f0;
+      transform: translateY(-2px);
+    }
+
+    .book-title {
+      color: #0f0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .book-author {
+      color: #ffaa00;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .book-desc {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .book-level {
+      display: inline-block;
+      background: #1a1d24;
+      color: #66c0f0;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / referencias / livros</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> LIVROS</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="ferramentas-completas.html" class="nav-link"><i class="fas fa-tools"></i> FERRAMENTAS</a>
+      <a href="../guias/guia-rapido-iniciante.html" class="nav-link"><i class="fas fa-rocket"></i> GUIA RÁPIDO</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 📚 LIVROS RECOMENDADOS</h1>
+      </div>
+
+      <div class="section">
+        <h2>🔐 Criptografia</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-title">Cryptography Engineering</div>
+            <div class="book-author">Niels Ferguson, Bruce Schneier</div>
+            <div class="book-level">Intermediário/Avançado</div>
+            <div class="book-desc">Aborda design e implementação de sistemas criptográficos: AES, RSA, protocolos.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">The Code Book</div>
+            <div class="book-author">Simon Singh</div>
+            <div class="book-level">Iniciante</div>
+            <div class="book-desc">História da criptografia de forma acessível e fascinante.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">Practical Cryptography</div>
+            <div class="book-author">Niels Ferguson, Bruce Schneier</div>
+            <div class="book-level">Intermediário</div>
+            <div class="book-desc">Implementação prática de algoritmos criptográficos.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔍 Forense Digital</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-title">File System Forensic Analysis</div>
+            <div class="book-author">Brian Carrier</div>
+            <div class="book-level">Avançado</div>
+            <div class="book-desc">Análise profunda de sistemas de arquivos: NTFS, ext4, FAT.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">The Art of Memory Forensics</div>
+            <div class="book-author">Michael Hale Ligh</div>
+            <div class="book-level">Avançado</div>
+            <div class="book-desc">Análise de memória RAM com Volatility.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">Practical Forensic Imaging</div>
+            <div class="book-author">Bruce Nikkel</div>
+            <div class="book-level">Intermediário</div>
+            <div class="book-desc">Aquisição e análise de imagens de disco.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🌐 Redes e Segurança</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-title">Practical Packet Analysis</div>
+            <div class="book-author">Chris Sanders</div>
+            <div class="book-level">Iniciante/Intermediário</div>
+            <div class="book-desc">Análise de tráfego com Wireshark.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">The Web Application Hacker's Handbook</div>
+            <div class="book-author">Dafydd Stuttard</div>
+            <div class="book-level">Intermediário/Avançado</div>
+            <div class="book-desc">Técnicas de hacking web: SQLi, XSS, CSRF.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">Penetration Testing</div>
+            <div class="book-author">Georgia Weidman</div>
+            <div class="book-level">Iniciante/Intermediário</div>
+            <div class="book-desc">Introdução ao pentest com Metasploit.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🕵️ OSINT</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-title">Open Source Intelligence Techniques</div>
+            <div class="book-author">Michael Bazzell</div>
+            <div class="book-level">Intermediário</div>
+            <div class="book-desc">Técnicas de inteligência de fontes abertas.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🐧 Linux e Sistemas</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-title">The Linux Command Line</div>
+            <div class="book-author">William Shotts</div>
+            <div class="book-level">Iniciante</div>
+            <div class="book-desc">Domínio do terminal Linux.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">How Linux Works</div>
+            <div class="book-author">Brian Ward</div>
+            <div class="book-level">Intermediário</div>
+            <div class="book-desc">Funcionamento interno do Linux.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🎯 CTF e Desafios</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-title">The CTF Handbook</div>
+            <div class="book-author">CTF Field Guide</div>
+            <div class="book-level">Iniciante/Avançado</div>
+            <div class="book-desc">Guia completo para competições CTF.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">Hacking: The Art of Exploitation</div>
+            <div class="book-author">Jon Erickson</div>
+            <div class="book-level">Intermediário/Avançado</div>
+            <div class="book-desc">Técnicas de exploração de software.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📖 Em Português</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-title">Introdução ao Hacking</div>
+            <div class="book-author">Diego Macêdo</div>
+            <div class="book-level">Iniciante</div>
+            <div class="book-desc">Conceitos básicos de segurança ofensiva.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">Pentest em Aplicações Web</div>
+            <div class="book-author">Daniel Moreno</div>
+            <div class="book-level">Intermediário</div>
+            <div class="book-desc">Testes de invasão em aplicações web.</div>
+          </div>
+          <div class="book-card">
+            <div class="book-title">Forense Computacional</div>
+            <div class="book-author">Antonio Montes</div>
+            <div class="book-level">Intermediário</div>
+            <div class="book-desc">Fundamentos da perícia digital.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📚 Onde Encontrar</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-title">O'Reilly</div>
+            <div class="book-desc">Livros técnicos de alta qualidade</div>
+            <a href="https://www.oreilly.com/" target="_blank" class="nav-link"
+              style="margin-top: 0.5rem; display: inline-block;">Visitar</a>
+          </div>
+          <div class="book-card">
+            <div class="book-title">No Starch Press</div>
+            <div class="book-desc">Segurança e programação</div>
+            <a href="https://nostarch.com/" target="_blank" class="nav-link"
+              style="margin-top: 0.5rem; display: inline-block;">Visitar</a>
+          </div>
+          <div class="book-card">
+            <div class="book-title">Library Genesis</div>
+            <div class="book-desc">Acervo gratuito</div>
+            <a href="https://libgen.is/" target="_blank" class="nav-link"
+              style="margin-top: 0.5rem; display: inline-block;">Visitar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Livros Recomendados</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

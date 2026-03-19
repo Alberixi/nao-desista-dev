@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redes | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .code-block {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+      border: 1px solid #333;
+      overflow-x: auto;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .osi-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .osi-table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / tutoriais / redes</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> TUTORIAL</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🌐 TUTORIAL DE REDES</h1>
+      </div>
+
+      <div class="section">
+        <h2>Modelo OSI vs TCP/IP</h2>
+        <table class="osi-table">
+          <tr>
+            <th>Camada OSI</th>
+            <th>TCP/IP</th>
+            <th>Protocolos</th>
+          </tr>
+          <tr>
+            <td>7 - Aplicação</td>
+            <td>Aplicação</td>
+            <td>HTTP, FTP, SMTP, DNS</td>
+          </tr>
+          <tr>
+            <td>6 - Apresentação</td>
+            <td>Aplicação</td>
+            <td>SSL/TLS</td>
+          </tr>
+          <tr>
+            <td>5 - Sessão</td>
+            <td>Aplicação</td>
+            <td>NetBIOS</td>
+          </tr>
+          <tr>
+            <td>4 - Transporte</td>
+            <td>Transporte</td>
+            <td>TCP, UDP</td>
+          </tr>
+          <tr>
+            <td>3 - Rede</td>
+            <td>Internet</td>
+            <td>IP, ICMP</td>
+          </tr>
+          <tr>
+            <td>2 - Enlace</td>
+            <td>Enlace</td>
+            <td>Ethernet, Wi-Fi</td>
+          </tr>
+          <tr>
+            <td>1 - Física</td>
+            <td>Física</td>
+            <td>Cabos, Sinais</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>Protocolos Principais</h2>
+
+        <h3>TCP (Transmission Control Protocol)</h3>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>Orientado à conexão</li>
+          <li>Confiável (ACK, retransmissão)</li>
+          <li>Portas: 20,21(FTP), 22(SSH), 25(SMTP), 80(HTTP), 443(HTTPS)</li>
+        </ul>
+
+        <h3>UDP (User Datagram Protocol)</h3>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>Não orientado à conexão</li>
+          <li>Não confiável (sem ACK)</li>
+          <li>Portas: 53(DNS), 67/68(DHCP), 69(TFTP), 123(NTP)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>🛠️ Ferramentas de Análise</h2>
+
+        <h3>Wireshark</h3>
+        <div class="code-block">
+          # Filtros comuns
+          ip.src == 192.168.1.100
+          ip.dst == 8.8.8.8
+          tcp.port == 80
+          http.request.method == "GET"
+          tcp contains "flag"
+        </div>
+
+        <h3>tshark</h3>
+        <div class="code-block">
+          # Listar interfaces
+          tshark -D
+
+          # Analisar arquivo
+          tshark -r captura.pcap
+
+          # Filtrar e mostrar campos
+          tshark -r captura.pcap -Y "http" -T fields -e ip.src -e ip.dst
+        </div>
+
+        <h3>tcpdump</h3>
+        <div class="code-block">
+          # Capturar pacotes
+          tcpdump -i eth0 -c 100 -w captura.pcap
+
+          # Filtrar por porta
+          tcpdump -i eth0 port 80
+
+          # Ler arquivo
+          tcpdump -r captura.pcap -X
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Tutorial de Redes</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

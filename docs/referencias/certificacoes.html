@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificações | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    /* Tabela Comparativa */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: #111;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .comparison-table th {
+      background: #1a1d24;
+      color: #0f0;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .comparison-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #333;
+      color: #ccc;
+    }
+
+    .comparison-table tr:hover {
+      background: #1a1d24;
+    }
+
+    /* Cards de Certificação */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .cert-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .cert-card:hover {
+      border-color: #0f0;
+      transform: translateY(-2px);
+    }
+
+    .cert-title {
+      color: #0f0;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-issuer {
+      color: #ffaa00;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-desc {
+      color: #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .cert-level {
+      display: inline-block;
+      background: #1a1d24;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+    }
+
+    .beginner {
+      color: #00aa00;
+      border: 1px solid #00aa00;
+    }
+
+    .intermediate {
+      color: #ffaa00;
+      border: 1px solid #ffaa00;
+    }
+
+    .advanced {
+      color: #ff3e3e;
+      border: 1px solid #ff3e3e;
+    }
+
+    .cert-topics {
+      margin: 1rem 0;
+      color: #66c0f0;
+      font-size: 0.9rem;
+    }
+
+    .cert-link {
+      color: #66c0f0;
+      text-decoration: none;
+      border: 1px solid #66c0f0;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .cert-link:hover {
+      background: #66c0f0;
+      color: #000;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .roadmap {
+      background: #111;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .roadmap-step {
+      display: flex;
+      align-items: center;
+      margin: 1rem 0;
+    }
+
+    .step-year {
+      color: #ffaa00;
+      font-weight: bold;
+      width: 100px;
+    }
+
+    .step-desc {
+      color: #ccc;
+      flex: 1;
+    }
+
+    .step-arrow {
+      color: #0f0;
+      margin: 0 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / referencias / certificacoes</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> CERTIFICAÇÕES</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="ferramentas-completas.html" class="nav-link"><i class="fas fa-tools"></i> FERRAMENTAS</a>
+      <a href="cursos-online.html" class="nav-link"><i class="fas fa-video"></i> CURSOS</a>
+      <a href="livros.html" class="nav-link"><i class="fas fa-book"></i> LIVROS</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🏅 CERTIFICAÇÕES EM SEGURANÇA</h1>
+        <p>Guia completo das principais certificações da área</p>
+      </div>
+
+      <!-- Tabela Comparativa -->
+      <div class="section">
+        <h2>📊 Tabela Comparativa</h2>
+        <table class="comparison-table">
+          <tr>
+            <th>Certificação</th>
+            <th>Nível</th>
+            <th>Pré-requisitos</th>
+            <th>Custo (aprox.)</th>
+            <th>Validade</th>
+          </tr>
+          <tr>
+            <td>Security+</td>
+            <td>Iniciante</td>
+            <td>Nenhum</td>
+            <td>R$ 1.500</td>
+            <td>3 anos</td>
+          </tr>
+          <tr>
+            <td>CEH</td>
+            <td>Intermediário</td>
+            <td>2 anos exp</td>
+            <td>R$ 3.000</td>
+            <td>3 anos</td>
+          </tr>
+          <tr>
+            <td>CISSP</td>
+            <td>Avançado</td>
+            <td>5 anos exp</td>
+            <td>R$ 4.500</td>
+            <td>3 anos</td>
+          </tr>
+          <tr>
+            <td>OSCP</td>
+            <td>Intermediário</td>
+            <td>Sólidos conhecimentos</td>
+            <td>R$ 8.000</td>
+            <td>Vitalício</td>
+          </tr>
+          <tr>
+            <td>GSEC</td>
+            <td>Intermediário</td>
+            <td>2 anos exp</td>
+            <td>R$ 5.000</td>
+            <td>4 anos</td>
+          </tr>
+          <tr>
+            <td>CISM</td>
+            <td>Avançado</td>
+            <td>5 anos exp</td>
+            <td>R$ 4.000</td>
+            <td>3 anos</td>
+          </tr>
+          <tr>
+            <td>CISA</td>
+            <td>Avançado</td>
+            <td>5 anos exp</td>
+            <td>R$ 4.000</td>
+            <td>3 anos</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Nível Iniciante -->
+      <div class="section">
+        <h2>🟢 Nível Iniciante</h2>
+        <div class="certs-grid">
+          <div class="cert-card">
+            <div class="cert-title">CompTIA Security+</div>
+            <div class="cert-issuer">CompTIA | Código: SY0-601</div>
+            <div class="cert-desc">Certificação fundamental para carreira em segurança. Abrange ameaças, riscos,
+              criptografia, identidade e acesso.</div>
+            <div class="cert-topics">📚 Tópicos: Ameaças, vulnerabilidades, criptografia, IAM, segurança de rede</div>
+            <div>
+              <span class="cert-level beginner">Iniciante</span>
+              <span class="cert-level">3-6 meses</span>
+            </div>
+            <a href="https://www.comptia.org/certifications/security" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-title">CompTIA Network+</div>
+            <div class="cert-issuer">CompTIA | Código: N10-008</div>
+            <div class="cert-desc">Fundamentos de redes, base para segurança. Modelos OSI/TCP/IP, roteamento, switching,
+              protocolos.</div>
+            <div class="cert-topics">📚 Tópicos: Modelos OSI/TCP, roteamento, switching, troubleshooting</div>
+            <div>
+              <span class="cert-level beginner">Iniciante</span>
+              <span class="cert-level">3-4 meses</span>
+            </div>
+            <a href="https://www.comptia.org/certifications/network" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-title">Microsoft SC-900</div>
+            <div class="cert-issuer">Microsoft</div>
+            <div class="cert-desc">Conceitos de segurança na Microsoft. Azure AD, Microsoft 365 Defender, conformidade.
+            </div>
+            <div class="cert-topics">📚 Tópicos: Azure AD, Microsoft 365 Defender, compliance</div>
+            <div>
+              <span class="cert-level beginner">Iniciante</span>
+              <span class="cert-level">2-3 meses</span>
+            </div>
+            <a href="https://learn.microsoft.com/en-us/certifications/security-compliance-and-identity-fundamentals/"
+              target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nível Intermediário -->
+      <div class="section">
+        <h2>🟡 Nível Intermediário</h2>
+        <div class="certs-grid">
+          <div class="cert-card">
+            <div class="cert-title">CEH (Certified Ethical Hacker)</div>
+            <div class="cert-issuer">EC-Council | Código: 312-50</div>
+            <div class="cert-desc">Metodologias e ferramentas de pentest. Footprinting, scanning, enumeração, system
+              hacking, malware.</div>
+            <div class="cert-topics">📚 Tópicos: Footprinting, scanning, enumeração, system hacking, sniffing</div>
+            <div>
+              <span class="cert-level intermediate">Intermediário</span>
+              <span class="cert-level">6 meses</span>
+            </div>
+            <a href="https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/" target="_blank"
+              class="cert-link">Site Oficial</a>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-title">OSCP (Offensive Security Certified Professional)</div>
+            <div class="cert-issuer">Offensive Security</div>
+            <div class="cert-desc">Certificação 100% prática. Buffer overflow, web attacks, privilege escalation,
+              tunneling.</div>
+            <div class="cert-topics">📚 Tópicos: Buffer overflow, web attacks, privilege escalation, client-side attacks
+            </div>
+            <div>
+              <span class="cert-level intermediate">Intermediário/Avançado</span>
+              <span class="cert-level">3-6 meses</span>
+            </div>
+            <a href="https://www.offensive-security.com/pwk-oscp/" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-title">Pentest+</div>
+            <div class="cert-issuer">CompTIA | Código: PT0-002</div>
+            <div class="cert-desc">Pentest e avaliação de vulnerabilidades. Planejamento, reconhecimento, exploração,
+              pós-exploração.</div>
+            <div class="cert-topics">📚 Tópicos: Planejamento, reconhecimento, exploração, pós-exploração, relatórios
+            </div>
+            <div>
+              <span class="cert-level intermediate">Intermediário</span>
+              <span class="cert-level">4-5 meses</span>
+            </div>
+            <a href="https://www.comptia.org/certifications/pentest" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-title">GSEC (GIAC Security Essentials)</div>
+            <div class="cert-issuer">SANS GIAC</div>
+            <div class="cert-desc">Amplo conhecimento em segurança. Defesa de redes, criptografia, controle de acesso,
+              resposta a incidentes.</div>
+            <div class="cert-topics">📚 Tópicos: Defesa de redes, criptografia, controle de acesso, resposta a
+              incidentes</div>
+            <div>
+              <span class="cert-level intermediate">Intermediário</span>
+              <span class="cert-level">6 meses</span>
+            </div>
+            <a href="https://www.giac.org/certifications/security-essentials-gsec/" target="_blank"
+              class="cert-link">Site Oficial</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nível Avançado -->
+      <div class="section">
+        <h2>🔴 Nível Avançado</h2>
+        <div class="certs-grid">
+          <div class="cert-card">
+            <div class="cert-title">CISSP</div>
+            <div class="cert-issuer">(ISC)²</div>
+            <div class="cert-desc">A mais reconhecida certificação de segurança. 8 domínios cobrindo toda a área.</div>
+            <div class="cert-topics">📚 Domínios: Risk Management, Asset Security, Architecture, Network Security, IAM,
+              Assessment, Operations, Development</div>
+            <div>
+              <span class="cert-level advanced">Avançado</span>
+              <span class="cert-level">6-12 meses</span>
+            </div>
+            <a href="https://www.isc2.org/Certifications/CISSP" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-title">CISM (Certified Information Security Manager)</div>
+            <div class="cert-issuer">ISACA</div>
+            <div class="cert-desc">Foco em gestão e governança de segurança. Para quem quer atuar como CISO ou gerente.
+            </div>
+            <div class="cert-topics">📚 Domínios: Governança, risco, desenvolvimento de programas, incidentes</div>
+            <div>
+              <span class="cert-level advanced">Avançado</span>
+              <span class="cert-level">6 meses</span>
+            </div>
+            <a href="https://www.isaca.org/credentialing/cism" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-title">CISA (Certified Information Systems Auditor)</div>
+            <div class="cert-issuer">ISACA</div>
+            <div class="cert-desc">Auditoria e controle de sistemas. Para profissionais de auditoria e compliance.</div>
+            <div class="cert-topics">📚 Domínios: Auditoria, governança, aquisição, operações, proteção de ativos</div>
+            <div>
+              <span class="cert-level advanced">Avançado</span>
+              <span class="cert-level">6 meses</span>
+            </div>
+            <a href="https://www.isaca.org/credentialing/cisa" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Especializações SANS -->
+      <div class="section">
+        <h2>⚫ Especializações SANS GIAC</h2>
+        <div class="certs-grid">
+          <div class="cert-card">
+            <div class="cert-title">GCFA</div>
+            <div class="cert-desc">Advanced Incident Response - Forense avançada</div>
+            <a href="https://www.giac.org/certifications/certified-forensic-analyst-gcfa/" target="_blank"
+              class="cert-link">Site Oficial</a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-title">GCFE</div>
+            <div class="cert-desc">Forensic Examiner - Análise forense</div>
+            <a href="https://www.giac.org/certifications/certified-forensic-examiner-gcfe/" target="_blank"
+              class="cert-link">Site Oficial</a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-title">GCIH</div>
+            <div class="cert-desc">Incident Handler - Resposta a incidentes</div>
+            <a href="https://www.giac.org/certifications/certified-incident-handler-gcih/" target="_blank"
+              class="cert-link">Site Oficial</a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-title">GPEN</div>
+            <div class="cert-desc">Penetration Tester - Pentest</div>
+            <a href="https://www.giac.org/certifications/penetration-tester-gpen/" target="_blank"
+              class="cert-link">Site Oficial</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Especializações Offensive Security -->
+      <div class="section">
+        <h2>⚫ Especializações Offensive Security</h2>
+        <div class="certs-grid">
+          <div class="cert-card">
+            <div class="cert-title">OSWP</div>
+            <div class="cert-desc">Wireless Penetration Testing</div>
+            <a href="https://www.offensive-security.com/wifu-oswp/" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-title">OSEP</div>
+            <div class="cert-desc">Advanced Evasion - Evasão avançada</div>
+            <a href="https://www.offensive-security.com/pen300-osep/" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-title">OSED</div>
+            <div class="cert-desc">Windows Exploit Development</div>
+            <a href="https://www.offensive-security.com/exp301-osed/" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-title">OSWE</div>
+            <div class="cert-desc">Web Expert - Ataques web avançados</div>
+            <a href="https://www.offensive-security.com/awae-oswe/" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cloud -->
+      <div class="section">
+        <h2>☁️ Certificações Cloud</h2>
+        <div class="certs-grid">
+          <div class="cert-card">
+            <div class="cert-title">AWS Security Specialty</div>
+            <div class="cert-issuer">AWS</div>
+            <div class="cert-desc">Especialização em segurança na AWS</div>
+            <a href="https://aws.amazon.com/certification/certified-security-specialty/" target="_blank"
+              class="cert-link">Site Oficial</a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-title">Azure Security Engineer</div>
+            <div class="cert-issuer">Microsoft</div>
+            <div class="cert-desc">Segurança no Azure</div>
+            <a href="https://learn.microsoft.com/en-us/certifications/azure-security-engineer/" target="_blank"
+              class="cert-link">Site Oficial</a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-title">CCSP</div>
+            <div class="cert-issuer">(ISC)²</div>
+            <div class="cert-desc">Certified Cloud Security Professional</div>
+            <a href="https://www.isc2.org/Certifications/CCSP" target="_blank" class="cert-link">Site Oficial</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roteiro de Carreira -->
+      <div class="section">
+        <h2>📈 Roteiro de Carreira Sugerido</h2>
+        <div class="roadmap">
+          <div class="roadmap-step">
+            <span class="step-year">Ano 1-2</span>
+            <span class="step-arrow">→</span>
+            <span class="step-desc"><strong>Iniciante:</strong> Security+ ou Network+ → Suporte Técnico / SOC Nível
+              1</span>
+          </div>
+          <div class="roadmap-step">
+            <span class="step-year">Ano 3-5</span>
+            <span class="step-arrow">→</span>
+            <span class="step-desc"><strong>Intermediário:</strong> CEH ou Pentest+ ou GSEC → Analista de Segurança /
+              Pentester Júnior</span>
+          </div>
+          <div class="roadmap-step">
+            <span class="step-year">Ano 5-8</span>
+            <span class="step-arrow">→</span>
+            <span class="step-desc"><strong>Avançado:</strong> CISSP ou OSCP → Engenheiro de Segurança / Pentester
+              Pleno</span>
+          </div>
+          <div class="roadmap-step">
+            <span class="step-year">Ano 8+</span>
+            <span class="step-arrow">→</span>
+            <span class="step-desc"><strong>Especialista:</strong> SANS GIAC (GCIH, GCFA) ou OSEP → Arquiteto de
+              Segurança / Consultor Sênior</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dicas -->
+      <div class="tip-box">
+        <strong>🎯 Dicas para Certificações:</strong>
+        <ul style="color: #ccc; margin-top: 0.5rem;">
+          <li>Escolha a certificação adequada ao seu nível atual</li>
+          <li>Planeje 3-6 meses de estudo dedicado</li>
+          <li>Use múltiplas fontes: livros, vídeos, laboratórios práticos</li>
+          <li>Pratique diariamente pelo menos 1-2 horas</li>
+          <li>Faça simulados para avaliar seu progresso</li>
+          <li>No exame: gerencie o tempo, leia com atenção, marque questões para revisar</li>
+        </ul>
+      </div>
+
+      <div class="nav-links" style="justify-content: center;">
+        <a href="../../index.html" class="nav-link">🏠 VOLTAR AO INÍCIO</a>
+        <a href="cursos-online.html" class="nav-link">🎓 CURSOS</a>
+        <a href="livros.html" class="nav-link">📚 LIVROS</a>
+        <a href="comunidades.html" class="nav-link">👥 COMUNIDADES</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Guia de Certificações</p>
+    <p class="copyright">Informações atualizadas em 2024</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

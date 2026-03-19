@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens Secretas - Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Mesmo CSS do index.html */
+        :root {
+            --bg-primary: #0a0c0f;
+            --bg-secondary: #1a1d24;
+            --text-primary: #00ff9d;
+            --text-secondary: #66c0f0;
+            --accent: #ff3e3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .terminal-header {
+            background: var(--bg-secondary);
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border: 1px solid var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .message-thread {
+            background: var(--bg-secondary);
+            border: 2px solid var(--text-primary);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .message-header {
+            background: rgba(0, 255, 157, 0.1);
+            padding: 1rem;
+            border-bottom: 1px solid var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .message {
+            padding: 1.5rem;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-content {
+            margin-left: 1rem;
+            line-height: 1.8;
+        }
+
+        .encrypted {
+            color: var(--accent);
+            font-family: monospace;
+        }
+
+        .decrypted {
+            color: #00aa00;
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .timestamp {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .filter-btn.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        @media (max-width: 768px) {
+            .terminal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .message-content {
+                margin-left: 0;
+                word-break: break-all;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="terminal-header">
+        <div class="terminal-title">
+            <i class="fas fa-envelope-secret"></i>
+            <span>MENSAGENS_SECRETAS</span>
+        </div>
+        <div>
+            <i class="fas fa-shield-alt"></i> COMUNICAÇÃO CRIPTOGRAFADA
+        </div>
+    </header>
+
+    <main class="container">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> VOLTAR AO TERMINAL
+        </a>
+
+        <h1 style="margin-bottom: 2rem;">> REGISTRO DE MENSAGENS</h1>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="audio">Áudio</button>
+            <button class="filter-btn" data-filter="base64">Base64</button>
+            <button class="filter-btn" data-filter="stego">Esteganografia</button>
+            <button class="filter-btn" data-filter="final">Final</button>
+        </div>
+
+        <!-- Thread 1: Áudio -->
+        <div class="message-thread" data-category="audio">
+            <div class="message-header">
+                <span><i class="fas fa-headphones"></i> THREAD: INVESTIGAÇÃO DE ÁUDIO</span>
+                <span class="timestamp">2024-01-15 23:47</span>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> AGENTE_X:
+                    <span class="timestamp">23:47:32</span>
+                </div>
+                <div class="message-content">
+                    Encontrei algo estranho no espectrograma. <span class="encrypted">[ARQUIVO: misterio.wav]</span>
+                </div>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> MENTOR:
+                    <span class="timestamp">23:48:15</span>
+                </div>
+                <div class="message-content">
+                    Analise as frequências entre 14000Hz e 16000Hz. Use o Audacity para visualizar.
+                </div>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> AGENTE_X:
+                    <span class="timestamp">23:50:03</span>
+                </div>
+                <div class="message-content">
+                    Consegui! A mensagem é: <span class="decrypted">"A CHAVE ESTÁ NA IMAGEM DO GATO"</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thread 2: Base64 -->
+        <div class="message-thread" data-category="base64">
+            <div class="message-header">
+                <span><i class="fas fa-code"></i> THREAD: CÓDIGO BASE64</span>
+                <span class="timestamp">2024-01-16 08:23</span>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> NOVATO:
+                    <span class="timestamp">08:23:47</span>
+                </div>
+                <div class="message-content">
+                    Recebi esta string: Vm0wd2QyUXlVWGxV
+                </div>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> VETERANO:
+                    <span class="timestamp">08:25:12</span>
+                </div>
+                <div class="message-content">
+                    Isso é Base64. Decodifique e terá mais camadas. É uma matryoshka de codificações.
+                </div>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> NOVATO:
+                    <span class="timestamp">08:35:45</span>
+                </div>
+                <div class="message-content">
+                    Após 5 decodificações: <span class="decrypted">"USE STEGHIDE NA IMAGEM"</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thread 3: Esteganografia -->
+        <div class="message-thread" data-category="stego">
+            <div class="message-header">
+                <span><i class="fas fa-image"></i> THREAD: IMAGEM MISTERIOSA</span>
+                <span class="timestamp">2024-01-16 14:56</span>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> DETETIVE:
+                    <span class="timestamp">14:56:18</span>
+                </div>
+                <div class="message-content">
+                    A imagem gato.jpg tem algo estranho. O tamanho do arquivo não corresponde.
+                </div>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> ESPECIALISTA:
+                    <span class="timestamp">14:58:32</span>
+                </div>
+                <div class="message-content">
+                    Comando: steghide extract -sf gato.jpg
+                    <br>Senha: (em branco ou tentar as descobertas anteriores)
+                </div>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> DETETIVE:
+                    <span class="timestamp">15:05:44</span>
+                </div>
+                <div class="message-content">
+                    Extraído! O arquivo contém: <span class="decrypted">"coordenadas: -23.5505, -46.6333"</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thread 4: Puzzle Final -->
+        <div class="message-thread" data-category="final">
+            <div class="message-header">
+                <span><i class="fas fa-skull"></i> THREAD: DESAFIO FINAL</span>
+                <span class="timestamp">2024-01-17 00:01</span>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> MESTRE:
+                    <span class="timestamp">00:01:23</span>
+                </div>
+                <div class="message-content">
+                    Parabéns por chegar até aqui. O último desafio combina tudo.
+                </div>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> MESTRE:
+                    <span class="timestamp">00:02:15</span>
+                </div>
+                <div class="message-content">
+                    No arquivo final.zip você encontrará:
+                    <br>- Um áudio com mensagem em morse
+                    <br>- Uma imagem com texto escondido
+                    <br>- Um texto cifrado em múltiplas camadas
+                </div>
+            </div>
+            <div class="message">
+                <div class="message-meta">
+                    <i class="fas fa-user-secret"></i> MESTRE:
+                    <span class="timestamp">00:05:47</span>
+                </div>
+                <div class="message-content">
+                    A flag final é: <span class="decrypted">[RESPOSTA OCULTA - REQUER SOLUÇÃO DO PUZZLE]</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Filtro de mensagens
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Atualizar botão ativo
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                // Filtrar mensagens
+                document.querySelectorAll('.message-thread').forEach(thread => {
+                    if (filter === 'all' || thread.dataset.category === filter) {
+                        thread.style.display = 'block';
+                    } else {
+                        thread.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Efeito de digitação nos títulos
+        function typeWriter(element, text, i = 0) {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                setTimeout(() => typeWriter(element, text, i + 1), 50);
+            }
+        }
+
+        // Adicionar data atual nas mensagens
+        const now = new Date();
+        document.querySelectorAll('.timestamp').forEach(el => {
+            if (!el.textContent.includes('2024')) {
+                el.textContent = now.toLocaleTimeString();
+            }
+        });
+    </script>
+</body>
+
+</html>

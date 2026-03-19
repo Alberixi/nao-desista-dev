@@ -1,0 +1,4 @@
+Arquivo de carteira de criptomoedas para Puzzle 26.
+Contém chave privada protegida por senha.
+Senha: crypto123
+Flag: flag{crypto_wallet_quebrada}

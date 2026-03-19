@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contribuir | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .contrib-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .contrib-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .contrib-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1a1d24;
+      color: #ffaa00;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin: 0.25rem;
+    }
+
+    .step-box {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .step-number {
+      color: #0f0;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+
+    .code-block {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+      border: 1px solid #333;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> contrib / guia</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> CONTRIBUIÇÃO</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="contrib-container">
+      <div class="contrib-header">
+        <h1 class="contrib-title">> 🤝 GUIA DE CONTRIBUIÇÃO</h1>
+        <p>Como ajudar a construir o Não Desista Dev</p>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Primeiro passo:</strong> Leia este guia completo antes de começar.
+      </div>
+
+      <div class="section">
+        <h2>📋 Formas de Contribuir</h2>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <span class="badge">🐛 Reportar Bugs</span>
+          <span class="badge">💡 Sugerir Puzzles</span>
+          <span class="badge">📝 Documentação</span>
+          <span class="badge">🔧 Código</span>
+          <span class="badge">🌐 Traduções</span>
+          <span class="badge">🎨 Design</span>
+          <span class="badge">📢 Divulgação</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🐛 Reportando Bugs</h2>
+        <div class="step-box">
+          <div style="display: flex; align-items: center;">
+            <span class="step-number">1</span>
+            <div>Verifique se o bug já foi reportado</div>
+          </div>
+        </div>
+        <div class="step-box">
+          <div style="display: flex; align-items: center;">
+            <span class="step-number">2</span>
+            <div>Crie uma issue no GitHub</div>
+          </div>
+          <div class="code-block">
+            Título: [BUG] Descrição clara
+            Corpo:
+            - Descrição do problema
+            - Passos para reproduzir
+            - Comportamento esperado
+            - Screenshots (se aplicável)
+            - Ambiente (SO, navegador)
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>💡 Sugerindo Novos Puzzles</h2>
+        <div class="step-box">
+          <div style="display: flex; align-items: center;">
+            <span class="step-number">1</span>
+            <div>Escolha um tema e nível</div>
+          </div>
+        </div>
+        <div class="step-box">
+          <div style="display: flex; align-items: center;">
+            <span class="step-number">2</span>
+            <div>Crie o puzzle em HTML</div>
+          </div>
+          <div class="code-block">
+            &lt;!-- Estrutura básica --&gt;
+            &lt;!DOCTYPE html&gt;
+            &lt;html&gt;
+            &lt;head&gt;
+            &lt;title&gt;Novo Puzzle&lt;/title&gt;
+            &lt;link rel="stylesheet" href="../../assets/css/style.css"&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+            &lt;!-- Seu puzzle aqui --&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+          </div>
+        </div>
+        <div class="step-box">
+          <div style="display: flex; align-items: center;">
+            <span class="step-number">3</span>
+            <div>Envie via Pull Request</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📝 Contribuindo com Documentação</h2>
+        <p>A documentação fica em <code>/docs/</code>. Estrutura:</p>
+        <div class="code-block">
+          docs/
+          ├── guias/ # Guias práticos
+          ├── tutoriais/ # Tutoriais completos
+          └── referencias/ # Referências técnicas
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔧 Contribuindo com Código</h2>
+
+        <h3>Setup do Ambiente</h3>
+        <div class="code-block">
+          # Clone o repositório
+          git clone https://github.com/seu-usuario/nao-desista-dev.git
+          cd nao-desista-dev
+
+          # Instale dependências (opcional)
+          npm install
+
+          # Inicie servidor local
+          npx live-server
+        </div>
+
+        <h3>Padrões de Código</h3>
+        <div class="code-block">
+          // JavaScript: Use const/let, arrow functions
+          // CSS: Use variáveis CSS (--bg-primary, --text-primary)
+          // HTML: Indentação com 2 espaços
+        </div>
+
+        <h3>Commit Messages</h3>
+        <div class="code-block">
+          feat: Adiciona novo puzzle X
+          fix: Corrige erro no terminal interativo
+          docs: Atualiza documentação de esteganografia
+          style: Melhora layout da página inicial
+          refactor: Simplifica função processCommand
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🎨 Diretrizes de Design</h2>
+        <ul style="color: #ccc;">
+          <li>Tema escuro com verde (#0f0) como cor principal</li>
+          <li>Usar a classe <code>.terminal-header</code> para cabeçalhos</li>
+          <li>Mensagens de erro em vermelho (#f00)</li>
+          <li>Dicas em azul (#66c0f0)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>📊 Processo de Pull Request</h2>
+        <div class="step-box">
+          <span class="step-number">①</span> Fork o repositório
+        </div>
+        <div class="step-box">
+          <span class="step-number">②</span> Crie uma branch: <code>git checkout -b minha-feature</code>
+        </div>
+        <div class="step-box">
+          <span class="step-number">③</span> Commit suas mudanças
+        </div>
+        <div class="step-box">
+          <span class="step-number">④</span> Push para a branch: <code>git push origin minha-feature</code>
+        </div>
+        <div class="step-box">
+          <span class="step-number">⑤</span> Abra um Pull Request no GitHub
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🏅 Reconhecimento</h2>
+        <p>Contribuidores serão adicionados:</p>
+        <ul style="color: #ccc;">
+          <li>No <strong>Hall da Fama</strong> da comunidade</li>
+          <li>Com badges especiais no perfil</li>
+          <li>Menção nos releases</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <strong>❓ Dúvidas?</strong> Abra uma issue ou pergunte no Discord!
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Contribuição</p>
+  </footer>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>

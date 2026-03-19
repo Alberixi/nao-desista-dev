@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/usr/share/nginx/html
+    restart: unless-stopped
+
+  labs-linux:
+    build: ./labs/ambiente-linux
+    ports:
+      - "2222:22"
+    volumes:
+      - ./labs/ambiente-linux/scripts:/scripts
+    restart: unless-stopped
+
+  vulnerable-app:
+    image: vulnerables/web-dvwa
+    ports:
+      - "8081:80"
+    restart: unless-stopped

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comandos Linux | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .command-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .command-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .command-table td:first-child {
+      color: #0f0;
+      font-family: monospace;
+      font-weight: bold;
+      width: 30%;
+    }
+
+    .command-table td:last-child {
+      color: #fff;
+    }
+
+    .note {
+      background: #111;
+      padding: 1rem;
+      border-left: 4px solid #ffaa00;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / guias / linux-commands</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> DOCUMENTAÇÃO</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> COMANDOS LINUX ESSENCIAIS PARA FORENSE</h1>
+      </div>
+
+      <div class="note">
+        <strong>💡 Dica:</strong> Estes comandos são fundamentais para análise forense e investigação digital.
+      </div>
+
+      <h2>📁 Navegação e Arquivos</h2>
+      <table class="command-table">
+        <tr>
+          <td>ls -la</td>
+          <td>Lista todos os arquivos (incluindo ocultos) com detalhes</td>
+        </tr>
+        <tr>
+          <td>cd /pasta</td>
+          <td>Navega para o diretório especificado</td>
+        </tr>
+        <tr>
+          <td>pwd</td>
+          <td>Mostra o caminho do diretório atual</td>
+        </tr>
+        <tr>
+          <td>find . -name "*.txt"</td>
+          <td>Procura arquivos por nome</td>
+        </tr>
+        <tr>
+          <td>tree</td>
+          <td>Exibe estrutura de diretórios em árvore</td>
+        </tr>
+      </table>
+
+      <h2>🔍 Visualização e Análise</h2>
+      <table class="command-table">
+        <tr>
+          <td>cat arquivo.txt</td>
+          <td>Mostra conteúdo do arquivo</td>
+        </tr>
+        <tr>
+          <td>less arquivo.txt</td>
+          <td>Visualiza paginado (setas para navegar, q para sair)</td>
+        </tr>
+        <tr>
+          <td>head -n 20 arquivo.txt</td>
+          <td>Mostra as primeiras 20 linhas</td>
+        </tr>
+        <tr>
+          <td>tail -n 20 arquivo.txt</td>
+          <td>Mostra as últimas 20 linhas</td>
+        </tr>
+        <tr>
+          <td>strings arquivo.bin</td>
+          <td>Extrai texto legível de binários</td>
+        </tr>
+        <tr>
+          <td>hexdump -C arquivo.bin</td>
+          <td>Visualização hexadecimal</td>
+        </tr>
+        <tr>
+          <td>xxd arquivo.bin</td>
+          <td>Outra ferramenta de hexdump</td>
+        </tr>
+      </table>
+
+      <h2>🔐 Permissões e Propriedades</h2>
+      <table class="command-table">
+        <tr>
+          <td>chmod +x script.sh</td>
+          <td>Adiciona permissão de execução</td>
+        </tr>
+        <tr>
+          <td>chmod 644 arquivo.txt</td>
+          <td>Define permissões específicas</td>
+        </tr>
+        <tr>
+          <td>chown usuario:grupo arquivo</td>
+          <td>Altera proprietário</td>
+        </tr>
+        <tr>
+          <td>stat arquivo.txt</td>
+          <td>Mostra metadados completos</td>
+        </tr>
+        <tr>
+          <td>file arquivo</td>
+          <td>Identifica o tipo do arquivo</td>
+        </tr>
+      </table>
+
+      <h2>🔎 Busca e Filtros</h2>
+      <table class="command-table">
+        <tr>
+          <td>grep "palavra" arquivo.txt</td>
+          <td>Busca texto em arquivos</td>
+        </tr>
+        <tr>
+          <td>grep -r "flag" ./</td>
+          <td>Busca recursiva em diretórios</td>
+        </tr>
+        <tr>
+          <td>grep -i "case"</td>
+          <td>Ignora maiúsculas/minúsculas</td>
+        </tr>
+        <tr>
+          <td>awk '{print $1}'</td>
+          <td>Processa colunas de texto</td>
+        </tr>
+        <tr>
+          <td>sed 's/antigo/novo/g'</td>
+          <td>Substitui texto</td>
+        </tr>
+        <tr>
+          <td>sort arquivo.txt</td>
+          <td>Ordena linhas</td>
+        </tr>
+        <tr>
+          <td>uniq -c</td>
+          <td>Conta linhas únicas</td>
+        </tr>
+        <tr>
+          <td>wc -l arquivo.txt</td>
+          <td>Conta linhas</td>
+        </tr>
+      </table>
+
+      <h2>📦 Discos e Sistema de Arquivos</h2>
+      <table class="command-table">
+        <tr>
+          <td>df -h</td>
+          <td>Espaço em disco (formato humano)</td>
+        </tr>
+        <tr>
+          <td>du -sh *</td>
+          <td>Tamanho de pastas/arquivos</td>
+        </tr>
+        <tr>
+          <td>mount</td>
+          <td>Mostra partições montadas</td>
+        </tr>
+        <tr>
+          <td>fdisk -l</td>
+          <td>Lista partições</td>
+        </tr>
+        <tr>
+          <td>dd if=/dev/sda of=imagem.dd</td>
+          <td>Cria imagem de disco</td>
+        </tr>
+        <tr>
+          <td>foremost -i imagem.dd -o output/</td>
+          <td>Recupera arquivos deletados</td>
+        </tr>
+        <tr>
+          <td>scalpel imagem.dd -o output/</td>
+          <td>Carving de arquivos</td>
+        </tr>
+      </table>
+
+      <h2>🌐 Rede</h2>
+      <table class="command-table">
+        <tr>
+          <td>ifconfig / ip a</td>
+          <td>Mostra interfaces de rede</td>
+        </tr>
+        <tr>
+          <td>netstat -tulpn</td>
+          <td>Conexões e portas abertas</td>
+        </tr>
+        <tr>
+          <td>ss -tulpn</td>
+          <td>Alternativa moderna ao netstat</td>
+        </tr>
+        <tr>
+          <td>nmap -p 1-1000 192.168.1.1</td>
+          <td>Scanner de portas</td>
+        </tr>
+        <tr>
+          <td>tcpdump -i eth0 -w captura.pcap</td>
+          <td>Captura pacotes</td>
+        </tr>
+        <tr>
+          <td>wireshark captura.pcap</td>
+          <td>Analisa pacotes (GUI)</td>
+        </tr>
+        <tr>
+          <td>ping google.com</td>
+          <td>Testa conectividade</td>
+        </tr>
+        <tr>
+          <td>traceroute google.com</td>
+          <td>Rota até o destino</td>
+        </tr>
+      </table>
+
+      <h2>🔄 Processos e Sistema</h2>
+      <table class="command-table">
+        <tr>
+          <td>ps aux</td>
+          <td>Lista todos os processos</td>
+        </tr>
+        <tr>
+          <td>top / htop</td>
+          <td>Monitor de processos em tempo real</td>
+        </tr>
+        <tr>
+          <td>kill -9 PID</td>
+          <td>Mata processo forçadamente</td>
+        </tr>
+        <tr>
+          <td>uname -a</td>
+          <td>Informações do sistema</td>
+        </tr>
+        <tr>
+          <td>dmesg</td>
+          <td>Mensagens do kernel</td>
+        </tr>
+        <tr>
+          <td>journalctl -xe</td>
+          <td>Logs do sistema (systemd)</td>
+        </tr>
+      </table>
+
+      <h2>🎯 Comandos Específicos para Forense</h2>
+      <table class="command-table">
+        <tr>
+          <td>md5sum arquivo</td>
+          <td>Calcula hash MD5</td>
+        </tr>
+        <tr>
+          <td>sha256sum arquivo</td>
+          <td>Calcula hash SHA256</td>
+        </tr>
+        <tr>
+          <td>exiftool imagem.jpg</td>
+          <td>Extrai metadados EXIF</td>
+        </tr>
+        <tr>
+          <td>binwalk imagem.png</td>
+          <td>Analisa arquivos embutidos</td>
+        </tr>
+        <tr>
+          <td>steghide extract -sf imagem.jpg</td>
+          <td>Extrai dados escondidos</td>
+        </tr>
+        <tr>
+          <td>zsteg imagem.png</td>
+          <td>Detecta LSB em PNG</td>
+        </tr>
+        <tr>
+          <td>volatility -f memory.raw imageinfo</td>
+          <td>Analisa dump de memória</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        <strong>📚 Exercício:</strong> Tente usar o comando <code>strings</code> em um arquivo binário para encontrar
+        texto oculto.
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Guia de Comandos Linux</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Páginas principais -->
+    <url>
+        <loc>https://naodesista.dev/index.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://naodesista.dev/stats.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://naodesista.dev/api-docs.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://naodesista.dev/CONTRIBUTING.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://naodesista.dev/404.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+    <!-- Puzzles - Nível 1 -->
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/01-audio-misterioso.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/02-base64-basico.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/03-rot13-simples.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/04-hexadecimal-101.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/05-binario-basico.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/06-metadados-imagem.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/07-strings-ocultas.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/08-morse-code.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/09-zip-senha-fraca.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-1-iniciante/10-html-hidden.html</loc><priority>0.9</priority></url>
+
+    <!-- Puzzles - Nível 2 -->
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/11-esteganografia-lsb.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/12-audio-espectro.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/13-base64-multicamadas.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/14-xor-encryption.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/15-rsa-basico.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/16-hash-identify.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/17-forense-disco.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/18-pcap-analysis.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/19-exif-data.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-2-intermediario/20-pdf-embedded.html</loc><priority>0.9</priority></url>
+
+    <!-- Puzzles - Nível 3 -->
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/21-esteganografia-audio.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/22-forense-memoria.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/23-reversing-simples.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/24-network-forensics.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/25-malware-analysis.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/26-crypto-wallets.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/27-blockchain-basics.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/28-steganography-multiple.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/29-encryption-cracking.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-3-avancado/30-osint-challenge.html</loc><priority>0.9</priority></url>
+
+    <!-- Puzzles - Nível 4 -->
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/31-forense-android.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/32-wifi-hacking.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/33-binary-exploitation.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/34-web-vulnerabilities.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/35-sql-injection-lab.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/36-xss-challenge.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/37-csrf-attack.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/38-jwt-tokens.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/39-oauth-bypass.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-4-especialista/40-api-security.html</loc><priority>0.9</priority></url>
+
+    <!-- Puzzles - Nível 5 -->
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/41-forense-iot.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/42-cloud-forensics.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/43-darkweb-investigation.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/44-cryptocurrency-tracing.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/45-zero-day-analysis.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/46-apt-simulation.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/47-ransomware-lab.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/48-botnet-analysis.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/49-quantum-crypto.html</loc><priority>0.9</priority></url>
+    <url><loc>https://naodesista.dev/puzzles/nivel-5-mestre/50-final-challenge.html</loc><priority>1.0</priority></url>
+
+    <!-- Documentação -->
+    <url><loc>https://naodesista.dev/docs/guias/como-comecar.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/guias/guia-rapido-iniciante.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/guias/linux-commands.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/guias/glossary.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/guias/troubleshooting.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/tutoriais/esteganografia.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/tutoriais/forense.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/tutoriais/criptografia.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/tutoriais/redes.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/tutoriais/web-security.html</loc><priority>0.7</priority></url>
+    <url><loc>https://naodesista.dev/docs/referencias/livros.html</loc><priority>0.6</priority></url>
+    <url><loc>https://naodesista.dev/docs/referencias/cursos-online.html</loc><priority>0.6</priority></url>
+    <url><loc>https://naodesista.dev/docs/referencias/certificacoes.html</loc><priority>0.6</priority></url>
+    <url><loc>https://naodesista.dev/docs/referencias/comunidades.html</loc><priority>0.6</priority></url>
+    <url><loc>https://naodesista.dev/docs/referencias/ferramentas-completas.html</loc><priority>0.8</priority></url>
+
+    <!-- Ferramentas -->
+    <url><loc>https://naodesista.dev/tools/decoders/base64-decode.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/decoders/rot13-tool.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/decoders/hex-converter.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/decoders/xor-decoder.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/decoders/hash-identifier.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/decoders/cipher-detector.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/decoders/steganography-online.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/forense/file-analyzer.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/forense/metadata-viewer.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/forense/hex-editor-online.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/forense/pcap-analyzer.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/forense/disk-mounter.html</loc><priority>0.5</priority></url>
+    <url><loc>https://naodesista.dev/tools/forense/memory-analyzer.html</loc><priority>0.5</priority></url>
+
+    <!-- Laboratório -->
+    <url><loc>https://naodesista.dev/labs/gerador.html</loc><priority>0.8</priority></url>
+</urlset>

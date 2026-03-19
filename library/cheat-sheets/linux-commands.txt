@@ -1,0 +1,219 @@
+╔══════════════════════════════════════════════════════════════╗
+║                    LINUX COMMANDS CHEAT SHEET                ║
+║                    Para Investigação Forense                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│  📁 NAVEGAÇÃO E ARQUIVOS                                     │
+├──────────────────────────────────────────────────────────────┤
+│  ls -la          Lista todos os arquivos (incluindo ocultos) │
+│  cd /pasta       Navega para o diretório                     │
+│  pwd             Mostra diretório atual                      │
+│  tree            Exibe estrutura em árvore                   │
+│  find . -name    Procura arquivos por nome                   │
+│  locate arquivo  Busca rápida no índice                      │
+│  which comando   Mostra caminho do executável                │
+│  file arquivo    Identifica tipo do arquivo                  │
+│  stat arquivo    Mostra metadados completos                  │
+│  du -sh *        Tamanho de pastas/arquivos                  │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔍 VISUALIZAÇÃO DE ARQUIVOS                                 │
+├──────────────────────────────────────────────────────────────┤
+│  cat arquivo     Mostra conteúdo completo                    │
+│  less arquivo    Visualiza paginado (setas, q para sair)     │
+│  head -n 20      Mostra primeiras 20 linhas                  │
+│  tail -n 20      Mostra últimas 20 linhas                    │
+│  tail -f log     Acompanha arquivo em tempo real             │
+│  strings arquivo Extrai texto legível de binários            │
+│  hexdump -C      Visualização hexadecimal                    │
+│  xxd arquivo     Outra ferramenta de hexdump                 │
+│  od -x arquivo   Dump octal/hex                              │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔎 BUSCA E FILTROS                                          │
+├──────────────────────────────────────────────────────────────┤
+│  grep "texto"    Busca texto em arquivos                     │
+│  grep -r "flag"  Busca recursiva em diretórios               │
+│  grep -i "case"  Ignora maiúsculas/minúsculas                │
+│  grep -v "excluir" Exclui linhas com o padrão                │
+│  grep -c "texto" Conta ocorrências                           │
+│  awk '{print $1}' Processa colunas de texto                  │
+│  sed 's/antigo/novo/g' Substitui texto                       │
+│  sort arquivo    Ordena linhas                               │
+│  uniq -c         Conta linhas únicas                         │
+│  wc -l arquivo   Conta linhas                                │
+│  cut -d':' -f1   Extrai campos delimitados                   │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔐 PERMISSÕES E PROPRIEDADES                                │
+├──────────────────────────────────────────────────────────────┤
+│  chmod +x script Adiciona permissão de execução              │
+│  chmod 644 arquivo Define permissões (rw-r--r--)             │
+│  chmod 755 pasta  rwxr-xr-x para diretórios                  │
+│  chown user:group Altera proprietário                        │
+│  chgrp grupo     Altera apenas o grupo                       │
+│  umask           Define permissões padrão                    │
+│  ls -l           Mostra permissões                           │
+│  getfacl arquivo Mostra ACLs                                 │
+│  setfacl -m u:user:rwx Define ACL                            │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔗 LINKS E PONTOS DE MONTAGEM                               │
+├──────────────────────────────────────────────────────────────┤
+│  ln -s alvo link Cria link simbólico                         │
+│  ln alvo link    Cria link físico (hard link)                │
+│  mount           Mostra sistemas de arquivos montados        │
+│  mount /dev/sda1 /mnt Monta partição                         │
+│  umount /mnt     Desmonta                                    │
+│  df -h           Espaço em disco (formato humano)            │
+│  df -i           Inodes                                      │
+│  fdisk -l        Lista partições                             │
+│  lsblk           Lista dispositivos de bloco                 │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  💾 DISCOS E IMAGENS FORENSES                                │
+├──────────────────────────────────────────────────────────────┤
+│  dd if=/dev/sda of=imagem.dd Cria imagem de disco            │
+│  dd if=imagem.dd of=/dev/sda Restaura imagem                 │
+│  dcfldd if=/dev/sda of=imagem.dd Versão com progresso        │
+│  foremost -i imagem.dd -o output/ Recupera arquivos          │
+│  scalpel imagem.dd -o output/ Carving de arquivos            │
+│  testdisk imagem.dd Recupera partições                       │
+│  photorec imagem.dd Recupera fotos                           │
+│  mmls imagem.dd   Mostra layout de partições                 │
+│  fls -r imagem.dd Lista arquivos na imagem                   │
+│  icat imagem.dd 123 > arquivo Extrai por inode               │
+│  fsstat imagem.dd Info do sistema de arquivos                │
+│  md5sum imagem.dd Calcula hash MD5                           │
+│  sha256sum imagem.dd Calcula hash SHA256                     │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🧠 ANÁLISE DE MEMÓRIA (Volatility)                          │
+├──────────────────────────────────────────────────────────────┤
+│  volatility -f memory.raw imageinfo                          │
+│  volatility -f memory.raw --profile=Win10x64 pslist          │
+│  volatility -f memory.raw --profile=Win10x64 psscan          │
+│  volatility -f memory.raw --profile=Win10x64 netscan         │
+│  volatility -f memory.raw --profile=Win10x64 cmdline         │
+│  volatility -f memory.raw --profile=Win10x64 consoles        │
+│  volatility -f memory.raw --profile=Win10x64 malfind         │
+│  volatility -f memory.raw --profile=Win10x64 dumpfiles       │
+│  volatility -f memory.raw --profile=Win10x64 hashdump        │
+│  volatility -f memory.raw --profile=Win10x64 lsadump         │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🌐 REDE                                                     │
+├──────────────────────────────────────────────────────────────┤
+│  ifconfig / ip a Mostra interfaces de rede                   │
+│  netstat -tulpn Conexões e portas abertas                    │
+│  ss -tulpn       Alternativa moderna ao netstat              │
+│  nmap -p 1-1000 192.168.1.1 Scanner de portas                │
+│  tcpdump -i eth0 -w captura.pcap Captura pacotes             │
+│  tcpdump -r captura.pcap Lê arquivo PCAP                     │
+│  tcpdump port 80 Captura tráfego HTTP                        │
+│  tcpdump -A      Mostra pacotes em ASCII                     │
+│  tcpdump -X      Mostra em hex/ASCII                         │
+│  wireshark captura.pcap Análise gráfica                      │
+│  tshark -r captura.pcap -Y "http" Filtro no CLI              │
+│  nc -lvnp 4444   Escuta na porta 4444                        │
+│  nc 192.168.1.100 4444 Conecta a porta                       │
+│  ping google.com Testa conectividade                         │
+│  traceroute google.com Rota até o destino                    │
+│  mtr google.com   Combinação de ping/traceroute              │
+│  dig google.com  Consulta DNS                                │
+│  nslookup google.com Consulta DNS alternativo                │
+│  host google.com Consulta DNS simples                        │
+│  whois google.com Informações de domínio                     │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🖼️ ESTEGANOGRAFIA                                           │
+├──────────────────────────────────────────────────────────────┤
+│  exiftool imagem.jpg Extrai metadados EXIF                   │
+│  steghide extract -sf imagem.jpg Extrai dados escondidos     │
+│  steghide embed -cf imagem.jpg -ef msg.txt Esconde dados     │
+│  zsteg imagem.png Detecta LSB em PNG                         │
+│  binwalk imagem.png Analisa arquivos embutidos               │
+│  foremost -i imagem.png -o output/ Carving                   │
+│  strings imagem.jpg | grep flag Busca texto                  │
+│  stegsolve.jar   Análise visual de planos de bits            │
+│  outguess -r imagem.jpg msg.txt Extrai com outguess          │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔐 CRIPTOGRAFIA E HASHES                                    │
+├──────────────────────────────────────────────────────────────┤
+│  openssl enc -aes-256-cbc -in arquivo -out arquivo.enc       │
+│  openssl enc -aes-256-cbc -d -in arquivo.enc -out arquivo    │
+│  openssl dgst -sha256 arquivo Calcula hash SHA256            │
+│  openssl dgst -md5 arquivo  Calcula hash MD5                 │
+│  md5sum arquivo  Hash MD5                                    │
+│  sha256sum arquivo Hash SHA256                               │
+│  sha1sum arquivo  Hash SHA1                                  │
+│  echo "texto" | base64 Codifica Base64                       │
+│  echo "código" | base64 -d Decodifica Base64                 │
+│  gpg -c arquivo   Criptografa com GPG                        │
+│  gpg arquivo.gpg  Decriptografa com GPG                      │
+│  john hash.txt    Quebra hashes com John                     │
+│  hashcat -m 0 -a 0 hash.txt wordlist.txt Quebra com Hashcat  │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📦 COMPACTAÇÃO E ARQUIVOS                                   │
+├──────────────────────────────────────────────────────────────┤
+│  tar -czf arquivo.tar.gz pasta/ Compacta                     │
+│  tar -xzf arquivo.tar.gz Extrai                              │
+│  zip -r arquivo.zip pasta/ Compacta em ZIP                   │
+│  unzip arquivo.zip Extrai ZIP                                │
+│  gzip arquivo    Compacta com gzip                           │
+│  gunzip arquivo.gz Descompacta gzip                          │
+│  rar a arquivo.rar pasta/ Compacta em RAR                    │
+│  unrar x arquivo.rar Extrai RAR                              │
+│  7z a arquivo.7z pasta/ Compacta com 7z                      │
+│  7z x arquivo.7z  Extrai 7z                                  │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🛠️ PROCESSOS E SISTEMA                                      │
+├──────────────────────────────────────────────────────────────┤
+│  ps aux          Lista todos os processos                    │
+│  ps -ef          Lista processos no formato completo         │
+│  top / htop      Monitor de processos em tempo real          │
+│  kill -9 PID     Mata processo forçadamente                  │
+│  pkill nome      Mata processos por nome                     │
+│  jobs            Lista jobs em background                    │
+│  bg              Coloca job em background                    │
+│  fg              Traz job para foreground                    │
+│  nohup comando & Executa mesmo após logout                   │
+│  systemctl start serviço Inicia serviço systemd              │
+│  systemctl stop serviço  Para serviço                        │
+│  systemctl status serviço Status do serviço                  │
+│  journalctl -xe  Logs do sistema (systemd)                   │
+│  dmesg           Mensagens do kernel                         │
+│  uname -a        Informações do sistema                      │
+│  lscpu           Informações da CPU                          │
+│  free -h         Memória RAM                                 │
+│  vmstat          Estatísticas de memória virtual             │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🎯 WORDLISTS E BRUTE FORCE                                  │
+├──────────────────────────────────────────────────────────────┤
+│  /usr/share/wordlists/rockyou.txt Wordlist clássica          │
+│  /usr/share/wordlists/fasttrack.txt Wordlist rápida          │
+│  /usr/share/wordlists/dirb/   Wordlists para diretórios      │
+│  crunch 6 8 abc123 Gera wordlist                             │
+│  cewl http://site.com -w wordlist.txt Gera de site           │
+│  hashcat -a 3 -m 0 hash.txt ?a?a?a?a?a Força bruta           │
+│  john --wordlist=rockyou.txt hash.txt                        │
+│  hydra -l admin -P senhas.txt ssh://192.168.1.100            │
+│  medusa -h 192.168.1.100 -u admin -P senhas.txt -M ssh       │
+└──────────────────────────────────────────────────────────────┘

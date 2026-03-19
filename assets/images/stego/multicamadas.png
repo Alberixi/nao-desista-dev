@@ -1,0 +1,5 @@
+Imagem com múltiplas camadas de esteganografia:
+1. EXIF: "primeira camada"
+2. LSB: "segunda camada"  
+3. Imagem escondida dentro: terceira_camada.png
+Flag final: flag{tres_camadas_esteganografia}

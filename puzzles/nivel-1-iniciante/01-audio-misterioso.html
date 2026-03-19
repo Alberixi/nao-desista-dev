@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description"
+    content="Plataforma interativa de investigação digital, puzzles de segurança, esteganografia, criptografia e forense.">
+  <meta name="author" content="Não Desista Dev">
+  <title>Puzzle 01: Áudio Misterioso | Não Desista Dev</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+  <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    /* Estilos específicos do puzzle */
+    .puzzle-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .puzzle-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .puzzle-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .puzzle-difficulty-badge {
+      background: #00aa00;
+      color: black;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .challenge-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    .hint-box {
+      background: rgba(102, 192, 240, 0.1);
+      border-left: 4px solid var(--text-secondary);
+      padding: 1rem;
+      margin: 2rem 0;
+      font-style: italic;
+    }
+
+    .flag-input-area {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .flag-input {
+      flex: 1;
+      min-width: 250px;
+      background: var(--bg-primary);
+      border: 1px solid var(--text-primary);
+      color: var(--text-primary);
+      padding: 0.75rem;
+      font-family: 'Courier New', monospace;
+      border-radius: 5px;
+    }
+
+    .flag-submit-btn {
+      background: transparent;
+      border: 1px solid var(--text-primary);
+      color: var(--text-primary);
+      padding: 0.75rem 2rem;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .flag-submit-btn:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .tool-tag {
+      background: var(--bg-primary);
+      border: 1px solid var(--text-secondary);
+      color: var(--text-secondary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem 0;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-button {
+      background: transparent;
+      border: 1px solid var(--text-primary);
+      color: var(--text-primary);
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      font-family: 'Courier New', monospace;
+    }
+
+    .nav-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .nav-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      border-color: #666;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Matrix Background -->
+
+  <!-- Terminal Header -->
+  <header class="terminal-header">
+    <div class="terminal-title">
+      <i class="fas fa-terminal"></i>
+      <span>PUZZLE 01 - ÁUDIO MISTERIOSO</span>
+    </div>
+    <div class="terminal-status">
+      <div class="status-item">
+        <i class="fas fa-circle blink" style="color: #00ff00;"></i>
+        <span>NÍVEL: INICIANTE</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../../index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> VOLTAR AO TERMINAL
+    </a>
+
+    <!-- BOTÕES DE NAVEGAÇÃO VÃO AQUI! -->
+    <div class="nav-buttons">
+      <a href="#" class="nav-button nav-disabled"><i class="fas fa-arrow-left"></i> ANTERIOR</a>
+      <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+      <a href="02-base64-basico.html" class="nav-button">PRÓXIMO (02) <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="puzzle-container">
+      <div class="puzzle-header">
+        <h1 class="puzzle-title">> 01: ÁUDIO MISTERIOSO</h1>
+        <span class="puzzle-difficulty-badge">INICIANTE</span>
+      </div>
+
+      <p>Um áudio suspeito foi capturado durante uma transmissão de rádio. Os sinais parecem normais, mas nosso
+        analista de espectro acredita que há uma mensagem escondida além do que nossos ouvidos podem perceber.
+      </p>
+
+      <div class="challenge-area">
+        <h3><i class="fas fa-download"></i> ARQUIVO DO DESAFIO</h3>
+        <p>Baixe o arquivo de áudio e analise suas frequências:</p>
+        <a href="../../assets/audio/espectro/misterio.wav" download class="puzzle-link"
+          style="font-size: 1.2rem; margin: 1rem 0;">
+          <i class="fas fa-file-audio"></i> misterio.wav (2.4 MB)
+        </a>
+        <p class="text-secondary" style="margin-top: 1rem;">* Dica: O espectrograma revela a mensagem em altas
+          frequências.</p>
+      </div>
+
+      <div class="hint-box">
+        <i class="fas fa-lightbulb" style="color: var(--text-secondary); margin-right: 0.5rem;"></i>
+        <strong>DICA DO MESTRE:</strong> Use o <span class="text-secondary">Audacity</span> ou <span
+          class="text-secondary">Sonic Visualiser</span> para visualizar o espectrograma. A mensagem está
+        entre 14000Hz e 16000Hz.
+      </div>
+
+      <h3><i class="fas fa-tools"></i> FERRAMENTAS RECOMENDADAS</h3>
+      <div class="tool-list" style="margin: 1rem 0;">
+        <span class="tool-tag">Audacity</span>
+        <span class="tool-tag">Sonic Visualiser</span>
+        <span class="tool-tag">Espectrograma</span>
+        <span class="tool-tag">Análise de Frequência</span>
+      </div>
+
+      <h3 style="margin-top: 2rem;"><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+      <p>Encontrou a mensagem? Digite a flag no formato correto:</p>
+
+      <div class="flag-input-area">
+        <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}" spellcheck="false">
+        <button class="flag-submit-btn" id="submitFlag"><i class="fas fa-check"></i> VERIFICAR</button>
+      </div>
+      <div id="resultMessage" style="margin-top: 1rem; font-weight: bold;"></div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Plataforma de Investigação Digital</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p>Feito com ❤️ por Caverna para comunidade Não Desista Dev</p>
+    <p>© 2024 - Todos os direitos reservados aos mestres da investigação</p>
+    <p style="color: #666; font-style: italic; margin-top: 1rem;">
+      🕯️ Em memória do lendário Celeron D LGA775, 2 GB RAM, HD Mecânico 320 GB<br>
+      monitor CRT 14 polegadas, teclado e mouse PS2 que descansou em 14/02/2026<br>
+      <small>Nos acompanhou até o puzzle 33 e incontáveis projetos</small>
+    </p>
+    <p class="copyright">
+      <a href="stats.html" style="color: #0f0;">📊 Estatísticas</a> •
+      <a href="api-docs.html" style="color: #0f0;">📡 API</a> •
+      <a href="CONTRIBUTING.html" style="color: #0f0;">🤝 Contribuir</a>
+    </p>
+  </footer>
+
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const submitBtn = document.getElementById('submitFlag');
+      const flagInput = document.getElementById('flagInput');
+      const resultDiv = document.getElementById('resultMessage');
+      const CORRECT_FLAG = "flag{a_chave_esta_na_imagem_do_gato}";
+
+      submitBtn.addEventListener('click', function () {
+        const userFlag = flagInput.value.trim();
+        if (userFlag === CORRECT_FLAG) {
+          resultDiv.innerHTML = '<span style="color: #00aa00;"><i class="fas fa-check-circle"></i> PARABÉNS, AGENTE! FLAG CORRETA!</span>';
+          if (typeof marcarPuzzleResolvido === 'function') {
+            marcarPuzzleResolvido(1);
+          }
+        } else {
+          resultDiv.innerHTML = '<span style="color: #ff3e3e;"><i class="fas fa-times-circle"></i> FLAG INCORRETA. TENTE NOVAMENTE.</span>';
+        }
+      });
+
+      flagInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          submitBtn.click();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+    <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 20: PDF Embedded | Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .puzzle-container { background: var(--bg-secondary); border: 2px solid var(--text-primary); border-radius: 10px; padding: 2rem; margin: 2rem 0; }
+        .puzzle-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--text-secondary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        .puzzle-title { font-size: 2rem; color: var(--text-primary); }
+        .puzzle-difficulty-badge { background: #ffaa00; color: black; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; }
+        .challenge-area { background: #000; border-radius: 5px; padding: 2rem; margin: 2rem 0; text-align: center; border: 1px dashed var(--text-secondary); }
+        .hint-box { background: rgba(102, 192, 240, 0.1); border-left: 4px solid var(--text-secondary); padding: 1rem; margin: 2rem 0; font-style: italic; }
+        .flag-input-area { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .flag-input { flex: 1; min-width: 250px; background: var(--bg-primary); border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem; font-family: 'Courier New', monospace; border-radius: 5px; }
+        .flag-submit-btn { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 2rem; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.3s ease; }
+        .flag-submit-btn:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .tool-tag { background: var(--bg-primary); border: 1px solid var(--text-secondary); color: var(--text-secondary); padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; display: inline-block; margin-right: 0.5rem; }
+        .back-button { display: inline-block; margin-bottom: 2rem; color: var(--text-primary); text-decoration: none; border: 1px solid var(--text-primary); padding: 0.5rem 1rem; border-radius: 5px; }
+        .back-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .nav-buttons { display: flex; justify-content: space-between; margin: 2rem 0; gap: 1rem; flex-wrap: wrap; }
+        .nav-button { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; transition: all 0.3s ease; display: inline-block; }
+        .nav-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .nav-disabled { opacity: 0.5; pointer-events: none; border-color: #666; color: #666; }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header class="terminal-header">
+        <div class="terminal-title"><i class="fas fa-terminal"></i> PUZZLE 20 - PDF EMBEDDED</div>
+        <div class="terminal-status"><div class="status-item"><i class="fas fa-circle blink" style="color: #ffaa00;"></i> NÍVEL: INTERMEDIÁRIO</div></div>
+    </header>
+
+    <main class="container">
+        <div class="nav-buttons">
+            <a href="19-exif-data.html" class="nav-button"><i class="fas fa-arrow-left"></i> ANTERIOR (19)</a>
+            <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+            <a href="../nivel-3-avancado/21-esteganografia-audio.html" class="nav-button">PRÓXIMO (21) <i
+                    class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-header">
+                <h1 class="puzzle-title">> 20: PDF EMBEDDED</h1>
+                <span class="puzzle-difficulty-badge">INTERMEDIÁRIO</span>
+            </div>
+            <p>Um arquivo PDF aparentemente normal contém um anexo escondido. Extraia o anexo para encontrar a flag.</p>
+            
+            <div class="challenge-area">
+                <h3><i class="fas fa-download"></i> ARQUIVO PDF</h3>
+                <a href="../../assets/files/pdfs/documento.pdf" download class="puzzle-link">documento.pdf</a>
+                <p class="text-secondary">Dica: Use ferramentas como pdf-parser, peepdf ou até mesmo o Adobe Reader para extrair anexos.</p>
+            </div>
+
+            <div class="hint-box">
+                <i class="fas fa-lightbulb"></i> <strong>DICA:</strong> No Linux: 'pdfdetach -saveall documento.pdf'. No Windows, abra no Adobe Reader e veja em Anexos.
+            </div>
+
+            <h3><i class="fas fa-tools"></i> FERRAMENTAS</h3>
+            <div class="tool-list">
+                <span class="tool-tag">pdf-parser</span>
+                <span class="tool-tag">peepdf</span>
+                <span class="tool-tag">pdfdetach</span>
+                <span class="tool-tag">Adobe Reader</span>
+            </div>
+
+            <h3><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+            <div class="flag-input-area">
+                <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+                <button class="flag-submit-btn" id="submitFlag">VERIFICAR</button>
+            </div>
+            <div id="resultMessage"></div>
+        </div>
+    </main>
+
+    <footer class="footer"><p>NÃO DESISTA DEV - Puzzle 20 | Nível Intermediário</p></footer>
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        document.getElementById('submitFlag').addEventListener('click', function() {
+            const flag = document.getElementById('flagInput').value.trim();
+            const result = document.getElementById('resultMessage');
+            if (flag === 'flag{anexo_pdf_escondido}') {
+                result.innerHTML = '<span style="color:#0f0;">✓ FLAG CORRETA! Anexo extraído com sucesso!</span>';
+                if (typeof marcarPuzzleResolvido === 'function') marcarPuzzleResolvido(20);
+            } else {
+                result.innerHTML = '<span style="color:#f00;">✗ FLAG INCORRETA. Extraia o anexo do PDF.</span>';
+            }
+        });
+    </script>
+</body>
+</html>
+

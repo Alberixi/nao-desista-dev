@@ -1,0 +1,22 @@
+{
+  "name": "nao-desista-dev",
+  "version": "3.0.0",
+  "description": "Plataforma educacional de investigação digital com 50 puzzles",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=8080",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "esteganografia",
+    "criptografia",
+    "forense",
+    "ctf",
+    "seguranca"
+  ],
+  "author": "Comunidade Não Desista Dev",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

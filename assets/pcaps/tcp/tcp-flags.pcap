@@ -1,0 +1,26 @@
+Simulação de diferentes flags TCP
+
+Frame 1: [SYN] - Início de conexão
+  192.168.1.100 → 192.168.1.1:80
+
+Frame 2: [SYN, ACK] - Resposta
+  192.168.1.1 → 192.168.1.100:80
+
+Frame 3: [ACK] - Confirmação
+  192.168.1.100 → 192.168.1.1:80
+
+Frame 4: [PSH, ACK] - Dados imediatos
+  192.168.1.100 → 192.168.1.1:80
+  Data: "flag{tcp_analysis}"
+
+Frame 5: [URG] - Urgente (raro)
+  192.168.1.100 → 192.168.1.1:80
+
+Frame 6: [RST] - Reset de conexão
+  192.168.1.1 → 192.168.1.100:80
+
+Frame 7: [FIN, ACK] - Início de encerramento
+  192.168.1.100 → 192.168.1.1:80
+
+Frame 8: [FIN, ACK] - Encerramento completo
+  192.168.1.1 → 192.168.1.100:80

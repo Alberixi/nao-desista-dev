@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordlist Generator | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    textarea,
+    input,
+    select {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      font-family: monospace;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .wordlist-line {
+      font-family: monospace;
+      border-bottom: 1px solid #333;
+      padding: 0.25rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / crypto / wordlist-generator</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> WORDLIST GENERATOR</h1>
+        <p>Gere wordlists personalizadas para brute force</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Base (palavras ou caracteres)</h3>
+        <textarea id="baseWords" rows="3" placeholder="admin&#10;user&#10;root">admin
+user
+root
+password
+senha</textarea>
+
+        <h3>Números (mín-máx)</h3>
+        <div style="display: flex; gap: 1rem;">
+          <input type="number" id="minNum" value="0" placeholder="Mínimo">
+          <input type="number" id="maxNum" value="9" placeholder="Máximo">
+        </div>
+
+        <h3>Caracteres especiais</h3>
+        <input type="text" id="specialChars" value="!@#$%">
+
+        <h3>Modo de geração</h3>
+        <select id="mode">
+          <option value="combine">Combinar base + números</option>
+          <option value="append">Apenas números no final</option>
+          <option value="prepend">Apenas números no início</option>
+          <option value="special">Adicionar especiais</option>
+        </select>
+
+        <button onclick="generateWordlist()">GERAR WORDLIST</button>
+        <button onclick="downloadWordlist()">📥 BAIXAR TXT</button>
+
+        <div id="wordlistResult" class="result-box"></div>
+        <div id="wordlistCount" style="margin-top: 0.5rem; color: #ffaa00;"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Wordlist Generator</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    let currentWordlist = [];
+
+    function generateWordlist() {
+      const baseWords = document.getElementById('baseWords').value.split('\n').map(w => w.trim()).filter(w => w);
+      const minNum = parseInt(document.getElementById('minNum').value);
+      const maxNum = parseInt(document.getElementById('maxNum').value);
+      const specialChars = document.getElementById('specialChars').value;
+      const mode = document.getElementById('mode').value;
+
+      currentWordlist = [];
+
+      baseWords.forEach(word => {
+        // Adicionar palavra base
+        currentWordlist.push(word);
+
+        // Adicionar com números
+        for (let i = minNum; i <= maxNum; i++) {
+          if (mode === 'combine' || mode === 'append') {
+            currentWordlist.push(word + i);
+          }
+          if (mode === 'combine' || mode === 'prepend') {
+            currentWordlist.push(i + word);
+          }
+        }
+
+        // Adicionar com especiais
+        if (mode === 'special' || mode === 'combine') {
+          for (let s of specialChars) {
+            currentWordlist.push(word + s);
+            currentWordlist.push(s + word);
+          }
+        }
+      });
+
+      // Remover duplicatas
+      currentWordlist = [...new Set(currentWordlist)];
+
+      displayWordlist();
+    }
+
+    function displayWordlist() {
+      let html = '<strong>📋 Wordlist gerada:</strong><br>';
+      const maxDisplay = Math.min(50, currentWordlist.length);
+
+      for (let i = 0; i < maxDisplay; i++) {
+        html += `<div class="wordlist-line">${currentWordlist[i]}</div>`;
+      }
+
+      if (currentWordlist.length > 50) {
+        html += `<div>... e mais ${currentWordlist.length - 50} palavras</div>`;
+      }
+
+      document.getElementById('wordlistResult').innerHTML = html;
+      document.getElementById('wordlistCount').innerHTML = `Total: ${currentWordlist.length} palavras`;
+    }
+
+    function downloadWordlist() {
+      if (currentWordlist.length === 0) {
+        alert('Gere uma wordlist primeiro');
+        return;
+      }
+
+      const content = currentWordlist.join('\n');
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'wordlist.txt';
+      a.click();
+    }
+  </script>
+</body>
+
+</html>

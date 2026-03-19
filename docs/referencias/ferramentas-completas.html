@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todas as Ferramentas | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .tool-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .tool-card:hover {
+      border-color: #0f0;
+      transform: translateY(-2px);
+    }
+
+    .tool-name {
+      color: #0f0;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-desc {
+      color: #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tool-link {
+      color: #66c0f0;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.25rem 0.5rem;
+      background: #1a1d24;
+      border-radius: 3px;
+    }
+
+    .tool-link:hover {
+      background: #66c0f0;
+      color: #000;
+    }
+
+    .tool-os {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .os-badge {
+      background: #1a1d24;
+      color: #ffaa00;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+    }
+
+    .warning-box {
+      background: #331100;
+      border-left: 4px solid #ffaa00;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / referencias / todas-ferramentas</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> FERRAMENTAS</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="ferramentas.html" class="nav-link"><i class="fas fa-tools"></i> VERSÃO SIMPLES</a>
+      <a href="../guias/guia-rapido-iniciante.html" class="nav-link"><i class="fas fa-rocket"></i> GUIA RÁPIDO</a>
+      <a href="../guias/linux-commands.html" class="nav-link"><i class="fab fa-linux"></i> COMANDOS</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🔧 TODAS AS FERRAMENTAS DE INVESTIGAÇÃO</h1>
+        <p>Links oficiais e confiáveis para download</p>
+      </div>
+
+      <div class="warning-box">
+        <strong>⚠️ ATENÇÃO:</strong> Sempre baixe ferramentas dos sites oficiais. Links verificados abaixo.
+      </div>
+
+      <!-- Análise de Áudio -->
+      <div class="section">
+        <h2>🔊 Análise de Áudio</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">Audacity</div>
+            <div class="tool-desc">Editor e gravador de áudio multi-plataforma. Análise de espectrograma, LSB, reverso.
+            </div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.audacityteam.org/download/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/audacity/audacity" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Sonic Visualiser</div>
+            <div class="tool-desc">Visualização detalhada de áudio para análise forense. Espectrogramas avançados.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.sonicvisualiser.org/download.html" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Spek</div>
+            <div class="tool-desc">Visualizador rápido de espectrograma. Leve e simples.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.spek.cc/downloads" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forense Digital -->
+      <div class="section">
+        <h2>🔍 Forense Digital</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">Autopsy</div>
+            <div class="tool-desc">Plataforma forense completa com interface gráfica. Análise de discos, recuperação de
+              arquivos.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.autopsy.com/download/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/sleuthkit/autopsy" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">The Sleuth Kit</div>
+            <div class="tool-desc">Ferramentas de linha de comando para análise forense (fls, icat, fsstat, mmls).</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.sleuthkit.org/download.php" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/sleuthkit/sleuthkit" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Volatility</div>
+            <div class="tool-desc">Framework para análise de memória RAM. Identifica processos, conexões e malwares.
+            </div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.volatilityfoundation.org/releases" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/volatilityfoundation/volatility" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Foremost</div>
+            <div class="tool-desc">Recuperação de arquivos deletados por carving baseado em assinaturas.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://github.com/korczis/foremost" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Scalpel</div>
+            <div class="tool-desc">Carving de arquivos baseado em configuração de assinaturas.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://github.com/machn1k/scalpel" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">TestDisk / PhotoRec</div>
+            <div class="tool-desc">Recuperação de partições e arquivos deletados.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.cgsecurity.org/wiki/TestDisk_Download" target="_blank" class="tool-link">Site
+                Oficial</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Criptografia -->
+      <div class="section">
+        <h2>🔐 Criptografia</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">OpenSSL</div>
+            <div class="tool-desc">Toolkit de criptografia, certificados SSL/TLS, hashes e cifras.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://slproweb.com/products/Win32OpenSSL.html" target="_blank" class="tool-link">Windows</a>
+              <a href="https://www.openssl.org/source/" target="_blank" class="tool-link">Linux/macOS</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">HashCat</div>
+            <div class="tool-desc">Quebra de hashes avançada utilizando GPU/CPU. Suporta diversos algoritmos.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://hashcat.net/hashcat/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/hashcat/hashcat" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">John the Ripper</div>
+            <div class="tool-desc">Quebra de senhas multi-plataforma. Suporta wordlists e brute force.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.openwall.com/john/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/openwall/john" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">CyberChef</div>
+            <div class="tool-desc">Ferramenta online para decodificação, criptografia e análise de dados.</div>
+            <div class="tool-os">
+              <span class="os-badge">Online</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://gchq.github.io/CyberChef/" target="_blank" class="tool-link">Usar Online</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Esteganografia -->
+      <div class="section">
+        <h2>🖼️ Esteganografia</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">Steghide</div>
+            <div class="tool-desc">Esconde e extrai dados de imagens (JPEG, BMP) e áudio.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://steghide.sourceforge.net/download.php" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/StefanoDeVuono/steghide" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">StegSolve</div>
+            <div class="tool-desc">Análise visual de esteganografia em imagens. Planos de bits, LSB, etc.</div>
+            <div class="tool-os">
+              <span class="os-badge">Java</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://github.com/zardus/ctf-tools/blob/master/stegsolve/install" target="_blank"
+                class="tool-link">Instalação</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">zsteg</div>
+            <div class="tool-desc">Detecta dados escondidos em LSB de PNG/BMP.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://github.com/zed-0xff/zsteg" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">ExifTool</div>
+            <div class="tool-desc">Leitura, escrita e edição de metadados EXIF em imagens.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://exiftool.org/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/exiftool/exiftool" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Binwalk</div>
+            <div class="tool-desc">Análise de firmware, extração de arquivos embutidos.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://github.com/ReFirmLabs/binwalk" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rede -->
+      <div class="section">
+        <h2>🌐 Rede</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">Wireshark</div>
+            <div class="tool-desc">Analisador de protocolos de rede. Captura e análise de pacotes.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.wireshark.org/download.html" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Nmap</div>
+            <div class="tool-desc">Scanner de portas, descoberta de rede e detecção de serviços.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://nmap.org/download.html" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/nmap/nmap" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">tcpdump</div>
+            <div class="tool-desc">Captura de pacotes em linha de comando.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.tcpdump.org/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">tshark</div>
+            <div class="tool-desc">Versão CLI do Wireshark para análise de pacotes.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.wireshark.org/download.html" target="_blank" class="tool-link">Parte do Wireshark</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Netcat</div>
+            <div class="tool-desc">Ferramenta de rede para leitura/escrita em conexões TCP/UDP.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://netcat.sourceforge.net/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Web Hacking -->
+      <div class="section">
+        <h2>🌍 Web Hacking</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">Burp Suite</div>
+            <div class="tool-desc">Proxy e ferramentas para testes de segurança web (Community Edition gratuita).</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://portswigger.net/burp/communitydownload" target="_blank" class="tool-link">Community
+                Edition</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">SQLMap</div>
+            <div class="tool-desc">Automação de detecção e exploração de SQL injection.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://sqlmap.org/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/sqlmapproject/sqlmap" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">OWASP ZAP</div>
+            <div class="tool-desc">Scanner de vulnerabilidades web open-source.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.zaproxy.org/download/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/zaproxy/zaproxy" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Nikto</div>
+            <div class="tool-desc">Scanner de vulnerabilidades web.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://github.com/sullo/nikto" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Engenharia Reversa -->
+      <div class="section">
+        <h2>⚙️ Engenharia Reversa</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">Ghidra</div>
+            <div class="tool-desc">Framework de RE da NSA. Disassembler, decompiler e análise.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://ghidra-sre.org/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/NationalSecurityAgency/ghidra" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">IDA Pro Free</div>
+            <div class="tool-desc">Disassembler e debugger (versão freeware).</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://hex-rays.com/ida-free/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">GDB</div>
+            <div class="tool-desc">Debugger do GNU para análise de binários.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.gnu.org/software/gdb/download/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">radare2</div>
+            <div class="tool-desc">Framework completo para RE e análise de binários.</div>
+            <div class="tool-os">
+              <span class="os-badge">Windows</span>
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://rada.re/n/" target="_blank" class="tool-link">Site Oficial</a>
+              <a href="https://github.com/radareorg/radare2" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Utilitários Linux -->
+      <div class="section">
+        <h2>🐧 Utilitários Linux</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">strings</div>
+            <div class="tool-desc">Extrai texto legível de arquivos binários.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.gnu.org/software/binutils/" target="_blank" class="tool-link">Parte do binutils</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">xxd / hexdump</div>
+            <div class="tool-desc">Visualização hexadecimal de arquivos.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.vim.org/download.php" target="_blank" class="tool-link">Parte do Vim</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">grep</div>
+            <div class="tool-desc">Busca de padrões em arquivos.</div>
+            <div class="tool-os">
+              <span class="os-badge">Linux</span>
+              <span class="os-badge">macOS</span>
+            </div>
+            <div class="tool-links">
+              <a href="https://www.gnu.org/software/grep/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wordlists -->
+      <div class="section">
+        <h2>📋 Wordlists</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">rockyou.txt</div>
+            <div class="tool-desc">Wordlist clássica para quebra de senhas.</div>
+            <div class="tool-links">
+              <a href="https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt"
+                target="_blank" class="tool-link">Download</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">SecLists</div>
+            <div class="tool-desc">Coleção massiva de wordlists para segurança.</div>
+            <div class="tool-links">
+              <a href="https://github.com/danielmiessler/SecLists" target="_blank" class="tool-link">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ambientes de Prática -->
+      <div class="section">
+        <h2>🎯 Ambientes de Prática</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-name">Hack The Box</div>
+            <div class="tool-desc">Máquinas vulneráveis e CTFs.</div>
+            <div class="tool-links">
+              <a href="https://www.hackthebox.com/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">TryHackMe</div>
+            <div class="tool-desc">Aprendizado guiado com laboratórios.</div>
+            <div class="tool-links">
+              <a href="https://tryhackme.com/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">VulnHub</div>
+            <div class="tool-desc">Máquinas para download.</div>
+            <div class="tool-links">
+              <a href="https://www.vulnhub.com/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">PentesterLab</div>
+            <div class="tool-desc">Exercícios de segurança web.</div>
+            <div class="tool-links">
+              <a href="https://pentesterlab.com/" target="_blank" class="tool-link">Site Oficial</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comandos de Instalação -->
+      <div class="section">
+        <h2>📦 Instalação Rápida no Linux</h2>
+        <div class="code-block" style="background: #000; color: #0f0; padding: 1rem; border-radius: 5px;">
+          # Debian/Ubuntu
+          sudo apt-get update
+          sudo apt-get install -y audacity sonic-visualiser steghide exiftool binwalk foremost scalpel testdisk
+          wireshark nmap tcpdump netcat john hashcat volatility
+
+          # Kali Linux (já vem com a maioria)
+          sudo apt-get install -y steghide exiftool binwalk foremost
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Dica:</strong> No Windows, você pode usar o WSL (Windows Subsystem for Linux) para rodar ferramentas
+        Linux.
+      </div>
+
+      <div class="nav-links" style="justify-content: center;">
+        <a href="../../index.html" class="nav-link">🏠 VOLTAR AO INÍCIO</a>
+        <a href="../guias/guia-rapido-iniciante.html" class="nav-link">📚 GUIA RÁPIDO</a>
+        <a href="../guias/linux-commands.html" class="nav-link">🐧 COMANDOS LINUX</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Guia Completo de Ferramentas</p>
+    <p class="copyright">Links verificados em 2024 - Sempre prefira os sites oficiais</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

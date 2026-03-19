@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cipher Detector | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    textarea {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      font-family: monospace;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / decoders / cipher-detector</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> CIPHER DETECTOR</h1>
+        <p>Detecta possíveis codificações em uma string</p>
+      </div>
+
+      <div class="tool-area">
+        <textarea id="cipherInput" rows="4" placeholder="Cole a string suspeita..."></textarea>
+        <button onclick="detectCipher()">DETECTAR</button>
+        <div id="cipherResult" class="result-box"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Cipher Detector</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function detectCipher() {
+      const input = document.getElementById('cipherInput').value.trim();
+      let results = [];
+
+      // Base64
+      try {
+        const decoded = atob(input);
+        if (decoded && decoded.length > 0) {
+          results.push('✅ Possível Base64');
+        }
+      } catch { }
+
+      // Hexadecimal
+      if (input.replace(/\s/g, '').match(/^[0-9a-fA-F]+$/)) {
+        const hex = input.replace(/\s/g, '');
+        if (hex.length % 2 === 0) {
+          results.push('✅ Possível Hexadecimal');
+        }
+      }
+
+      // Binário
+      if (input.replace(/\s/g, '').match(/^[01]+$/)) {
+        results.push('✅ Possível Binário');
+      }
+
+      // ROT13 (detecta se tem letras e parece texto)
+      if (input.match(/[a-zA-Z]{5,}/)) {
+        results.push('🔍 Possível ROT13 ou cifra simples');
+      }
+
+      // Morse
+      if (input.match(/^[.\-\/\s]+$/)) {
+        results.push('📡 Possível Código Morse');
+      }
+
+      if (results.length === 0) {
+        results.push('❓ Nenhuma codificação comum detectada');
+      }
+
+      document.getElementById('cipherResult').innerHTML = results.join('<br>');
+    }
+  </script>
+</body>
+
+</html>

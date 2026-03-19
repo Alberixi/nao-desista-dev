@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esteganografia | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .code-block {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+      border: 1px solid #333;
+      overflow-x: auto;
+    }
+
+    .example-box {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .warning-box {
+      background: #331100;
+      border-left: 4px solid #ffaa00;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / tutoriais / esteganografia</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> TUTORIAL</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="../guias/guia-rapido-iniciante.html" class="nav-link"><i class="fas fa-rocket"></i> GUIA RÁPIDO</a>
+      <a href="../referencias/ferramentas-completas.html" class="nav-link"><i class="fas fa-tools"></i> FERRAMENTAS</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🖼️ TUTORIAL DE ESTEGANOGRAFIA</h1>
+      </div>
+
+      <div class="section">
+        <h2>O que é Esteganografia?</h2>
+        <p>Esteganografia é a técnica de esconder informações dentro de outros arquivos (imagens, áudios, vídeos) de
+          forma que a existência da mensagem seja camuflada. Diferente da criptografia, que torna a mensagem ilegível, a
+          esteganografia a torna <strong>invisível</strong>.</p>
+      </div>
+
+      <div class="section">
+        <h2>📌 Conceitos Básicos</h2>
+
+        <h3>1. LSB (Least Significant Bit)</h3>
+        <p>O método mais comum em imagens. Altera o último bit de cada pixel para armazenar dados.</p>
+        <div class="code-block">
+          Pixel original: 10101100 10110011 10101101
+          Dado a esconder: 1 0 1
+          Pixel modificado: 10101101 10110010 10101101
+        </div>
+
+        <h3>2. Metadados (EXIF)</h3>
+        <p>Dados podem ser escondidos nos metadados de imagens (autor, câmera, GPS, etc.)</p>
+        <div class="code-block">
+          exiftool imagem.jpg
+          # Resultado:
+          # Author : flag{metadados_expostos}
+          # GPS Position : 40.7128° N, 74.0060° W
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🛠️ Ferramentas</h2>
+
+        <h3>Para Imagens</h3>
+        <div class="code-block">
+          # Steghide
+          steghide embed -cf imagem.jpg -ef mensagem.txt -pf senha
+          steghide extract -sf imagem.jpg -pf senha
+
+          # zsteg (PNG/BMP)
+          zsteg imagem.png
+
+          # Exiftool (metadados)
+          exiftool imagem.jpg
+
+          # Binwalk (arquivos embutidos)
+          binwalk imagem.png
+        </div>
+
+        <h3>Para Áudio</h3>
+        <div class="code-block">
+          # Sonic Visualiser (espectrograma)
+          sonic-visualiser audio.wav
+
+          # Audacity (análise)
+          audacity audio.wav
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🧪 Exemplos Práticos</h2>
+
+        <h3>Exemplo 1: Esconder texto em imagem com steghide</h3>
+        <div class="code-block">
+          # Criar mensagem
+          echo "flag{esteganografia_basica}" > mensagem.txt
+
+          # Esconder na imagem
+          steghide embed -cf gato.jpg -ef mensagem.txt -pf ""
+
+          # Extrair depois
+          steghide extract -sf gato.jpg -pf ""
+        </div>
+
+        <h3>Exemplo 2: LSB com Python</h3>
+        <div class="code-block">
+          from PIL import Image
+
+          def esconder_mensagem(imagem, mensagem):
+          img = Image.open(imagem)
+          pixels = list(img.getdata())
+
+          # Converter mensagem para binário
+          bin_mensagem = ''.join(format(ord(c), '08b') for c in mensagem)
+
+          # Esconder nos LSBs
+          novos_pixels = []
+          for i, pixel in enumerate(pixels):
+          if i < len(bin_mensagem): novo_pixel=(pixel[0] & 0xFE) | int(bin_mensagem[i]) novos_pixels.append((novo_pixel,
+            pixel[1], pixel[2])) else: novos_pixels.append(pixel) img.putdata(novos_pixels)
+            img.save('imagem_com_segredo.png') </div>
+        </div>
+
+        <div class="tip-box">
+          <strong>💡 Dica:</strong> Sempre verifique metadados (exiftool) primeiro, é a técnica mais simples!
+        </div>
+      </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Tutorial de Esteganografia</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

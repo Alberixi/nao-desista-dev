@@ -1,0 +1,40 @@
+Simulação de captura DNS - Consultas e respostas
+
+Frame 1: 192.168.1.100 → 8.8.8.8 (DNS Query)
+  • Transaction ID: 0x1234
+  • Flags: 0x0100 (Standard query)
+  • Questions: 1
+  • Query: google.com (Type A, Class IN)
+
+Frame 2: 8.8.8.8 → 192.168.1.100 (DNS Response)
+  • Transaction ID: 0x1234
+  • Flags: 0x8180 (Standard query response, No error)
+  • Questions: 1
+  • Answer RRs: 2
+  • Answers: 142.250.185.46, 142.250.185.46
+
+Frame 3: 192.168.1.100 → 8.8.8.8 (DNS Query)
+  • Transaction ID: 0x5678
+  • Flags: 0x0100 (Standard query)
+  • Questions: 1
+  • Query: naodesista.dev (Type A, Class IN)
+
+Frame 4: 8.8.8.8 → 192.168.1.100 (DNS Response)
+  • Transaction ID: 0x5678
+  • Flags: 0x8180 (Standard query response, No error)
+  • Questions: 1
+  • Answer RRs: 1
+  • Answers: 192.168.1.100
+
+Frame 5: 192.168.1.100 → 8.8.8.8 (DNS Query - TXT)
+  • Transaction ID: 0x9abc
+  • Flags: 0x0100 (Standard query)
+  • Questions: 1
+  • Query: flag.dns-exfiltration.com (Type TXT, Class IN)
+
+Frame 6: 8.8.8.8 → 192.168.1.100 (DNS Response - TXT)
+  • Transaction ID: 0x9abc
+  • Flags: 0x8180 (Standard query response, No error)
+  • Questions: 1
+  • Answer RRs: 1
+  • Answers: "flag{dns_exfiltration_detected}"

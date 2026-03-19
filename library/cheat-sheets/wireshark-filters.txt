@@ -1,0 +1,167 @@
+╔══════════════════════════════════════════════════════════════╗
+║                    WIRESHARK FILTERS CHEAT SHEET             ║
+║                    Para Análise de Rede                      ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│  📌 FILTROS BÁSICOS                                          │
+├──────────────────────────────────────────────────────────────┤
+│  Filtro                    Descrição                         │
+├──────────────────────────────────────────────────────────────┤
+│  ip.addr == 192.168.1.1    Pacotes com este IP               │
+│  ip.src == 192.168.1.100   Pacotes com IP origem             │
+│  ip.dst == 8.8.8.8         Pacotes com IP destino            │
+│  tcp.port == 80            Pacotes na porta TCP 80           │
+│  udp.port == 53            Pacotes na porta UDP 53           │
+│  tcp.port in {80 443 8080} Pacotes em múltiplas portas       │
+│  tcp                        Todos pacotes TCP                │
+│  udp                        Todos pacotes UDP                │
+│  icmp                       Todos pacotes ICMP               │
+│  arp                        Todos pacotes ARP                │
+│  http                       Todos pacotes HTTP               │
+│  dns                        Todos pacotes DNS                │
+│  ftp                        Todos pacotes FTP                │
+│  ssh                        Todos pacotes SSH                │
+│  tls                        Todos pacotes TLS/SSL            │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔍 FILTROS AVANÇADOS                                        │
+├──────────────────────────────────────────────────────────────┤
+│  Filtro                    Descrição                         │
+├──────────────────────────────────────────────────────────────┤
+│  tcp.flags.syn == 1        Pacotes com flag SYN              │
+│  tcp.flags.ack == 1        Pacotes com flag ACK              │
+│  tcp.flags.reset == 1      Pacotes com flag RST              │
+│  tcp.flags.fin == 1        Pacotes com flag FIN              │
+│  tcp.analysis.ack_rtt      Análise de RTT                    │
+│  tcp.analysis.retransmission Retransmissões                  │
+│  tcp.analysis.duplicate_ack ACKs duplicados                  │
+│  tcp.analysis.zero_window   Janela zero                      │
+│  tcp.window_size == 0       Tamanho da janela zero           │
+│  http.request.method == "GET" Método GET                     │
+│  http.request.method == "POST" Método POST                   │
+│  http.response.code == 200  Resposta OK                      │
+│  http.response.code == 404  Página não encontrada            │
+│  http.response.code == 500  Erro interno                     │
+│  http.request.uri contains "admin" URI contém "admin"        │
+│  http contains "password"   Pacote contém "password"         │
+│  dns.qry.name contains "google" Consulta DNS contém google   │
+│  dns.flags.response == 1    Resposta DNS                     │
+│  dns.flags.response == 0    Consulta DNS                     │
+│  frame contains "flag"      Pacote contém "flag"             │
+│  data.len > 1000            Pacotes com dados grandes        │
+│  frame.len > 1500           Pacotes maiores que MTU          │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🎯 FILTROS POR CONVERSAÇÃO                                  │
+├──────────────────────────────────────────────────────────────┤
+│  Filtro                    Descrição                         │
+├──────────────────────────────────────────────────────────────┤
+│  ip.addr == 192.168.1.1 and ip.addr == 8.8.8.8               │
+│                             Comunicação entre dois IPs       │
+│                                                              │
+│  tcp.stream eq 0            Segue fluxo TCP 0                │
+│  tcp.stream eq 5            Segue fluxo TCP 5                │
+│  tcp.stream eq 10           Segue fluxo TCP 10               │
+│                                                              │
+│  udp.stream eq 0            Segue fluxo UDP 0                │
+│                                                              │
+│  ip.src == 192.168.1.1 and ip.dst == 8.8.8.8                 │
+│                             Origem específica para destino   │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  ⏱️ FILTROS DE TEMPO                                         │
+├──────────────────────────────────────────────────────────────┤
+│  Filtro                    Descrição                         │
+├──────────────────────────────────────────────────────────────┤
+│  frame.time_relative > 5   Pacotes após 5 segundos           │
+│  frame.time_relative < 10   Pacotes antes de 10 segundos     │
+│  frame.time_delta > 0.1     Delta maior que 0.1s             │
+│                                                              │
+│  frame.time >= "2024-03-15 10:00:00"                         │
+│                             Após data/hora                   │
+│  frame.time <= "2024-03-15 12:00:00"                         │
+│                             Antes data/hora                  │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔐 FILTROS DE SEGURANÇA                                     │
+├──────────────────────────────────────────────────────────────┤
+│  Filtro                    Descrição                         │
+├──────────────────────────────────────────────────────────────┤
+│  tcp.port == 4444           Porta suspeita                   │
+│  tcp.port == 1337           Porta suspeita                   │
+│  tcp.port == 31337          Porta suspeita                   │
+│                                                              │
+│  ip.src in {185.165.29.0/24} IP de C2 conhecido              │
+│                                                              │
+│  http.request.uri contains "../../" Path traversal           │
+│  http.request.uri contains "union select" SQL Injection      │
+│  http.request.uri contains "<script>" XSS                    │
+│  http.request.uri contains ".php?" PHP pages                 │
+│                                                              │
+│  tcp.payload contains "cmd.exe" Possível ataque              │
+│  tcp.payload contains "powershell" PowerShell malicioso      │
+│  tcp.payload contains "wget" Download via shell              │
+│  tcp.payload contains "curl" Download via shell              │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📊 FILTROS DE ESTATÍSTICA                                   │
+├──────────────────────────────────────────────────────────────┤
+│  Comando tshark              Descrição                       │
+├──────────────────────────────────────────────────────────────┤
+│  tshark -r captura.pcap -z io,stat,0                         │
+│                             Estatísticas de I/O              │
+│                                                              │
+│  tshark -r captura.pcap -z conv,tcp                          │
+│                             Conversas TCP                    │
+│                                                              │
+│  tshark -r captura.pcap -z endpoints,ip                      │
+│                             Endpoints IP                     │
+│                                                              │
+│  tshark -r captura.pcap -z proto,col                         │
+│                             Distribuição de protocolos       │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📝 FILTROS DE EXTRAÇÃO                                      │
+├──────────────────────────────────────────────────────────────┤
+│  Comando                    Descrição                        │
+├──────────────────────────────────────────────────────────────┤
+│  tshark -r captura.pcap -Y "http" -T fields -e ip.src -e     |
+|                     ip.dst  Extrai IPs de pacotes HTTP       │
+│                                                              │
+│  tshark -r captura.pcap --export-objects http,./             │
+│                             Extrai objetos HTTP              │
+│                                                              │
+│  tshark -r captura.pcap -q -z follow,tcp,ascii,0             │
+│                             Segue fluxo TCP 0 em ASCII       │
+│                                                              │
+│  tcpflow -r captura.pcap    Reconstrui fluxos TCP            │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  💡 EXEMPLOS PRÁTICOS                                        │
+├──────────────────────────────────────────────────────────────┤
+│  # Capturar tráfego HTTP                                     │
+│  tcpdump -i eth0 -w http.pcap port 80                        │
+│                                                              │
+│  # Ver apenas POST requests                                  │
+│  tshark -r captura.pcap -Y "http.request.method == POST"     │
+│                                                              │
+│  # Encontrar senhas em texto claro                           │
+│  tshark -r captura.pcap -Y "tcp contains 'password'"         │
+│                                                              │
+│  # Ver handshake TCP completo                                │
+│  tshark -r captura.pcap -Y "tcp.flags.syn==1"                │
+│                                                              │
+│  # Extrair arquivos de PCAP                                  │
+│  foremost -i captura.pcap                                    │
+│                                                              │
+│  # Ver tráfego de um IP específico                           │
+│  tshark -r captura.pcap -Y "ip.addr == 192.168.1.100"        │
+└──────────────────────────────────────────────────────────────┘

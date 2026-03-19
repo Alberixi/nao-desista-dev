@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+    <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 48: Botnet Analysis | Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .puzzle-container { background: var(--bg-secondary); border: 2px solid var(--text-primary); border-radius: 10px; padding: 2rem; margin: 2rem 0; }
+        .puzzle-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--text-secondary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        .puzzle-title { font-size: 2rem; color: var(--text-primary); }
+        .puzzle-difficulty-badge { background: #e74c3c; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; }
+        .challenge-area { background: #000; border-radius: 5px; padding: 2rem; margin: 2rem 0; text-align: center; border: 1px dashed var(--text-secondary); }
+        .hint-box { background: rgba(231, 76, 60, 0.1); border-left: 4px solid #e74c3c; padding: 1rem; margin: 2rem 0; font-style: italic; }
+        .flag-input-area { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .flag-input { flex: 1; min-width: 250px; background: var(--bg-primary); border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem; font-family: 'Courier New', monospace; border-radius: 5px; }
+        .flag-submit-btn { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 2rem; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.3s ease; }
+        .flag-submit-btn:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .tool-tag { background: var(--bg-primary); border: 1px solid #e74c3c; color: #e74c3c; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; display: inline-block; margin-right: 0.5rem; }
+        .back-button { display: inline-block; margin-bottom: 2rem; color: var(--text-primary); text-decoration: none; border: 1px solid var(--text-primary); padding: 0.5rem 1rem; border-radius: 5px; }
+        .back-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .nav-buttons { display: flex; justify-content: space-between; margin: 2rem 0; gap: 1rem; flex-wrap: wrap; }
+        .nav-button { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; transition: all 0.3s ease; display: inline-block; }
+        .nav-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .code-block { background: #000; color: #0f0; padding: 1rem; border-radius: 5px; font-family: monospace; font-size: 0.9rem; margin: 1rem 0; border: 1px solid var(--text-primary); white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header class="terminal-header">
+        <div class="terminal-title"><i class="fas fa-terminal"></i> PUZZLE 48 - BOTNET ANALYSIS</div>
+        <div class="terminal-status"><div class="status-item"><i class="fas fa-circle blink" style="color: #e74c3c;"></i> NÍVEL: MESTRE</div></div>
+    </header>
+
+    <main class="container">
+        <div class="nav-buttons">
+            <a href="47-ransomware-lab.html" class="nav-button"><i class="fas fa-arrow-left"></i> ANTERIOR (47)</a>
+            <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+            <a href="49-quantum-crypto.html" class="nav-button">PRÓXIMO (49) <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-header">
+                <h1 class="puzzle-title">> 48: BOTNET ANALYSIS</h1>
+                <span class="puzzle-difficulty-badge">MESTRE</span>
+            </div>
+            <p>Uma botnet está realizando ataques DDoS. Analise o tráfego e encontre o servidor de comando e controle (C2).</p>
+            
+            <div class="challenge-area">
+                <h3><i class="fas fa-download"></i> CAPTURA DE REDE</h3>
+                <a href="../../assets/pcaps/attacks/botnet.pcap" download class="puzzle-link">botnet.pcap</a>
+                <p class="text-secondary">Dica: Filtre por tráfego IRC na porta 6667.</p>
+                
+                <div class="code-block">
+Análise rápida:
+$ tshark -r botnet.pcap -Y "irc"
+192.168.1.100 -> 45.155.205.233:6667  JOIN #botnet
+192.168.1.100 -> 45.155.205.233:6667  PRIVMSG #botnet :!ping
+                </div>
+            </div>
+
+            <div class="hint-box">
+                <i class="fas fa-lightbulb"></i> <strong>DICA MESTRE:</strong> O servidor C2 é 45.155.205.233. A flag está no canal #flag
+            </div>
+
+            <h3><i class="fas fa-tools"></i> FERRAMENTAS</h3>
+            <div class="tool-list">
+                <span class="tool-tag">Wireshark</span>
+                <span class="tool-tag">tshark</span>
+                <span class="tool-tag">NetworkMiner</span>
+                <span class="tool-tag">Botnet Simulator</span>
+            </div>
+
+            <h3><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+            <div class="flag-input-area">
+                <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+                <button class="flag-submit-btn" id="submitFlag">VERIFICAR</button>
+            </div>
+            <div id="resultMessage"></div>
+        </div>
+    </main>
+
+    <footer class="footer"><p>NÃO DESISTA DEV - Puzzle 48 | Nível Mestre</p></footer>
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        document.getElementById('submitFlag').addEventListener('click', function() {
+            const flag = document.getElementById('flagInput').value.trim();
+            const result = document.getElementById('resultMessage');
+            if (flag === 'flag{botnet_c2_identified}') {
+                result.innerHTML = '<span style="color:#0f0;">✓ FLAG CORRETA! Servidor C2 da botnet encontrado!</span>';
+                if (typeof marcarPuzzleResolvido === 'function') marcarPuzzleResolvido(48);
+            } else {
+                result.innerHTML = '<span style="color:#f00;">✗ FLAG INCORRETA. Analise o tráfego IRC.</span>';
+            }
+        });
+    </script>
+</body>
+</html>
+

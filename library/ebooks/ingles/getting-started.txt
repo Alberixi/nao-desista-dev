@@ -1,0 +1,214 @@
+╔══════════════════════════════════════════════════════════════╗
+║              GETTING STARTED WITH ETHICAL HACKING           ║
+║                    Beginner's Guide                         ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CHAPTER 1: WHAT IS HACKING?                              │
+└──────────────────────────────────────────────────────────────┘
+
+Hacking is the art of exploring computer systems to understand
+their inner workings, find vulnerabilities, and in the case of
+ethical hacking, help fix security flaws.
+
+┌──────────────────────────────────────────────────────────────┐
+│  TYPES OF HACKERS                                            │
+├──────────────────────────────────────────────────────────────┤
+│  🟢 White Hat  - Ethical hacker, works with authorization    │
+│  🔴 Black Hat  - Malicious hacker, acts without permission   │
+│  🟡 Gray Hat   - In between, sometimes acts without perm.    │
+│  🔵 Blue Hat   - Works for companies testing their systems   │
+│  🟣 Red Team   - Simulates offensive attacks                 │
+│  🟠 Blue Team  - Defends and monitors systems                │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CHAPTER 2: BASIC PRINCIPLES                              │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  CONFIDENTIALITY                                             │
+│  Ensuring only authorized people can access information      │
+├──────────────────────────────────────────────────────────────┤
+│  INTEGRITY                                                   │
+│  Ensuring information hasn't been tampered with              │
+├──────────────────────────────────────────────────────────────┤
+│  AVAILABILITY                                                │
+│  Ensuring information is accessible when needed              │
+├──────────────────────────────────────────────────────────────┤
+│  AUTHENTICITY                                                │
+│  Verifying information comes from a trusted source           │
+├──────────────────────────────────────────────────────────────┤
+│  NON-REPUDIATION                                             │
+│  Preventing someone from denying having done something       │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CHAPTER 3: PENETRATION TESTING CYCLE                     │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  1. RECONNAISSANCE                                           │
+│     Gathering information about the target (OSINT)           │
+│     - Google Dorks                                           │
+│     - Whois                                                  │
+│     - DNS lookup                                             │
+│     - Social media                                           │
+├──────────────────────────────────────────────────────────────┤
+│  2. SCANNING                                                 │
+│     Identifying open ports and services                      │
+│     - Nmap                                                   │
+│     - Masscan                                                │
+│     - Nessus                                                 │
+├──────────────────────────────────────────────────────────────┤
+│  3. ENUMERATION                                              │
+│     Gathering detailed information about services            │
+│     - NetBIOS                                                │
+│     - SNMP                                                   │
+│     - LDAP                                                   │
+├──────────────────────────────────────────────────────────────┤
+│  4. EXPLOITATION                                             │
+│     Attempting to exploit found vulnerabilities              │
+│     - Metasploit                                             │
+│     - Manual exploits                                        │
+├──────────────────────────────────────────────────────────────┤
+│  5. POST-EXPLOITATION                                        │
+│     Maintaining access, privilege escalation                 │
+│     - Extracting hashes                                      │
+│     - Installing backdoors                                   │
+├──────────────────────────────────────────────────────────────┤
+│  6. REPORTING                                                │
+│     Documenting findings and recommendations                 │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CHAPTER 4: ESSENTIAL TOOLS                               │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  KALI LINUX                                                  │
+│  Linux distribution focused on penetration testing           │
+│  Includes 600+ pre-installed tools                           │
+│  Basic commands:                                             │
+│  ├─ nmap -sV 192.168.1.1                                    │
+│  ├─ msfconsole                                              │
+│  ├─ wireshark                                               │
+│  └─ aircrack-ng                                             │
+├──────────────────────────────────────────────────────────────┤
+│  NMAP                                                        │
+│  Port scanner and network discovery tool                     │
+│  Examples:                                                   │
+│  ├─ nmap -sS -p- 192.168.1.1                                │
+│  ├─ nmap -sV -O 192.168.1.1                                 │
+│  └─ nmap -sC -p 80,443 scanme.nmap.org                      │
+├──────────────────────────────────────────────────────────────┤
+│  METASPLOIT                                                  │
+│  Framework for exploit development and execution             │
+│  Commands:                                                   │
+│  ├─ msfconsole                                              │
+│  ├─ use exploit/multi/handler                               │
+│  ├─ set PAYLOAD windows/meterpreter/reverse_tcp             │
+│  └─ exploit                                                 │
+├──────────────────────────────────────────────────────────────┤
+│  WIRESHARK                                                   │
+│  Network protocol analyzer                                   │
+│  Useful filters:                                             │
+│  ├─ http                                                     │
+│  ├─ tcp contains "flag"                                      │
+│  └─ ip.addr == 192.168.1.100                                │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CHAPTER 5: COMMON VULNERABILITIES                        │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  SQL INJECTION                                               │
+│  Inserting malicious SQL commands into inputs                │
+│  Example: ' OR '1'='1' --                                    │
+│  Prevention: Prepared Statements, input validation           │
+├──────────────────────────────────────────────────────────────┤
+│  XSS (Cross-Site Scripting)                                 │
+│  Injecting malicious scripts into web pages                  │
+│  Example: <script>alert('XSS')</script>                     │
+│  Prevention: Output escaping, CSP                            │
+├──────────────────────────────────────────────────────────────┤
+│  CSRF (Cross-Site Request Forgery)                          │
+│  Forcing users to execute unwanted actions                   │
+│  Prevention: CSRF tokens, SameSite cookies                   │
+├──────────────────────────────────────────────────────────────┤
+│  BUFFER OVERFLOW                                             │
+│  Writing more data than the buffer can hold                  │
+│  Prevention: Safe languages, canaries, ASLR                  │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CHAPTER 6: BASIC CRYPTOGRAPHY                            │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  HASH                                                        │
+│  One-way function that generates a digital fingerprint       │
+│  Examples: MD5, SHA-1, SHA-256                               │
+│  Use: password storage, integrity verification               │
+├──────────────────────────────────────────────────────────────┤
+│  SYMMETRIC CRYPTOGRAPHY                                      │
+│  Same key to encrypt and decrypt                             │
+│  Examples: AES, DES, ChaCha20                                │
+│  Use: file encryption, communications                        │
+├──────────────────────────────────────────────────────────────┤
+│  ASYMMETRIC CRYPTOGRAPHY                                     │
+│  Different keys: public and private                          │
+│  Examples: RSA, ECC                                          │
+│  Use: TLS/SSL, digital signatures                            │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CHAPTER 7: BEST PRACTICES                                │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  ✅ Always get written authorization before testing          │
+│  ✅ Document every step of your investigation                │
+│  ✅ Use isolated environments (VMs, Docker)                  │
+│  ✅ Keep your tools updated                                  │
+│  ✅ Join communities and participate in CTFs                 │
+│  ✅ Study constantly                                         │
+│  ✅ Share knowledge                                          │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📚 STUDY RESOURCES                                          │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  WEBSITES                                                    │
+│  ├─ Hack The Box (hackthebox.com)                           │
+│  ├─ TryHackMe (tryhackme.com)                               │
+│  ├─ PentesterLab (pentesterlab.com)                         │
+│  └─ Root-Me (root-me.org)                                   │
+├──────────────────────────────────────────────────────────────┤
+│  FREE COURSES                                                │
+│  ├─ Cybrary                                                  │
+│  ├─ PortSwigger Web Security Academy                        │
+│  └─ OverTheWire                                              │
+├──────────────────────────────────────────────────────────────┤
+│  YOUTUBE                                                     │
+│  ├─ IppSec                                                   │
+│  ├─ The Cyber Mentor                                         │
+│  └─ John Hammond                                             │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🏁 CONCLUSION                                                │
+└──────────────────────────────────────────────────────────────┘
+
+Remember: hacking is a journey, not a destination. Start with the
+basics, practice daily, participate in CTFs, and never give up.
+
+As the motto of this project says:
+
+    "Some challenges don't exist yet.
+     The true investigator creates their own."
+
+Now it's up to you. Hands on keyboard! 🚀

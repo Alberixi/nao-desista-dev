@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferramentas - Downloads | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .tool-section {
+      margin-bottom: 2rem;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tool-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1rem;
+      transition: all 0.3s;
+    }
+
+    .tool-card:hover {
+      border-color: #0f0;
+      transform: translateY(-2px);
+    }
+
+    .tool-name {
+      color: #0f0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-desc {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-link {
+      color: #ffaa00;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .tool-link:hover {
+      text-decoration: underline;
+    }
+
+    .warning {
+      background: #331100;
+      border-left: 4px solid #ffaa00;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / referencias / ferramentas</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> DOWNLOADS</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> FERRAMENTAS - DOWNLOADS SEGUROS</h1>
+      </div>
+
+      <div class="warning">
+        <strong>⚠️ ATENÇÃO:</strong> Sempre baixe ferramentas dos sites oficiais para evitar malware. Links verificados
+        abaixo.
+      </div>
+
+      <div class="tool-section">
+        <h2>🔊 Análise de Áudio</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Audacity</div>
+            <div class="tool-desc">Editor e gravador de áudio multi-plataforma. Análise de espectrograma.</div>
+            <a href="https://www.audacityteam.org/download/" target="_blank" class="tool-link">📥 audacityteam.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Sonic Visualiser</div>
+            <div class="tool-desc">Visualização detalhada de áudio para análise forense.</div>
+            <a href="https://www.sonicvisualiser.org/download.html" target="_blank" class="tool-link">📥
+              sonicvisualiser.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Spek</div>
+            <div class="tool-desc">Visualizador rápido de espectrograma.</div>
+            <a href="https://www.spek.cc/downloads" target="_blank" class="tool-link">📥 spek.cc</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🔍 Forense Digital</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Autopsy</div>
+            <div class="tool-desc">Plataforma forense completa com interface gráfica.</div>
+            <a href="https://www.autopsy.com/download/" target="_blank" class="tool-link">📥 autopsy.com</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">The Sleuth Kit</div>
+            <div class="tool-desc">Ferramentas de linha de comando para análise forense.</div>
+            <a href="https://www.sleuthkit.org/download.php" target="_blank" class="tool-link">📥 sleuthkit.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Volatility</div>
+            <div class="tool-desc">Framework para análise de memória RAM.</div>
+            <a href="https://www.volatilityfoundation.org/releases" target="_blank" class="tool-link">📥
+              volatilityfoundation.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Foremost</div>
+            <div class="tool-desc">Recuperação de arquivos deletados por carving.</div>
+            <a href="https://github.com/korczis/foremost" target="_blank" class="tool-link">📥 github.com/foremost</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🔐 Criptografia</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">OpenSSL</div>
+            <div class="tool-desc">Toolkit de criptografia e certificados.</div>
+            <a href="https://slproweb.com/products/Win32OpenSSL.html" target="_blank" class="tool-link">📥
+              openssl.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">HashCat</div>
+            <div class="tool-desc">Quebra de hashes avançada (GPU/CPU).</div>
+            <a href="https://hashcat.net/hashcat/" target="_blank" class="tool-link">📥 hashcat.net</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">John the Ripper</div>
+            <div class="tool-desc">Quebra de senhas multi-plataforma.</div>
+            <a href="https://www.openwall.com/john/" target="_blank" class="tool-link">📥 openwall.com/john</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🖼️ Esteganografia</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Steghide</div>
+            <div class="tool-desc">Esconde e extrai dados de imagens/áudio.</div>
+            <a href="https://steghide.sourceforge.net/download.php" target="_blank" class="tool-link">📥
+              steghide.sourceforge.net</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">StegSolve</div>
+            <div class="tool-desc">Análise visual de esteganografia em imagens.</div>
+            <a href="https://github.com/zardus/ctf-tools/blob/master/stegsolve/install" target="_blank"
+              class="tool-link">📥 github.com/stegsolve</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">zsteg</div>
+            <div class="tool-desc">Detecta LSB em PNG/BMP.</div>
+            <a href="https://github.com/zed-0xff/zsteg" target="_blank" class="tool-link">📥 github.com/zsteg</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">exiftool</div>
+            <div class="tool-desc">Extrai metadados EXIF.</div>
+            <a href="https://exiftool.org/" target="_blank" class="tool-link">📥 exiftool.org</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🌐 Rede</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Wireshark</div>
+            <div class="tool-desc">Analisador de protocolos de rede.</div>
+            <a href="https://www.wireshark.org/download.html" target="_blank" class="tool-link">📥 wireshark.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Nmap</div>
+            <div class="tool-desc">Scanner de portas e descoberta de rede.</div>
+            <a href="https://nmap.org/download.html" target="_blank" class="tool-link">📥 nmap.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">tcpdump</div>
+            <div class="tool-desc">Captura de pacotes em linha de comando.</div>
+            <a href="https://www.tcpdump.org/" target="_blank" class="tool-link">📥 tcpdump.org</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🌍 Web Hacking</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Burp Suite</div>
+            <div class="tool-desc">Proxy e ferramentas para testes web.</div>
+            <a href="https://portswigger.net/burp/communitydownload" target="_blank" class="tool-link">📥
+              portswigger.net/burp</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">SQLMap</div>
+            <div class="tool-desc">Automação de SQL injection.</div>
+            <a href="https://sqlmap.org/" target="_blank" class="tool-link">📥 sqlmap.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">OWASP ZAP</div>
+            <div class="tool-desc">Scanner de vulnerabilidades web.</div>
+            <a href="https://www.zaproxy.org/download/" target="_blank" class="tool-link">📥 zaproxy.org</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>⚙️ Engenharia Reversa</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Ghidra</div>
+            <div class="tool-desc">Framework de RE da NSA.</div>
+            <a href="https://ghidra-sre.org/" target="_blank" class="tool-link">📥 ghidra-sre.org</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">IDA Pro (Free)</div>
+            <div class="tool-desc">Disassembler e debugger.</div>
+            <a href="https://hex-rays.com/ida-free/" target="_blank" class="tool-link">📥 hex-rays.com/ida-free</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">GDB</div>
+            <div class="tool-desc">Debugger do GNU.</div>
+            <a href="https://www.gnu.org/software/gdb/download/" target="_blank" class="tool-link">📥 gnu.org/gdb</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning">
+        <strong>📌 Dica:</strong> No Linux, a maioria dessas ferramentas pode ser instalada via
+        <code>apt-get install</code> (Debian/Ubuntu) ou <code>yum install</code> (Red Hat/Fedora).
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Links para Download</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

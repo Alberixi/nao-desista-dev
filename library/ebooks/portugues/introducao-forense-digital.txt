@@ -1,0 +1,387 @@
+╔══════════════════════════════════════════════════════════════╗
+║         INTRODUÇÃO À FORENSE DIGITAL - Guia Completo       ║
+║                    Para Iniciantes                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 1: O QUE É FORENSE DIGITAL?                     │
+└──────────────────────────────────────────────────────────────┘
+
+Forense digital é a ciência de investigar dispositivos eletrônicos
+para encontrar evidências de crimes ou incidentes de segurança.
+Envolve recuperar dados deletados, analisar sistemas de arquivos,
+examinar memória RAM e investigar tráfego de rede.
+
+┌──────────────────────────────────────────────────────────────┐
+│  PRINCÍPIOS FUNDAMENTAIS                                     │
+├──────────────────────────────────────────────────────────────┤
+│  🎯 INTEGRIDADE                                               │
+│  As evidências não podem ser alteradas durante a análise    │
+│  ✔️ Trabalhar sempre com cópias                              │
+│  ✔️ Calcular hashes (MD5, SHA256)                           │
+│  ✔️ Documentar todos os passos                               │
+├──────────────────────────────────────────────────────────────┤
+│  🎯 CADEIA DE CUSTÓDIA                                        │
+│  Documentar quem, quando e onde manipulou a evidência       │
+│  ✔️ Quem coletou                                             │
+│  ✔️ Quando coletou                                           │
+│  ✔️ Onde está armazenada                                     │
+│  ✔️ Quem acessou                                             │
+├──────────────────────────────────────────────────────────────┤
+│  🎯 REPRODUTIBILIDADE                                         │
+│  Outro perito deve chegar ao mesmo resultado                │
+│  ✔️ Ferramentas documentadas                                 │
+│  ✔️ Procedimentos claros                                     │
+│  ✔️ Logs de execução                                         │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 2: TIPOS DE ANÁLISE FORENSE                     │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  2.1 FORENSE DE DISCO                                        │
+│  Análise de discos rígidos, SSDs, pendrives e imagens       │
+│                                                              │
+│  🔍 O QUE PROCURAR:                                          │
+│  • Arquivos deletados                                        │
+│  • Partições ocultas                                        │
+│  • Slack space                                              │
+│  • Alternate Data Streams (ADS)                             │
+│                                                              │
+│  🛠️ FERRAMENTAS:                                             │
+│  • The Sleuth Kit (fls, icat, fsstat)                       │
+│  • Autopsy (interface gráfica)                              │
+│  • FTK Imager                                               │
+│  • Foremost / Scalpel (carving)                             │
+├──────────────────────────────────────────────────────────────┤
+│  2.2 FORENSE DE MEMÓRIA (RAM)                                │
+│  Análise da memória volátil do computador                   │
+│                                                              │
+│  🔍 O QUE PROCURAR:                                          │
+│  • Processos em execução                                     │
+│  • Conexões de rede ativas                                  │
+│  • Senhas em texto claro                                    │
+│  • Malware residente                                        │
+│                                                              │
+│  🛠️ FERRAMENTAS:                                             │
+│  • Volatility                                                │
+│  • Rekall                                                   │
+│  • LiME (Linux Memory Extractor)                            │
+│  • WinPMEM (Windows)                                        │
+├──────────────────────────────────────────────────────────────┤
+│  2.3 FORENSE DE REDE                                         │
+│  Análise de tráfego de rede e capturas PCAP                 │
+│                                                              │
+│  🔍 O QUE PROCURAR:                                          │
+│  • Comunicações suspeitas                                   │
+│  • Exfiltração de dados                                     │
+│  • Ataques em andamento                                     │
+│  • Protocolos não padronizados                              │
+│                                                              │
+│  🛠️ FERRAMENTAS:                                             │
+│  • Wireshark / tshark                                       │
+│  • tcpdump                                                  │
+│  • NetworkMiner                                             │
+│  • Xplico                                                   │
+├──────────────────────────────────────────────────────────────┤
+│  2.4 FORENSE DE DISPOSITIVOS MÓVEIS                          │
+│  Análise de celulares, tablets e smartphones                │
+│                                                              │
+│  🔍 O QUE PROCURAR:                                          │
+│  • Mensagens deletadas                                      │
+│  • Histórico de chamadas                                    │
+│  • Geolocalização                                           │
+│  • Dados de aplicativos                                     │
+│                                                              │
+│  🛠️ FERRAMENTAS:                                             │
+│  • Cellebrite                                               │
+│  • Oxygen Forensic                                          │
+│  • ABE (Android Backup Extractor)                           │
+│  • sqlite3 (bancos de dados)                                │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 3: SISTEMAS DE ARQUIVOS                         │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  3.1 WINDOWS - NTFS                                          │
+│  • Master File Table (MFT)                                   │
+│  • $STANDARD_INFORMATION                                     │
+│  • $FILE_NAME                                               │
+│  • Alternate Data Streams (ADS)                             │
+│  • $LogFile                                                  │
+│  • $UsnJrnl                                                  │
+├──────────────────────────────────────────────────────────────┤
+│  3.2 LINUX - ext4                                             │
+│  • Superblock                                                │
+│  • Inodes                                                    │
+│  • Journal                                                   │
+│  • Directories                                               │
+│  • Extended attributes                                       │
+├──────────────────────────────────────────────────────────────┤
+│  3.3 MAC - HFS+ / APFS                                        │
+│  • Catalog File                                              │
+│  • Extents Overflow File                                     │
+│  • Attributes File                                           │
+│  • Journal                                                   │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 4: RECUPERAÇÃO DE ARQUIVOS DELETADOS           │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  4.1 CARVING POR ASSINATURA                                  │
+│  Baseado em magic numbers (assinaturas de arquivo)          │
+│                                                              │
+│  📌 ASSINATURAS COMUNS:                                      │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │ JPEG: FF D8 FF                                          ││
+│  │ PNG:  89 50 4E 47                                       ││
+│  │ PDF:  25 50 44 46                                       ││
+│  │ ZIP:  50 4B 03 04                                       ││
+│  │ ELF:  7F 45 4C 46                                       ││
+│  │ EXE:  4D 5A                                             ││
+│  └─────────────────────────────────────────────────────────┘│
+│                                                              │
+│  🛠️ COMANDOS:                                                │
+│  foremost -i imagem.dd -o recuperados/                      │
+│  scalpel imagem.dd -o recuperados/                          │
+│  photorec /dev/sda1                                         │
+├──────────────────────────────────────────────────────────────┤
+│  4.2 RECUPERAÇÃO POR INODE                                   │
+│  Baseado em entradas do sistema de arquivos                 │
+│                                                              │
+│  🛠️ COMANDOS (The Sleuth Kit):                               │
+│  # Listar arquivos deletados                                │
+│  fls -r -d imagem.dd                                        │
+│                                                              │
+│  # Extrair por inode                                        │
+│  icat imagem.dd 12345 > arquivo_recuperado                  │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 5: ANÁLISE DE METADADOS                         │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  5.1 EXIF (Imagens)                                          │
+│  Informações armazenadas em fotos                           │
+│  • Data e hora                                              │
+│  • Modelo da câmera                                         │
+│  • Coordenadas GPS                                          │
+│  • Software utilizado                                       │
+│                                                              │
+│  🛠️ COMANDOS:                                                │
+│  exiftool foto.jpg                                          │
+│  exiftool -gpslatitude -gpslongitude foto.jpg              │
+├──────────────────────────────────────────────────────────────┤
+│  5.2 METADADOS DE DOCUMENTOS                                 │
+│  • Autor                                                    │
+│  • Data de criação                                          │
+│  • Última modificação                                       │
+│  • Revisões                                                 │
+│                                                              │
+│  🛠️ COMANDOS:                                                │
+│  pdfinfo documento.pdf                                      │
+│  exiftool documento.docx                                    │
+│  strings documento.pdf | grep -i "author"                   │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 6: ANÁLISE DE MEMÓRIA COM VOLATILITY           │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  6.1 COMANDOS BÁSICOS                                        │
+│  # Identificar perfil do sistema                            │
+│  volatility -f memory.raw imageinfo                         │
+│                                                              │
+│  # Listar processos                                         │
+│  volatility -f memory.raw --profile=Win10x64 pslist        │
+│                                                              │
+│  # Listar conexões de rede                                  │
+│  volatility -f memory.raw --profile=Win10x64 netscan       │
+│                                                              │
+│  # Linhas de comando                                        │
+│  volatility -f memory.raw --profile=Win10x64 cmdline       │
+│                                                              │
+│  # Extrair arquivos                                         │
+│  volatility -f memory.raw --profile=Win10x64 dumpfiles -Q 0x... -D ./ │
+├──────────────────────────────────────────────────────────────┤
+│  6.2 DETECÇÃO DE MALWARE                                     │
+│  # Verificar processos ocultos                              │
+│  volatility -f memory.raw --profile=Win10x64 psscan        │
+│  volatility -f memory.raw --profile=Win10x64 psxview       │
+│                                                              │
+│  # Verificar injeção de código                              │
+│  volatility -f memory.raw --profile=Win10x64 malfind       │
+│                                                              │
+│  # Extrair hashes de senha                                  │
+│  volatility -f memory.raw --profile=Win10x64 hashdump      │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 7: ANÁLISE DE PCAP                              │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  7.1 COMANDOS TSHA RK                                        │
+│  # Estatísticas básicas                                     │
+│  tshark -r captura.pcap -z io,stat,0                        │
+│                                                              │
+│  # Filtrar por protocolo                                    │
+│  tshark -r captura.pcap -Y "http"                           │
+│                                                              │
+│  # Seguir fluxo TCP                                         │
+│  tshark -r captura.pcap -q -z follow,tcp,ascii,0           │
+│                                                              │
+│  # Extrair objetos HTTP                                     │
+│  tshark -r captura.pcap --export-objects http,./           │
+├──────────────────────────────────────────────────────────────┤
+│  7.2 FILTROS ÚTEIS                                           │
+│  # Tráfego suspeito                                         │
+│  tcp.port == 4444                                            │
+│  tcp.port == 1337                                            │
+│                                                              │
+│  # Exfiltração de dados                                     │
+│  data.len > 1000                                             │
+│  tcp contains "flag"                                         │
+│                                                              │
+│  # Ataques                                                   │
+│  http.request.uri contains "../../"                         │
+│  http.request.uri contains "union select"                   │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 8: CADEIA DE CUSTÓDIA                           │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  8.1 DOCUMENTAÇÃO OBRIGATÓRIA                                │
+│                                                              │
+│  📋 IDENTIFICAÇÃO DO CASO                                    │
+│  • Número do caso                                           │
+│  • Data da coleta                                           │
+│  • Investigador responsável                                 │
+│                                                              │
+│  📋 DISPOSITIVO                                              │
+│  • Modelo e número de série                                 │
+│  • Capacidade                                               │
+│  • Estado físico                                            │
+│                                                              │
+│  📋 AQUISIÇÃO                                                │
+│  • Método utilizado                                         │
+│  • Hash MD5/SHA256                                          │
+│  • Data e hora                                              │
+│                                                              │
+│  📋 ANÁLISE                                                  │
+│  • Ferramentas usadas                                       │
+│  • Procedimentos                                            │
+│  • Resultados                                               │
+│                                                              │
+│  📋 RELATÓRIO                                                │
+│  • Conclusões                                               │
+│  • Assinaturas                                              │
+│  • Anexos                                                   │
+├──────────────────────────────────────────────────────────────┤
+│  8.2 EXEMPLO DE HASH PARA INTEGRIDADE                        │
+│  sha256sum imagem.dd > imagem.hash                          │
+│  sha256sum -c imagem.hash                                   │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 9: CASOS PRÁTICOS                               │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  9.1 CASO 1 - RECUPERAÇÃO DE ARQUIVOS DELETADOS             │
+│                                                              │
+│  Problema: Funcionário deletou arquivos importantes         │
+│                                                              │
+│  Solução:                                                   │
+│  1. Criar imagem do disco: dd if=/dev/sda1 of=case.dd      │
+│  2. Verificar partições: mmls case.dd                      │
+│  3. Listar arquivos deletados: fls -r -d case.dd           │
+│  4. Extrair arquivos: icat case.dd 12345 > recuperado.txt  │
+│  5. Carving: foremost -i case.dd -o recuperados/           │
+├──────────────────────────────────────────────────────────────┤
+│  9.2 CASO 2 - ANÁLISE DE MALWARE                            │
+│                                                              │
+│  Problema: Suspeita de malware em computador                │
+│                                                              │
+│  Solução:                                                   │
+│  1. Coletar dump de memória: winpmem memory.raw            │
+│  2. Identificar perfil: volatility -f memory.raw imageinfo │
+│  3. Listar processos: volatility -f memory.raw --profile=Win10x64 pslist │
+│  4. Verificar conexões: volatility -f memory.raw --profile=Win10x64 netscan │
+│  5. Extrair malware: volatility -f memory.raw --profile=Win10x64 procdump -p 1337 -D ./ │
+├──────────────────────────────────────────────────────────────┤
+│  9.3 CASO 3 - INVESTIGAÇÃO DE REDE                          │
+│                                                              │
+│  Problema: Exfiltração de dados suspeita                    │
+│                                                              │
+│  Solução:                                                   │
+│  1. Capturar tráfego: tcpdump -i eth0 -w captura.pcap      │
+│  2. Analisar estatísticas: tshark -r captura.pcap -z io,stat,0 │
+│  3. Filtrar tráfego suspeito: tshark -r captura.pcap -Y "tcp.port == 4444" │
+│  4. Seguir fluxo: tshark -r captura.pcap -q -z follow,tcp,ascii,0 │
+│  5. Extrair dados: foremost -i captura.pcap                │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📘 CAPÍTULO 10: BOAS PRÁTICAS                               │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  ✅ Use write blockers ao lidar com discos originais        │
+│  ✅ Trabalhe sempre com cópias, nunca no original           │
+│  ✅ Documente cada passo da investigação                     │
+│  ✅ Calcule hashes para garantir integridade                 │
+│  ✅ Mantenha cadeia de custódia rigorosa                     │
+│  ✅ Use ambientes isolados para análise                      │
+│  ✅ Atualize ferramentas regularmente                        │
+│  ✅ Participe de comunidades forenses                        │
+│  ✅ Pratique com casos reais                                 │
+│  ✅ Nunca desista!                                          │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📚 RECURSOS ADICIONAIS                                      │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  SITES                                                       │
+│  • SANS Forensics - sans.org                                │
+│  • NIST Computer Forensics - cftt.nist.gov                  │
+│  • Forensic Focus - forensicfocus.com                       │
+├──────────────────────────────────────────────────────────────┤
+│  FERRAMENTAS                                                 │
+│  • The Sleuth Kit - sleuthkit.org                           │
+│  • Volatility - volatilityfoundation.org                    │
+│  • Wireshark - wireshark.org                                │
+│  • FTK Imager - accessdata.com                              │
+├──────────────────────────────────────────────────────────────┤
+│  CURSOS                                                      │
+│  • SANS FOR500                                               │
+│  • CHFI (Computer Hacking Forensic Investigator)            │
+│  • EnCase Certified Examiner (EnCE)                         │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🏁 CONCLUSÃO                                                 │
+└──────────────────────────────────────────────────────────────┘
+
+A forense digital é uma área fascinante e em constante evolução.
+Com as técnicas e ferramentas apresentadas neste guia, você está
+pronto para começar sua jornada como investigador digital.
+
+Lembre-se sempre:
+
+    "A verdade está nos bits - basta saber onde procurar."
+
+    "Nunca desista. A evidência está lá, esperando para ser encontrada."
+
+Agora é com você. Mãos ao teclado! 🕵️

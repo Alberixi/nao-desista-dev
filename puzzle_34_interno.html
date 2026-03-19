@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Not Found | challenge.naodesista.dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!--alguns caminhos são óbvios. outros… você precisa montar. k n k ?-->
+    <!-- /hub-knk/puzzle-34-interno -->
+    <!-- 33/50 - o guerreiro descansou, mas a missão continua -->
+</head>
+<body>
+    <!-- OVERLAY DE GLITCH -->
+    <div class="glitch-overlay"></div>
+
+    <!-- SNOW EFFECT -->
+    <div class="snow"></div>
+
+    <!-- EASTER EGG CELERON -->
+    <div class="celeron-memorial">
+        <i class="fas fa-microchip"></i> Celeron D LGA775 - 33/50
+    </div>
+
+    <div class="container">
+        <div class="login-404">
+            <!-- HEADER 404 -->
+            <div class="error-header">
+                <div class="error-404">404</div>
+                <div class="error-subtitle">ACCESS DENIED</div>
+            </div>
+
+            <!-- ASCII ART (CAVEIRA) -->
+            <div class="ascii-skull">
+                <pre>
+      ______
+     /      \
+     |  () () |
+     \  ^   /
+      |||||
+      |||||
+                </pre>
+            </div>
+            <!-- \KNKSNK \Hub-knk \meu-coracao-->
+            <!-- MENSAGEM "AMIGÁVEL" -->
+            <p style="text-align: center; margin-bottom: 2rem; color: #336633;">
+                <i class="fas fa-lock"></i> Área restrita. Autenticação necessária.
+            </p>
+
+            <!-- FORMULÁRIO DE LOGIN (DISFARÇADO) -->
+            <form id="loginForm" class="login-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i> USUÁRIO:
+                    </label>
+                    <input type="text"
+                           class="form-input"
+                           id="username"
+                           placeholder="Digite seu usuário..."
+                           value="admin">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-key"></i> SENHA:
+                    </label>
+                    <input type="password"
+                           class="form-input"
+                           id="password"
+                           placeholder="********">
+                </div>
+
+                <button type="button" class="login-btn" id="loginBtn">
+                    ACESSAR SISTEMA
+                </button>
+            </form>
+
+            <!-- ÁREA DA MENSAGEM (ONDE A MÁGICA ACONTECE) -->
+            <div id="errorMessage" class="error-message">
+                <div class="message-normal">
+                    <i class="fas fa-exclamation-triangle" style="color: #ff3e3e;"></i>
+                    ERRO 404: Página não encontrada. Verifique suas credenciais.
+                </div>
+                <div class="message-hidden">
+                    <!-- A PISTA SECRETA APARECE AQUI QUANDO O GLITCH ATIVA -->
+                </div>
+            </div>
+
+            <!-- FOOTER COM HINTS SUBLIMINARES -->
+            <div class="footer-hint">
+                <i class="fas fa-circle"></i> challenge.naodesista.dev:8080
+                <i class="fas fa-circle"></i>
+                <br>
+                <span style="font-size: 0.8rem; opacity: 0.5;">
+                    "Algumas portas só abrem com as chaves certas..."
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* ===== RESET E VARIÁVEIS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0c0f;
+            --bg-darker: #050607;
+            --text-green: #00ff9d;
+            --text-red: #ff3e3e;
+            --text-gray: #66c0f0;
+            --glitch-blue: #00ffff;
+            --glitch-pink: #ff00ff;
+            --glitch-yellow: #ffff00;
+            --scanline: rgba(0, 255, 157, 0.05);
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-dark);
+            color: var(--text-green);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 1rem;
+        }
+
+        /* ===== MATRIX BACKGROUND ===== */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                rgba(0, 255, 157, 0.03) 0px,
+                rgba(0, 0, 0, 0.5) 1px,
+                transparent 2px,
+                transparent 3px);
+            pointer-events: none;
+            z-index: 0;
+            animation: scanlines 8s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* ===== SNOW EFFECT (CHUVISCO) ===== */
+        .snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image:
+                radial-gradient(circle at 10% 30%, white 1px, transparent 1px),
+                radial-gradient(circle at 90% 70%, white 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: snow 0.5s infinite;
+        }
+
+        @keyframes snow {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 20px 20px, -20px -20px; }
+        }
+
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            animation: container-pulse 4s infinite;
+        }
+
+        @keyframes container-pulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.1); }
+        }
+
+        /* ===== TELA DE LOGIN (DISFARÇADA DE 404) ===== */
+        .login-404 {
+            background: var(--bg-darker);
+            border: 3px solid var(--text-green);
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 0 50px rgba(0, 255, 157, 0.2),
+                        inset 0 0 30px rgba(0, 255, 157, 0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+        }
+
+        /* EFEITO DE TERMINAL ANTIGO */
+        .login-404::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                transparent,
+                transparent 2px,
+                var(--scanline) 3px,
+                var(--scanline) 4px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== HEADER 404 ===== */
+        .error-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .error-404 {
+            font-size: 8rem;
+            font-weight: bold;
+            color: var(--text-green);
+            text-shadow: 0 0 20px var(--text-green),
+                        0 0 40px rgba(0, 255, 157, 0.3);
+            line-height: 1;
+            animation: glitch-404 3s infinite;
+            position: relative;
+            display: inline-block;
+        }
+
+        @keyframes glitch-404 {
+            0%, 95%, 100% {
+                text-shadow: 0 0 20px var(--text-green);
+                transform: skew(0deg);
+            }
+            96% {
+                text-shadow: -5px 0 var(--glitch-pink), 5px 0 var(--glitch-blue);
+                transform: skew(5deg);
+            }
+            97% {
+                text-shadow: 5px -3px var(--glitch-blue), -5px 3px var(--glitch-pink);
+                transform: skew(-5deg);
+            }
+            98% {
+                text-shadow: -3px 5px var(--glitch-yellow), 3px -5px var(--glitch-blue);
+                transform: skew(3deg);
+            }
+            99% {
+                text-shadow: 4px -2px var(--glitch-pink), -4px 2px var(--glitch-yellow);
+                transform: skew(-3deg);
+            }
+        }
+
+        .error-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-top: 0.5rem;
+            letter-spacing: 3px;
+            animation: flicker 2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 90%, 100% { opacity: 1; }
+            92% { opacity: 0.5; }
+            94% { opacity: 0.8; }
+            96% { opacity: 0.3; }
+            98% { opacity: 0.7; }
+        }
+
+        /* ===== ASCII ART SKULL ===== */
+        .ascii-skull {
+            color: var(--text-green);
+            font-family: monospace;
+            white-space: pre;
+            font-size: 0.7rem;
+            line-height: 1.2;
+            text-align: center;
+            margin: 1.5rem 0;
+            opacity: 0.7;
+            animation: skull-flicker 5s infinite;
+        }
+
+        @keyframes skull-flicker {
+            0%, 100% { opacity: 0.7; }
+            25% { opacity: 0.9; text-shadow: 0 0 5px var(--text-green); }
+            50% { opacity: 0.5; }
+            75% { opacity: 0.8; }
+        }
+
+        /* ===== FORMULÁRIO DE LOGIN (DISFARÇADO) ===== */
+        .login-form {
+            position: relative;
+            z-index: 1;
+            margin: 2rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .form-label i {
+            margin-right: 0.5rem;
+            color: var(--text-green);
+        }
+
+        .form-input {
+            width: 100%;
+            background: #000;
+            border: 2px solid var(--text-green);
+            color: var(--text-green);
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--glitch-blue);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            animation: input-glitch 0.3s ease;
+        }
+
+        @keyframes input-glitch {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-5px); }
+            40% { transform: translateX(5px); }
+            60% { transform: translateX(-3px); }
+            80% { transform: translateX(3px); }
+            100% { transform: translateX(0); }
+        }
+
+        .form-input::placeholder {
+            color: #336633;
+            font-style: italic;
+        }
+
+        /* ===== BOTÃO DE LOGIN (DISFARÇADO DE 404) ===== */
+        .login-btn {
+            width: 100%;
+            background: transparent;
+            border: 2px solid var(--text-green);
+            color: var(--text-green);
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: ">_";
+            margin-right: 0.5rem;
+            opacity: 0.7;
+        }
+
+        .login-btn:hover {
+            background: var(--text-green);
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px var(--text-green);
+            transform: scale(1.02);
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== MENSAGEM DE ERRO (QUE NA VERDADE É A PISTA) ===== */
+        .error-message {
+            background: #1a1d24;
+            border-left: 4px solid var(--text-red);
+            padding: 1rem;
+            margin: 2rem 0 0 0;
+            font-family: monospace;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 5px 5px 0;
+            transition: all 0.5s ease;
+        }
+
+        .error-message.glitch {
+            border-left-color: var(--glitch-yellow);
+            animation: message-glitch 0.5s infinite;
+        }
+
+        @keyframes message-glitch {
+            0%, 100% {
+                transform: translateX(0);
+                filter: hue-rotate(0deg);
+            }
+            25% {
+                transform: translateX(-5px);
+                filter: hue-rotate(90deg);
+            }
+            50% {
+                transform: translateX(5px);
+                filter: hue-rotate(180deg);
+            }
+            75% {
+                transform: translateX(-3px);
+                filter: hue-rotate(270deg);
+            }
+        }
+
+        .error-message .message-hidden {
+            display: none;
+            color: #ffaa00;
+            font-weight: bold;
+            animation: hidden-text-glow 1s infinite;
+        }
+
+        .error-message.glitch .message-hidden {
+            display: block;
+        }
+
+        .error-message.glitch .message-normal {
+            display: none;
+        }
+
+        @keyframes hidden-text-glow {
+            0%, 100% { text-shadow: 0 0 5px #ffaa00; }
+            50% { text-shadow: 0 0 20px #ffaa00, 0 0 30px #ff5500; }
+        }
+
+        /* ===== FOOTER COM HINTS ===== */
+        .footer-hint {
+            margin-top: 2rem;
+            text-align: center;
+            color: #336633;
+            font-size: 0.9rem;
+            border-top: 1px dashed #336633;
+            padding-top: 1rem;
+        }
+
+        .footer-hint i {
+            margin: 0 0.3rem;
+            animation: hint-blink 2s infinite;
+        }
+
+        @keyframes hint-blink {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; color: var(--text-green); }
+        }
+
+        /* ===== GLITCH EFFECT EXTRA ===== */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255, 0, 255, 0.02) 20%,
+                transparent 40%,
+                rgba(0, 255, 255, 0.02) 60%,
+                transparent 80%);
+            animation: overlay-glitch 0.2s infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes overlay-glitch {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* ===== EASTER EGG ===== */
+        .celeron-memorial {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: #333;
+            opacity: 0.2;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .celeron-memorial:hover {
+            opacity: 1;
+            color: #ffaa00;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .error-404 { font-size: 5rem; }
+            .login-404 { padding: 1.5rem; }
+            .ascii-skull { font-size: 0.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .error-404 { font-size: 4rem; }
+            .error-subtitle { font-size: 1rem; }
+            .login-btn { font-size: 1rem; }
+        }
+    </style>
+
+    <script>
+        // =====================================================
+        // SISTEMA DE INJEÇÃO SQL COM GLITCH 404
+        // =====================================================
+
+        // FLAG E PISTAS (escondidas no código)
+        const SQLI_PAYLOAD = "' OR '1'='1' --";
+        const NEXT_CHALLENGE = "http://hub-knk.naodesista.dev/puzzle-34-interno";
+        const HIDDEN_MESSAGE = "🔓 SQL INJECTION DETECTADA! 🔓\n\n" +
+                               "Parabéns, investigador! Você encontrou a vulnerabilidade.\n" +
+                               "Sua recompensa é uma pista para o próximo desafio:\n\n" +
+                               "👉 " + NEXT_CHALLENGE + " 👈\n\n" +
+                               "O Celeron D te saúda! 🖥️\n\n" +
+                               "➡️ Você não deveria ter encontrado isso.";
+
+        // ELEMENTOS
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const messageHidden = document.querySelector('.message-hidden');
+
+        // TIMERS PARA EFEITOS
+        let glitchInterval;
+        let glitchTimeout;
+
+        // =====================================================
+        // FUNÇÃO PARA ATIVAR O GLITCH
+        // =====================================================
+        function activateGlitch() {
+            // Limpa timers anteriores
+            if (glitchInterval) clearInterval(glitchInterval);
+            if (glitchTimeout) clearTimeout(glitchTimeout);
+
+            // Adiciona a mensagem oculta
+            messageHidden.innerHTML = HIDDEN_MESSAGE.replace(/\n/g, '<br>');
+
+            // Ativa o glitch visual
+            errorMessage.classList.add('glitch');
+
+            // Faz o input tremer
+            usernameInput.style.animation = 'input-glitch 0.3s 3';
+            passwordInput.style.animation = 'input-glitch 0.3s 3';
+
+            // Muda a cor do botão
+            loginBtn.style.borderColor = '#ffaa00';
+            loginBtn.style.color = '#ffaa00';
+
+            // Efeito de "explosão" de glitch
+            let count = 0;
+            glitchInterval = setInterval(() => {
+                document.body.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+                document.querySelector('.error-404').style.transform = `skew(${Math.random() * 10}deg)`;
+
+                count++;
+                if (count > 20) {
+                    clearInterval(glitchInterval);
+                    document.body.style.filter = 'none';
+                    document.querySelector('.error-404').style.transform = 'none';
+                }
+            }, 50);
+
+            // Remove o glitch depois de 10 segundos (mas mantém a mensagem)
+            glitchTimeout = setTimeout(() => {
+                errorMessage.classList.remove('glitch');
+                loginBtn.style.borderColor = '';
+                loginBtn.style.color = '';
+            }, 10000);
+
+            // Registra no console (para os curiosos)
+            console.log('%c🔥 SQL INJECTION DETECTADA! 🔥', 'color: #ffaa00; font-size: 16px; font-weight: bold;');
+            console.log('%c👉 Próximo desafio: ' + NEXT_CHALLENGE, 'color: #00ff9d;');
+            console.log('%c🕯️ Em memória do Celeron D LGA775', 'color: #666;');
+        }
+
+        // =====================================================
+        // FUNÇÃO DE LOGIN (VERIFICA A INJEÇÃO)
+        // =====================================================
+        function attemptLogin() {
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            // COMBINAÇÃO PARA TESTAR (normal)
+            const isNormalLogin = (username === 'admin' && password === 'admin');
+
+            // VERIFICA SE É O PAYLOAD DE SQL INJECTION
+            const isSQLInjection = username.trim().toLowerCase().includes("' or '1'='1' --".toLowerCase()) ||
+                                  username.includes("' OR '1'='1' --") ||
+                                  username.includes("' or 1=1 --") ||
+                                  username.includes("' OR 1=1 --") ||
+                                  username.includes("' or '1'='1'") ||
+                                  username.includes('" or "1"="1" --');
+
+            // TAMBÉM VERIFICA NA SENHA
+            const isSQLInjectionPassword = password.includes("' or '1'='1' --") ||
+                                          password.includes("' OR '1'='1' --");
+
+            if (isSQLInjection || isSQLInjectionPassword) {
+                activateGlitch();
+                setTimeout(() => {
+                    alert('🔓 ACESSO CONCEDIDO... mas algo está errado. O sistema glitchou!');
+                }, 100);
+
+            } else if (isNormalLogin) {
+                errorMessage.classList.remove('glitch');
+                document.querySelector('.message-normal').innerHTML =
+                    '<i class="fas fa-exclamation-triangle" style="color: #ff3e3e;"></i> ' +
+                    'ERRO 404: Credenciais inválidas. Tente novamente.';
+
+                loginBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    loginBtn.style.transform = '';
+                }, 200);
+
+            } else {
+                errorMessage.classList.remove('glitch');
+                document.querySelector('.message-normal').innerHTML =
+                    '<i class="fas fa-exclamation-triangle" style="color: #ff3e3e;"></i> ' +
+                    'ERRO 404: Acesso negado. Verifique suas credenciais.';
+            }
+
+            passwordInput.value = '';
+        }
+
+        // =====================================================
+        // EVENT LISTENERS
+        // =====================================================
+        loginBtn.addEventListener('click', attemptLogin);
+
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                attemptLogin();
+            }
+        });
+
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                passwordInput.focus();
+            }
+        });
+
+        // =====================================================
+        // EASTER EGGS E MENSAGENS NO CONSOLE
+        // =====================================================
+
+        // Mensagens iniciais (com delay)
+        setTimeout(() => {
+            console.log("...");
+        }, 500);
+
+        setTimeout(() => {
+            console.log("você demorou para chegar aqui...");
+        }, 2000);
+
+        setTimeout(() => {
+            console.log("nem todos os caminhos estão visíveis.");
+        }, 4000);
+
+        setTimeout(() => {
+            console.log("knk?");
+        }, 6000);
+
+        setTimeout(() => {
+            console.log("%c➡️ para aqueles que observam...", "color: #888; font-style: italic;");
+        }, 8000);
+
+        setTimeout(() => {
+            console.log("%c⬆️ nem tudo está visível", "color: #666; font-style: italic;");
+        }, 10000);
+
+        setTimeout(() => {
+            console.log("%c🔥 você não deveria ter encontrado isso.", "color: #ff5500; font-weight: bold;");
+        }, 12000);
+
+        // ERRO 34 (agora com mais contexto)
+        console.error("Erro 34: acesso não autorizado.");
+        console.warn("verificação incompleta...");
+        console.log("...ou talvez você tenha passado.");
+
+        // Mensagem oculta no console (só aparece se inspecionar)
+        console.log("%c🕳️ /naodesistadev/puzzle-34-interno", "color: #00aa00; background: #000; padding: 2px; border: 1px solid #0f0;");
+
+        // CELERON D TRIBUTO
+        let celeronCounter = 0;
+        document.addEventListener('keydown', function(e) {
+            if (e.key.toLowerCase() === 'c') {
+                celeronCounter++;
+                if (celeronCounter >= 6) {
+                    alert('🖥️ CELERON D LGA775 VIVE! 33 PUZZLES CONQUISTADOS! 🖥️');
+                    console.log('%c' +
+                        '  ╔════════════════════════════════════╗\n' +
+                        '  ║     CELERON D LGA775 - LENDA       ║\n' +
+                        '  ║     2GB RAM - HD 320GB - CRT 14"   ║\n' +
+                        '  ║     DESCANSOU NO PUZZLE 33         ║\n' +
+                        '  ║         14/02/2026                 ║\n' +
+                        '  ║                                     ║\n' +
+                        '  ║  "não desista, mesmo que seu        ║\n' +
+                        '  ║   hardware seja limitado"          ║\n' +
+                        '  ╚════════════════════════════════════╝',
+                        'color: #ffaa00; font-size: 10px;');
+                    celeronCounter = 0;
+                }
+            } else {
+                celeronCounter = 0;
+            }
+        });
+
+        // Dicas no console
+        console.log('%c🔍 Dica: O campo de usuário é vulnerável...', 'color: #00ff9d;');
+        console.log('%c💀 Tente: \' OR \'1\'=\'1\' --', 'color: #ff3e3e;');
+
+        // Ignorar o warning de file:// (só aparece localmente)
+        console.log('%c⚠️  Ignore o warning de segurança acima (é normal abrir arquivos locais)', 'color: #666;');
+
+        // =====================================================
+        // INICIALIZAÇÃO
+        // =====================================================
+        window.onload = function() {
+            usernameInput.placeholder = "Digite usuário (ex: ' OR '1'='1' -- )";
+            console.log('%c💀 Site configurado. Boa sorte, investigador!', 'color: #00ff9d;');
+
+            // Pequeno easter egg: se clicar 5 vezes no título
+            let titleClicks = 0;
+            document.querySelector('.error-404').addEventListener('click', function() {
+                titleClicks++;
+                if (titleClicks >= 5) {
+                    alert('🕳️ /hub-knk');
+                    titleClicks = 0;
+                }
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+    <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 39: OAuth Bypass | Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .puzzle-container { background: var(--bg-secondary); border: 2px solid var(--text-primary); border-radius: 10px; padding: 2rem; margin: 2rem 0; }
+        .puzzle-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--text-secondary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        .puzzle-title { font-size: 2rem; color: var(--text-primary); }
+        .puzzle-difficulty-badge { background: #9b59b6; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; }
+        .challenge-area { background: #000; border-radius: 5px; padding: 2rem; margin: 2rem 0; text-align: center; border: 1px dashed var(--text-secondary); }
+        .hint-box { background: rgba(155, 89, 182, 0.1); border-left: 4px solid #9b59b6; padding: 1rem; margin: 2rem 0; font-style: italic; }
+        .flag-input-area { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .flag-input { flex: 1; min-width: 250px; background: var(--bg-primary); border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem; font-family: 'Courier New', monospace; border-radius: 5px; }
+        .flag-submit-btn { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 2rem; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.3s ease; }
+        .flag-submit-btn:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .tool-tag { background: var(--bg-primary); border: 1px solid #9b59b6; color: #9b59b6; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; display: inline-block; margin-right: 0.5rem; }
+        .back-button { display: inline-block; margin-bottom: 2rem; color: var(--text-primary); text-decoration: none; border: 1px solid var(--text-primary); padding: 0.5rem 1rem; border-radius: 5px; }
+        .back-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .nav-buttons { display: flex; justify-content: space-between; margin: 2rem 0; gap: 1rem; flex-wrap: wrap; }
+        .nav-button { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; transition: all 0.3s ease; display: inline-block; }
+        .nav-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .code-block { background: #000; color: #0f0; padding: 1rem; border-radius: 5px; font-family: monospace; font-size: 0.9rem; margin: 1rem 0; border: 1px solid var(--text-primary); white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header class="terminal-header">
+        <div class="terminal-title"><i class="fas fa-terminal"></i> PUZZLE 39 - OAUTH BYPASS</div>
+        <div class="terminal-status"><div class="status-item"><i class="fas fa-circle blink" style="color: #9b59b6;"></i> NÍVEL: ESPECIALISTA</div></div>
+    </header>
+
+    <main class="container">
+        <div class="nav-buttons">
+            <a href="38-jwt-tokens.html" class="nav-button"><i class="fas fa-arrow-left"></i> ANTERIOR (38)</a>
+            <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+            <a href="40-api-security.html" class="nav-button">PRÓXIMO (40) <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-header">
+                <h1 class="puzzle-title">> 39: OAUTH BYPASS</h1>
+                <span class="puzzle-difficulty-badge">ESPECIALISTA</span>
+            </div>
+            <p>Uma implementação OAuth vulnerável permite login sem validação adequada do state. Bypasse a tela de login.</p>
+            
+            <div class="challenge-area">
+                <h3><i class="fas fa-exchange-alt"></i> FLUXO OAUTH</h3>
+                <div class="code-block">
+GET /authorize?client_id=app&redirect_uri=https://cliente.com/callback&response_type=code&state=123
+                </div>
+                <p class="text-secondary">Dica: O parâmetro state não está sendo validado. Você pode usar um CSRF para logar como admin.</p>
+            </div>
+
+            <div class="hint-box">
+                <i class="fas fa-lightbulb"></i> <strong>DICA:</strong> Crie uma URL de autorização, troque o code e ignore o state.
+            </div>
+
+            <h3><i class="fas fa-tools"></i> FERRAMENTAS</h3>
+            <div class="tool-list">
+                <span class="tool-tag">Burp Suite</span>
+                <span class="tool-tag">OAuth Playground</span>
+                <span class="tool-tag">CSRF PoC</span>
+            </div>
+
+            <h3><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+            <div class="flag-input-area">
+                <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+                <button class="flag-submit-btn" id="submitFlag">VERIFICAR</button>
+            </div>
+            <div id="resultMessage"></div>
+        </div>
+    </main>
+
+    <footer class="footer"><p>NÃO DESISTA DEV - Puzzle 39 | Nível Especialista</p></footer>
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        document.getElementById('submitFlag').addEventListener('click', function() {
+            const flag = document.getElementById('flagInput').value.trim();
+            const result = document.getElementById('resultMessage');
+            if (flag === 'flag{oauth_state_bypass}') {
+                result.innerHTML = '<span style="color:#0f0;">✓ FLAG CORRETA! OAuth bypassado!</span>';
+                if (typeof marcarPuzzleResolvido === 'function') marcarPuzzleResolvido(39);
+            } else {
+                result.innerHTML = '<span style="color:#f00;">✗ FLAG INCORRETA. Ignore o state.</span>';
+            }
+        });
+    </script>
+</body>
+</html>
+

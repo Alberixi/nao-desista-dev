@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  forensics-lab:
+    build: .
+    container_name: forensics-linux
+    ports:
+      - "2222:22"
+    volumes:
+      - ./scripts:/scripts
+      - ../../assets:/assets
+    stdin_open: true
+    tty: true
+    privileged: true
+    restart: unless-stopped

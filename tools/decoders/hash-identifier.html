@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hash Identifier | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      font-family: monospace;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    .hash-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .hash-table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #333;
+      color: #0f0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / decoders / hash-id</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> HASH IDENTIFIER</h1>
+      </div>
+
+      <div class="tool-area">
+        <h3>Identificar tipo de hash</h3>
+        <input type="text" id="hashInput" placeholder="Cole o hash aqui...">
+        <button onclick="identifyHash()">IDENTIFICAR</button>
+        <div id="hashResult" class="result-box"></div>
+
+        <table class="hash-table">
+          <tr>
+            <th>Comprimento</th>
+            <th>Possíveis algoritmos</th>
+          </tr>
+          <tr>
+            <td>32 caracteres</td>
+            <td>MD5, NTLM</td>
+          </tr>
+          <tr>
+            <td>40 caracteres</td>
+            <td>SHA1, RIPEMD-160</td>
+          </tr>
+          <tr>
+            <td>56 caracteres</td>
+            <td>SHA224, SHA3-224</td>
+          </tr>
+          <tr>
+            <td>64 caracteres</td>
+            <td>SHA256, SHA3-256</td>
+          </tr>
+          <tr>
+            <td>96 caracteres</td>
+            <td>SHA384, SHA3-384</td>
+          </tr>
+          <tr>
+            <td>128 caracteres</td>
+            <td>SHA512, SHA3-512</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Ferramenta Hash Identifier</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function identifyHash() {
+      const hash = document.getElementById('hashInput').value.replace(/\s/g, '');
+      const length = hash.length;
+      let result = '';
+
+      if (!hash.match(/^[0-9a-fA-F]+$/)) {
+        result = '❌ Não parece um hash hexadecimal válido';
+      } else {
+        result = `📊 Comprimento: ${length} caracteres<br>`;
+
+        switch (length) {
+          case 32:
+            result += '🔍 Possível: MD5, NTLM, LM, MD4';
+            break;
+          case 40:
+            result += '🔍 Possível: SHA1, RIPEMD-160';
+            break;
+          case 56:
+            result += '🔍 Possível: SHA224, SHA3-224';
+            break;
+          case 64:
+            result += '🔍 Possível: SHA256, SHA3-256';
+            break;
+          case 96:
+            result += '🔍 Possível: SHA384, SHA3-384';
+            break;
+          case 128:
+            result += '🔍 Possível: SHA512, SHA3-512';
+            break;
+          default:
+            result += '❓ Comprimento não corresponde a hashes comuns';
+        }
+      }
+
+      document.getElementById('hashResult').innerHTML = result;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+Imagem do gato com segredo escondido via steghide.
+Comando: steghide extract -sf gato.jpg
+Senha: (em branco)
+Arquivo extraído: coordenadas.txt contendo: "-23.5505, -46.6333"

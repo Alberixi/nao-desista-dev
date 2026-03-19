@@ -1,0 +1,45 @@
+Simulação de handshake TCP completo
+
+Frame 1: 192.168.1.100:54321 → 93.184.216.34:80 [SYN]
+  • Sequence Number: 1000
+  • Window: 65535
+  • Flags: SYN
+  • Options: MSS 1460, SACK permitted
+
+Frame 2: 93.184.216.34:80 → 192.168.1.100:54321 [SYN, ACK]
+  • Sequence Number: 2000
+  • Acknowledgment Number: 1001
+  • Window: 8192
+  • Flags: SYN, ACK
+  • Options: MSS 1460
+
+Frame 3: 192.168.1.100:54321 → 93.184.216.34:80 [ACK]
+  • Sequence Number: 1001
+  • Acknowledgment Number: 2001
+  • Flags: ACK
+
+Frame 4: 192.168.1.100:54321 → 93.184.216.34:80 [PSH, ACK]
+  • Sequence Number: 1001
+  • Acknowledgment Number: 2001
+  • Flags: PSH, ACK
+  • Data: "GET / HTTP/1.1\r\nHost: example.com\r\n\r\n"
+
+Frame 5: 93.184.216.34:80 → 192.168.1.100:54321 [ACK]
+  • Sequence Number: 2001
+  • Acknowledgment Number: 1001 + len(data)
+  • Flags: ACK
+
+Frame 6: 93.184.216.34:80 → 192.168.1.100:54321 [PSH, ACK]
+  • Data: HTTP/1.1 200 OK\r\n...
+
+Frame 7: 192.168.1.100:54321 → 93.184.216.34:80 [FIN, ACK]
+  • Flags: FIN, ACK
+
+Frame 8: 93.184.216.34:80 → 192.168.1.100:54321 [ACK]
+  • Flags: ACK
+
+Frame 9: 93.184.216.34:80 → 192.168.1.100:54321 [FIN, ACK]
+  • Flags: FIN, ACK
+
+Frame 10: 192.168.1.100:54321 → 93.184.216.34:80 [ACK]
+  • Flags: ACK

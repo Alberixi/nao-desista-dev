@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROT13 Tool | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    textarea {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      font-family: monospace;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / decoders / rot13</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> ROT13 TOOL</h1>
+        <p>ROT13 é uma cifra de substituição que desloca cada letra em 13 posições. Aplicar ROT13 duas vezes retorna ao
+          texto original.</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Aplicar ROT13</h3>
+        <textarea id="rot13Input" rows="4" placeholder="Digite o texto..."></textarea>
+        <button onclick="rot13()">APLICAR ROT13</button>
+        <div id="rot13Result" class="result-box"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Ferramenta ROT13</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function rot13() {
+      const input = document.getElementById('rot13Input').value;
+      const output = input.replace(/[a-zA-Z]/g, function (c) {
+        return String.fromCharCode(c.charCodeAt(0) + (c.toLowerCase() < 'n' ? 13 : -13));
+      });
+      document.getElementById('rot13Result').innerHTML = output;
+    }
+  </script>
+</body>
+
+</html>

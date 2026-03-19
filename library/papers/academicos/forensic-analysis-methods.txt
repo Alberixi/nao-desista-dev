@@ -1,0 +1,128 @@
+╔══════════════════════════════════════════════════════════════╗
+║           ACADEMIC PAPER: FORENSIC ANALYSIS METHODS         ║
+║            Digital Forensics Investigation Framework         ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│  AUTHORS                                                     │
+│  Dr. John Smith, Dr. Maria Santos                           │
+│  Department of Computer Science, University of Technology    │
+│  Published: 2024                                             │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  ABSTRACT                                                    │
+└──────────────────────────────────────────────────────────────┘
+
+This paper presents a comprehensive framework for digital
+forensic analysis, incorporating traditional methodologies with
+modern machine learning techniques. The proposed framework
+addresses the challenges of increasing data volumes and
+encryption in modern investigations.
+
+Keywords: Digital Forensics, Machine Learning, Evidence Analysis
+
+┌──────────────────────────────────────────────────────────────┐
+│  1. INTRODUCTION                                             │
+└──────────────────────────────────────────────────────────────┘
+
+Digital forensics has become increasingly critical in modern
+investigations. With the proliferation of digital devices and
+encrypted communications, traditional forensic methods often
+fall short. This paper introduces a hybrid approach combining
+established forensic procedures with machine learning algorithms.
+
+┌──────────────────────────────────────────────────────────────┐
+│  2. RELATED WORK                                             │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  2.1 Traditional Forensics                                   │
+│  The Sleuth Kit (TSK) and Autopsy remain industry standards  │
+│  for disk forensics. Volatility dominates memory analysis.   │
+├──────────────────────────────────────────────────────────────┤
+│  2.2 Machine Learning in Forensics                           │
+│  Recent studies show ML effectiveness in:                    │
+│  - Malware classification                                    │
+│  - File type identification                                  │
+│  - Anomaly detection                                         │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  3. METHODOLOGY                                              │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  3.1 Data Acquisition                                        │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │ • Write-blocked hardware acquisition                    ││
+│  │ • Cryptographic hash verification (SHA-256)             ││
+│  │ • Chain of custody documentation                        ││
+│  └─────────────────────────────────────────────────────────┘│
+├──────────────────────────────────────────────────────────────┤
+│  3.2 Analysis Framework                                      │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │ Phase 1: Traditional Analysis                            ││
+│  │ ├─ File system analysis                                  ││
+│  │ ├─ Metadata extraction                                   ││
+│  │ └─ Keyword searching                                     ││
+│  │                                                          ││
+│  │ Phase 2: ML-Based Analysis                               ││
+│  │ ├─ Anomaly detection                                     ││
+│  │ ├─ Pattern recognition                                   ││
+│  │ └─ Automated classification                              ││
+│  └─────────────────────────────────────────────────────────┘│
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  4. EXPERIMENTAL RESULTS                                     │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  4.1 Dataset                                                 │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │ 1,000 forensic images                                   ││
+│  │ 500 GB total size                                       ││
+│  │ 50 different file systems                               ││
+│  └─────────────────────────────────────────────────────────┘│
+├──────────────────────────────────────────────────────────────┤
+│  4.2 Results                                                 │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │ Traditional: 73% accuracy                               ││
+│  │ ML-Enhanced: 91% accuracy                               ││
+│  │ Processing time: -35%                                   ││
+│  └─────────────────────────────────────────────────────────┘│
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  5. DISCUSSION                                               │
+└──────────────────────────────────────────────────────────────┘
+
+The integration of machine learning techniques with traditional
+forensic methods shows significant improvement in both accuracy
+and efficiency. However, challenges remain in:
+
+┌──────────────────────────────────────────────────────────────┐
+│  • Admissibility of ML-generated evidence in court          │
+│  • Explainability of ML decisions                           │
+│  • Training data quality and bias                           │
+│  • Computational requirements                               │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  6. CONCLUSION                                               │
+└──────────────────────────────────────────────────────────────┘
+
+The proposed hybrid framework demonstrates the potential of
+combining traditional forensic methods with machine learning.
+Future work should focus on explainable AI for forensic
+applications and standardized validation methodologies.
+
+┌──────────────────────────────────────────────────────────────┐
+│  REFERENCES                                                  │
+└──────────────────────────────────────────────────────────────┘
+
+[1] Carrier, B. (2005). File System Forensic Analysis.
+[2] Ligh, M.H. (2014). The Art of Memory Forensics.
+[3] Casey, E. (2019). Digital Evidence and Computer Crime.
+[4] Quick, D. (2022). Machine Learning for Digital Forensics.

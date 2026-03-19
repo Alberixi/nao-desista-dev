@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+    <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 34: Web Vulnerabilities | Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .puzzle-container { background: var(--bg-secondary); border: 2px solid var(--text-primary); border-radius: 10px; padding: 2rem; margin: 2rem 0; }
+        .puzzle-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--text-secondary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        .puzzle-title { font-size: 2rem; color: var(--text-primary); }
+        .puzzle-difficulty-badge { background: #9b59b6; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; }
+        .challenge-area { background: #000; border-radius: 5px; padding: 2rem; margin: 2rem 0; text-align: center; border: 1px dashed var(--text-secondary); }
+        .hint-box { background: rgba(155, 89, 182, 0.1); border-left: 4px solid #9b59b6; padding: 1rem; margin: 2rem 0; font-style: italic; }
+        .flag-input-area { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .flag-input { flex: 1; min-width: 250px; background: var(--bg-primary); border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem; font-family: 'Courier New', monospace; border-radius: 5px; }
+        .flag-submit-btn { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 2rem; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.3s ease; }
+        .flag-submit-btn:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .tool-tag { background: var(--bg-primary); border: 1px solid #9b59b6; color: #9b59b6; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; display: inline-block; margin-right: 0.5rem; }
+        .back-button { display: inline-block; margin-bottom: 2rem; color: var(--text-primary); text-decoration: none; border: 1px solid var(--text-primary); padding: 0.5rem 1rem; border-radius: 5px; }
+        .back-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .nav-buttons { display: flex; justify-content: space-between; margin: 2rem 0; gap: 1rem; flex-wrap: wrap; }
+        .nav-button { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; transition: all 0.3s ease; display: inline-block; }
+        .nav-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header class="terminal-header">
+        <div class="terminal-title"><i class="fas fa-terminal"></i> PUZZLE 34 - WEB VULNERABILITIES</div>
+        <div class="terminal-status"><div class="status-item"><i class="fas fa-circle blink" style="color: #9b59b6;"></i> NÍVEL: ESPECIALISTA</div></div>
+    </header>
+
+    <main class="container">
+        <div class="nav-buttons">
+            <a href="33-binary-exploitation.html" class="nav-button"><i class="fas fa-arrow-left"></i> ANTERIOR (33)</a>
+            <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+            <a href="35-sql-injection-lab.html" class="nav-button">PRÓXIMO (35) <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-header">
+                <h1 class="puzzle-title">> 34: WEB VULNERABILITIES</h1>
+                <span class="puzzle-difficulty-badge">ESPECIALISTA</span>
+            </div>
+            <p>Um site vulnerável foi encontrado. A página de login tem uma falha que permite bypass. Descubra a flag.</p>
+            
+            <div class="challenge-area">
+                <h3><i class="fas fa-globe"></i> SITE ALVO</h3>
+                <p><a href="http://challenge.naodesista.dev:8080" target="_blank" class="puzzle-link">http://challenge.naodesista.dev:8080</a></p>
+                <p class="text-secondary">Dica: O campo de usuário é vulnerável a injeção de SQL. Tente ' OR '1'='1' --</p>
+            </div>
+
+            <div class="hint-box">
+                <i class="fas fa-lightbulb"></i> <strong>DICA ESPECIALISTA:</strong> A flag está na tabela 'users', coluna 'flag'.
+            </div>
+
+            <h3><i class="fas fa-tools"></i> FERRAMENTAS</h3>
+            <div class="tool-list">
+                <span class="tool-tag">Burp Suite</span>
+                <span class="tool-tag">SQLMap</span>
+                <span class="tool-tag">curl</span>
+                <span class="tool-tag">OWASP ZAP</span>
+            </div>
+
+            <h3><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+            <div class="flag-input-area">
+                <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+                <button class="flag-submit-btn" id="submitFlag">VERIFICAR</button>
+            </div>
+            <div id="resultMessage"></div>
+        </div>
+    </main>
+
+    <footer class="footer"><p>NÃO DESISTA DEV - Puzzle 34 | Nível Especialista</p></footer>
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        document.getElementById('submitFlag').addEventListener('click', function() {
+            const flag = document.getElementById('flagInput').value.trim();
+            const result = document.getElementById('resultMessage');
+            if (flag === 'flag{login_bypass_sqli}') {
+                result.innerHTML = '<span style="color:#0f0;">✓ FLAG CORRETA! SQL Injection bem-sucedida!</span>';
+                if (typeof marcarPuzzleResolvido === 'function') marcarPuzzleResolvido(34);
+            } else {
+                result.innerHTML = '<span style="color:#f00;">✗ FLAG INCORRETA. Tente outra injeção.</span>';
+            }
+        });
+    </script>
+</body>
+</html>
+

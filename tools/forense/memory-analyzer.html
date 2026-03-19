@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Analyzer | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input[type="file"] {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    select,
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    select {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .process {
+      border-bottom: 1px solid #333;
+      padding: 0.5rem;
+      display: grid;
+      grid-template-columns: 80px 150px 1fr;
+    }
+
+    .process:hover {
+      background: #1a1d24;
+    }
+
+    .pid {
+      color: #ffaa00;
+    }
+
+    .name {
+      color: #0f0;
+    }
+
+    .cmdline {
+      color: #66c0f0;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / forense / memory-analyzer</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> MEMORY ANALYZER</h1>
+        <p>Análise de dumps de memória RAM com Volatility (simulado)</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Carregar dump de memória</h3>
+        <input type="file" id="memDump" accept=".raw,.mem,.dmp">
+
+        <h3>Selecionar perfil</h3>
+        <select id="profileSelect">
+          <option value="Win10x64">Windows 10 x64</option>
+          <option value="Win7SP1x64">Windows 7 SP1 x64</option>
+          <option value="WinXPSP2x86">Windows XP SP2 x86</option>
+          <option value="LinuxUbuntu2004x64">Linux Ubuntu 20.04 x64</option>
+        </select>
+
+        <button onclick="analyzeMemory()">ANALISAR</button>
+
+        <div id="memInfo" class="result-box"></div>
+
+        <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button onclick="runPlugin('pslist')">📋 pslist</button>
+          <button onclick="runPlugin('psscan')">🔍 psscan</button>
+          <button onclick="runPlugin('netscan')">🌐 netscan</button>
+          <button onclick="runPlugin('cmdline')">💻 cmdline</button>
+          <button onclick="runPlugin('malfind')">🦠 malfind</button>
+        </div>
+
+        <div id="pluginResult" class="result-box" style="margin-top: 1rem;"></div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Comandos Volatility reais</h3>
+          <div class="result-box">
+            <p><strong>volatility -f memory.raw imageinfo</strong> - Identificar perfil</p>
+            <p><strong>volatility -f memory.raw --profile=Win10x64 pslist</strong> - Listar processos</p>
+            <p><strong>volatility -f memory.raw --profile=Win10x64 cmdline</strong> - Linhas de comando</p>
+            <p><strong>volatility -f memory.raw --profile=Win10x64 netscan</strong> - Conexões de rede</p>
+            <p><strong>volatility -f memory.raw --profile=Win10x64 dumpfiles -Q 0x... -D ./</strong> - Extrair arquivos
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Memory Analyzer</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    let currentDump = null;
+
+    function analyzeMemory() {
+      const fileInput = document.getElementById('memDump');
+      const file = fileInput.files[0];
+      const profile = document.getElementById('profileSelect').value;
+
+      if (!file) {
+        document.getElementById('memInfo').innerHTML = '❌ Selecione um dump de memória';
+        return;
+      }
+
+      currentDump = {
+        name: file.name,
+        size: file.size,
+        profile: profile
+      };
+
+      const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+
+      document.getElementById('memInfo').innerHTML = `
+                <strong>📊 Informações do dump:</strong><br>
+                Arquivo: ${file.name}<br>
+                Tamanho: ${sizeInMB} MB<br>
+                Perfil detectado: ${profile}<br>
+                <span class="text-secondary">Dica: Use os plugins abaixo para análise</span>
+            `;
+    }
+
+    function runPlugin(plugin) {
+      if (!currentDump) {
+        document.getElementById('pluginResult').innerHTML = '❌ Carregue um dump primeiro';
+        return;
+      }
+
+      let result = '';
+
+      switch (plugin) {
+        case 'pslist':
+          result = `
+                        <strong>📋 Processos ativos (pslist):</strong><br>
+                        <div class="process"><span class="pid">PID</span><span class="name">Name</span><span class="cmdline">PPID</span></div>
+                        <div class="process"><span class="pid">4</span><span class="name">System</span><span class="cmdline">0</span></div>
+                        <div class="process"><span class="pid">308</span><span class="name">smss.exe</span><span class="cmdline">4</span></div>
+                        <div class="process"><span class="pid">420</span><span class="name">csrss.exe</span><span class="cmdline">308</span></div>
+                        <div class="process"><span class="pid">504</span><span class="name">wininit.exe</span><span class="cmdline">308</span></div>
+                        <div class="process"><span class="pid">512</span><span class="name">csrss.exe</span><span class="cmdline">504</span></div>
+                        <div class="process"><span class="pid">588</span><span class="name">services.exe</span><span class="cmdline">504</span></div>
+                        <div class="process"><span class="pid">632</span><span class="name">lsass.exe</span><span class="cmdline">504</span></div>
+                        <div class="process" style="background: #330000;"><span class="pid">1337</span><span class="name" style="color: #f00;">malware.exe</span><span class="cmdline">588</span></div>
+                        <div class="process"><span class="pid">1420</span><span class="name">svchost.exe</span><span class="cmdline">588</span></div>
+                    `;
+          break;
+
+        case 'psscan':
+          result = `
+                        <strong>🔍 Processos escaneados (incluindo ocultos):</strong><br>
+                        <div class="process"><span class="pid">PID</span><span class="name">Name</span><span class="cmdline">Offset</span></div>
+                        <div class="process"><span class="pid">4</span><span class="name">System</span><span class="cmdline">0x8a004020</span></div>
+                        <div class="process"><span class="pid">1337</span><span class="name">malware.exe</span><span class="cmdline">0x8a123456</span></div>
+                        <div class="process" style="color: #f00;"><span class="pid">9999</span><span class="name">hidden.exe</span><span class="cmdline">0x8a789abc</span></div>
+                    `;
+          break;
+
+        case 'netscan':
+          result = `
+                        <strong>🌐 Conexões de rede:</strong><br>
+                        <div class="process"><span class="pid">PID</span><span class="name">Local</span><span class="cmdline">Remote</span></div>
+                        <div class="process"><span class="pid">4</span><span class="name">0.0.0.0:445</span><span class="cmdline">-</span></div>
+                        <div class="process"><span class="pid">632</span><span class="name">192.168.1.100:12345</span><span class="cmdline">185.165.29.101:4444</span></div>
+                        <div class="process"><span class="pid">1337</span><span class="name">192.168.1.100:49158</span><span class="cmdline">45.155.205.233:6667</span></div>
+                    `;
+          break;
+
+        case 'cmdline':
+          result = `
+                        <strong>💻 Linhas de comando:</strong><br>
+                        <div class="process"><span class="pid">504</span><span class="name">wininit.exe</span></div>
+                        <div class="process"><span class="pid">588</span><span class="name">C:\Windows\system32\services.exe</span></div>
+                        <div class="process"><span class="pid">1337</span><span class="name" style="color: #f00;">C:\Users\Public\malware.exe -c 185.165.29.101 -p 4444</span></div>
+                    `;
+          break;
+
+        case 'malfind':
+          result = `
+                        <strong>🦠 Possível código malicioso encontrado:</strong><br>
+                        <div class="process">Process: malware.exe (PID: 1337)</div>
+                        <div class="process">Endereço: 0x7f450000</div>
+                        <div class="process">Proteção: PAGE_EXECUTE_READWRITE</div>
+                        <div class="process">Hex dump:</div>
+                        <div class="process" style="font-family: monospace;">31 c0 50 68 2f 2f 73 68 68 2f 62 69 6e 89 e3 50 53 89 e1 99 b0 0b cd 80</div>
+                    `;
+          break;
+      }
+
+      document.getElementById('pluginResult').innerHTML = result;
+    }
+  </script>
+</body>
+
+</html>

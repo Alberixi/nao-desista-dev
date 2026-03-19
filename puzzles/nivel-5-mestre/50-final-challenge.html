@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+    <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 50: Final Challenge | Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .puzzle-container { background: var(--bg-secondary); border: 2px solid var(--text-primary); border-radius: 10px; padding: 2rem; margin: 2rem 0; }
+        .puzzle-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--text-secondary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        .puzzle-title { font-size: 2rem; color: var(--text-primary); }
+        .puzzle-difficulty-badge { background: #e74c3c; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; }
+        .challenge-area { background: #000; border-radius: 5px; padding: 2rem; margin: 2rem 0; text-align: center; border: 1px dashed var(--text-secondary); }
+        .hint-box { background: rgba(231, 76, 60, 0.1); border-left: 4px solid #e74c3c; padding: 1rem; margin: 2rem 0; font-style: italic; }
+        .flag-input-area { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .flag-input { flex: 1; min-width: 250px; background: var(--bg-primary); border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem; font-family: 'Courier New', monospace; border-radius: 5px; }
+        .flag-submit-btn { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 2rem; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.3s ease; }
+        .flag-submit-btn:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .tool-tag { background: var(--bg-primary); border: 1px solid #e74c3c; color: #e74c3c; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; display: inline-block; margin-right: 0.5rem; }
+        .back-button { display: inline-block; margin-bottom: 2rem; color: var(--text-primary); text-decoration: none; border: 1px solid var(--text-primary); padding: 0.5rem 1rem; border-radius: 5px; }
+        .back-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .nav-buttons { display: flex; justify-content: space-between; margin: 2rem 0; gap: 1rem; flex-wrap: wrap; }
+        .nav-button { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; transition: all 0.3s ease; display: inline-block; }
+        .nav-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .nav-disabled { opacity: 0.5; pointer-events: none; border-color: #666; color: #666; }
+        .code-block { background: #000; color: #0f0; padding: 1rem; border-radius: 5px; font-family: monospace; font-size: 0.9rem; margin: 1rem 0; border: 1px solid var(--text-primary); white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header class="terminal-header">
+        <div class="terminal-title"><i class="fas fa-terminal"></i> PUZZLE 50 - FINAL CHALLENGE</div>
+        <div class="terminal-status"><div class="status-item"><i class="fas fa-circle blink" style="color: #e74c3c;"></i> NÍVEL: MESTRE</div></div>
+    </header>
+
+    <main class="container">
+        <div class="nav-buttons">
+            <a href="49-quantum-crypto.html" class="nav-button"><i class="fas fa-arrow-left"></i> ANTERIOR (49)</a>
+            <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+            <a href="#" class="nav-button nav-disabled">FINAL</a>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-header">
+                <h1 class="puzzle-title">> 50: FINAL CHALLENGE</h1>
+                <span class="puzzle-difficulty-badge">MESTRE</span>
+            </div>
+            <p>Parabéns por chegar até aqui, agente! Este desafio final combina todas as técnicas aprendidas. A flag está escondida em múltiplas camadas.</p>
+            
+            <div class="challenge-area">
+                <h3><i class="fas fa-crown"></i> DESAFIO FINAL</h3>
+                <p><strong>Camada 1:</strong> Decodifique o Base64</p>
+                <div class="code-block" id="layer1">Vm0wd2QyUXlVWGxV</div>
+                <button onclick="decodificarLayer1()" class="puzzle-link">DECODIFICAR CAMADA 1</button>
+                <div id="resultLayer1" style="margin-top:0.5rem; color:#0f0;"></div>
+                
+                <p><strong>Camada 2:</strong> Aplique ROT13 no resultado</p>
+                <button onclick="decodificarLayer2()" class="puzzle-link">APLICAR ROT13</button>
+                <div id="resultLayer2" style="margin-top:0.5rem; color:#0f0;"></div>
+                
+                <p><strong>Camada 3:</strong> A imagem final.png contém a flag em esteganografia</p>
+                <a href="../../assets/images/challenges/final.png" download class="puzzle-link">📥 BAIXAR final.png</a>
+                
+                <button onclick="revelarPista()" class="puzzle-link">🔍 PISTA FINAL</button>
+                <div id="finalHint" style="display:none; margin-top:1rem; background:#111; padding:1rem; border-radius:5px; color:#ffaa00;">
+                    <p>✨ A jornada foi longa, mas você chegou. A flag final é: <strong>flag{mestre_dos_investigadores}</strong></p>
+                    <p>🧪 Base64 decodificado: "use_steghide_na_imagem"</p>
+                    <p>🔄 ROT13: "hfr_fgrutuvqr_an_vzntrz" (mas esse não é o caminho)</p>
+                </div>
+            </div>
+
+            <div class="hint-box">
+                <i class="fas fa-lightbulb"></i> <strong>MENSAGEM DO MESTRE:</strong> "Nunca desista. A verdade está sempre lá, esperando para ser encontrada."
+            </div>
+
+            <h3><i class="fas fa-tools"></i> FERRAMENTAS</h3>
+            <div class="tool-list">
+                <span class="tool-tag">steghide</span>
+                <span class="tool-tag">base64</span>
+                <span class="tool-tag">rot13</span>
+                <span class="tool-tag">persistência</span>
+            </div>
+
+            <h3><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+            <div class="flag-input-area">
+                <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+                <button class="flag-submit-btn" id="submitFlag">VERIFICAR</button>
+            </div>
+            <div id="resultMessage" style="margin-top:1rem; font-weight:bold;"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>NÃO DESISTA DEV - Puzzle 50 | O Desafio Final</p>
+        <p style="color:#0f0;">🏆 Complete os 50 puzzles para se tornar um mestre!</p>
+    </footer>
+    
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        function decodificarLayer1() {
+            const encoded = "Vm0wd2QyUXlVWGxV";
+            try {
+                const decoded = atob(encoded);
+                document.getElementById('resultLayer1').innerHTML = '✅ Resultado: ' + decoded;
+                document.getElementById('layer1').innerHTML = encoded + ' → ' + decoded;
+            } catch {
+                document.getElementById('resultLayer1').innerHTML = '❌ Erro ao decodificar';
+            }
+        }
+        
+        function decodificarLayer2() {
+            const layer1 = document.getElementById('resultLayer1').innerHTML;
+            if (!layer1.includes('Resultado:')) {
+                document.getElementById('resultLayer2').innerHTML = '❌ Decodifique a camada 1 primeiro';
+                return;
+            }
+            
+            const text = layer1.replace('✅ Resultado: ', '');
+            const rot13 = text.replace(/[a-zA-Z]/g, function(c) {
+                return String.fromCharCode(c.charCodeAt(0) + (c.toLowerCase() < 'n' ? 13 : -13));
+            });
+            
+            document.getElementById('resultLayer2').innerHTML = '✅ ROT13: ' + rot13;
+        }
+        
+        function revelarPista() {
+            document.getElementById('finalHint').style.display = 'block';
+        }
+        
+        document.getElementById('submitFlag').addEventListener('click', function() {
+            const flag = document.getElementById('flagInput').value.trim();
+            const result = document.getElementById('resultMessage');
+            
+            // Flag correta (case-sensitive)
+            const CORRECT_FLAG = "flag{mestre_dos_investigadores}";
+            
+            if (flag === CORRECT_FLAG) {
+                result.innerHTML = '<span style="color:#0f0; font-size:1.5rem;">🏆 PARABÉNS, MESTRE! VOCÊ COMPLETOU TODOS OS 50 DESAFIOS! 🏆</span>';
+                
+                // Marcar como resolvido
+                if (typeof marcarPuzzleResolvido === 'function') {
+                    marcarPuzzleResolvido(50);
+                }
+                
+                // Efeito especial de conclusão
+                mostrarCelebracao();
+            } else {
+                result.innerHTML = '<span style="color:#f00; font-size:1.2rem;">✗ FLAG INCORRETA. Combine todas as camadas ou use a pista.</span>';
+            }
+        });
+        
+        function mostrarCelebracao() {
+            // Confetti no console
+            console.log('%c🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆', 'color: gold; font-size: 20px; font-weight: bold');
+            console.log('%c🏆 PARABÉNS MESTRE! 50 PUZZLES COMPLETOS! 🏆', 'color: #0f0; font-size: 24px; font-weight: bold');
+            console.log('%c🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆', 'color: gold; font-size: 20px; font-weight: bold');
+            
+            // Alert de celebração
+            setTimeout(() => {
+                alert('🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆\n\nPARABÉNS, MESTRE!\n\nVocê completou todos os 50 puzzles!\n\nNunca desista!\n\n🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆');
+            }, 100);
+        }
+    </script>
+</body>
+</html>
+

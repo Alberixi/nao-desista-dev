@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+    <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 23: Reversing Simples | Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .puzzle-container { background: var(--bg-secondary); border: 2px solid var(--text-primary); border-radius: 10px; padding: 2rem; margin: 2rem 0; }
+        .puzzle-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--text-secondary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        .puzzle-title { font-size: 2rem; color: var(--text-primary); }
+        .puzzle-difficulty-badge { background: #ff3e3e; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; }
+        .challenge-area { background: #000; border-radius: 5px; padding: 2rem; margin: 2rem 0; text-align: center; border: 1px dashed var(--text-secondary); }
+        .hint-box { background: rgba(255, 62, 62, 0.1); border-left: 4px solid var(--accent); padding: 1rem; margin: 2rem 0; font-style: italic; }
+        .flag-input-area { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .flag-input { flex: 1; min-width: 250px; background: var(--bg-primary); border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem; font-family: 'Courier New', monospace; border-radius: 5px; }
+        .flag-submit-btn { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 2rem; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.3s ease; }
+        .flag-submit-btn:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .tool-tag { background: var(--bg-primary); border: 1px solid var(--accent); color: var(--accent); padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; display: inline-block; margin-right: 0.5rem; }
+        .back-button { display: inline-block; margin-bottom: 2rem; color: var(--text-primary); text-decoration: none; border: 1px solid var(--text-primary); padding: 0.5rem 1rem; border-radius: 5px; }
+        .back-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .nav-buttons { display: flex; justify-content: space-between; margin: 2rem 0; gap: 1rem; flex-wrap: wrap; }
+        .nav-button { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; transition: all 0.3s ease; display: inline-block; }
+        .nav-button:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .code-block { background: #000; color: #0f0; padding: 1rem; border-radius: 5px; font-family: monospace; font-size: 0.9rem; margin: 1rem 0; border: 1px solid var(--text-primary); white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header class="terminal-header">
+        <div class="terminal-title"><i class="fas fa-terminal"></i> PUZZLE 23 - REVERSING SIMPLES</div>
+        <div class="terminal-status"><div class="status-item"><i class="fas fa-circle blink" style="color: #ff3e3e;"></i> NÍVEL: AVANÇADO</div></div>
+    </header>
+
+    <main class="container">
+        <div class="nav-buttons">
+            <a href="22-forense-memoria.html" class="nav-button"><i class="fas fa-arrow-left"></i> ANTERIOR (22)</a>
+            <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+            <a href="24-network-forensics.html" class="nav-button">PRÓXIMO (24) <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-header">
+                <h1 class="puzzle-title">> 23: REVERSING SIMPLES</h1>
+                <span class="puzzle-difficulty-badge">AVANÇADO</span>
+            </div>
+            <p>Um binário simples foi encontrado. Ele pede uma senha. Faça engenharia reversa para descobrir a senha correta.</p>
+            
+            <div class="challenge-area">
+                <h3><i class="fas fa-download"></i> BINÁRIO</h3>
+                <a href="../../assets/files/executaveis/desafio.exe" download class="puzzle-link">desafio.exe (Windows)</a>
+                <p class="text-secondary">Dica: Use strings, ltrace, strace ou um debugger como GDB ou x64dbg.</p>
+                
+                <div class="code-block">
+; Código assembly relevante:
+; cmp eax, 0x12345678
+; je 0x401234 ; senha correta
+                </div>
+            </div>
+
+            <div class="hint-box">
+                <i class="fas fa-lightbulb"></i> <strong>DICA:</strong> O binário compara a entrada com um valor hexadecimal. Descubra qual é.
+            </div>
+
+            <h3><i class="fas fa-tools"></i> FERRAMENTAS</h3>
+            <div class="tool-list">
+                <span class="tool-tag">Ghidra</span>
+                <span class="tool-tag">IDA Pro</span>
+                <span class="tool-tag">GDB</span>
+                <span class="tool-tag">x64dbg</span>
+                <span class="tool-tag">strings</span>
+            </div>
+
+            <h3><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+            <div class="flag-input-area">
+                <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+                <button class="flag-submit-btn" id="submitFlag">VERIFICAR</button>
+            </div>
+            <div id="resultMessage"></div>
+        </div>
+    </main>
+
+    <footer class="footer"><p>NÃO DESISTA DEV - Puzzle 23 | Nível Avançado</p></footer>
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        document.getElementById('submitFlag').addEventListener('click', function() {
+            const flag = document.getElementById('flagInput').value.trim();
+            const result = document.getElementById('resultMessage');
+            if (flag === 'flag{reversing_simples_123}') {
+                result.innerHTML = '<span style="color:#0f0;">✓ FLAG CORRETA! Engenharia reversa concluída!</span>';
+                if (typeof marcarPuzzleResolvido === 'function') marcarPuzzleResolvido(23);
+            } else {
+                result.innerHTML = '<span style="color:#f00;">✗ FLAG INCORRETA. Analise o binário.</span>';
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

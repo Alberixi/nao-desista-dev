@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+    <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 08: Código Morse | Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .puzzle-container {
+            background: var(--bg-secondary);
+            border: 2px solid var(--text-primary);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .puzzle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--text-secondary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .puzzle-title {
+            font-size: 2rem;
+            color: var(--text-primary);
+        }
+
+        .puzzle-difficulty-badge {
+            background: #00aa00;
+            color: black;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .challenge-area {
+            background: #000;
+            border-radius: 5px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px dashed var(--text-secondary);
+        }
+
+        .hint-box {
+            background: rgba(102, 192, 240, 0.1);
+            border-left: 4px solid var(--text-secondary);
+            padding: 1rem;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+
+        .flag-input-area {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .flag-input {
+            flex: 1;
+            min-width: 250px;
+            background: var(--bg-primary);
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            padding: 0.75rem;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+        }
+
+        .flag-submit-btn {
+            background: transparent;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            padding: 0.75rem 2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .flag-submit-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .tool-tag {
+            background: var(--bg-primary);
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border: 1px solid var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .code-block {
+            background: #000;
+            color: #0f0;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            border: 1px solid var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header class="terminal-header">
+        <div class="terminal-title"><i class="fas fa-terminal"></i> PUZZLE 08 - CÓDIGO MORSE</div>
+        <div class="terminal-status">
+            <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> NÍVEL: INICIANTE</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="nav-buttons">
+            <a href="07-strings-ocultas.html" class="nav-button"><i class="fas fa-arrow-left"></i> ANTERIOR (07)</a>
+            <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+            <a href="09-zip-senha-fraca.html" class="nav-button">PRÓXIMO (09) <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-header">
+                <h1 class="puzzle-title">> 08: CÓDIGO MORSE</h1>
+                <span class="puzzle-difficulty-badge">INICIANTE</span>
+            </div>
+            <p>Decodifique esta mensagem em código Morse para encontrar a flag.</p>
+
+            <div class="challenge-area">
+                <h3><i class="fas fa-code"></i> MENSAGEM MORSE</h3>
+                <div class="code-block">.... . .-.. .-.. --- / .-- --- .-. .-.. -..</div>
+
+                <button onclick="decodeMorse()"
+                    style="margin-top:1rem; background:#0f0; color:#000; padding:0.5rem 1rem; border:none; cursor:pointer;">DECODIFICAR
+                    MORSE</button>
+                <div id="morseResult" style="margin-top:1rem; color:#0f0; background:#111; padding:1rem;"></div>
+            </div>
+
+            <div class="hint-box">
+                <i class="fas fa-lightbulb"></i> <strong>DICA:</strong> '.' = curto, '-' = longo. '/' separa palavras.
+            </div>
+
+            <h3><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+            <div class="flag-input-area">
+                <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+                <button class="flag-submit-btn" id="submitFlag">VERIFICAR</button>
+            </div>
+            <div id="resultMessage"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>NÃO DESISTA DEV - Puzzle 08</p>
+    </footer>
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        function decodeMorse() {
+            const morse = {
+                '.-': 'a', '-...': 'b', '-.-.': 'c', '-..': 'd', '.': 'e',
+                '..-.': 'f', '--.': 'g', '....': 'h', '..': 'i', '.---': 'j',
+                '-.-': 'k', '.-..': 'l', '--': 'm', '-.': 'n', '---': 'o',
+                '.--.': 'p', '--.-': 'q', '.-.': 'r', '...': 's', '-': 't',
+                '..-': 'u', '...-': 'v', '.--': 'w', '-..-': 'x', '-.--': 'y',
+                '--..': 'z', '/': ' '
+            };
+            let input = ".... . .-.. .-.. --- / .-- --- .-. .-.. -..";
+            let words = input.split(' / ');
+            let result = '';
+            for (let word of words) {
+                let letters = word.split(' ');
+                for (let letter of letters) {
+                    result += morse[letter];
+                }
+                result += ' ';
+            }
+            document.getElementById('morseResult').innerText = result.trim();
+        }
+        document.getElementById('submitFlag').addEventListener('click', function () {
+            const flag = document.getElementById('flagInput').value.trim();
+            const result = document.getElementById('resultMessage');
+            if (flag === 'flag{morse_e_divertido}') {
+                result.innerHTML = '<span style="color:#0f0;">✓ FLAG CORRETA!</span>';
+                if (typeof marcarPuzzleResolvido === 'function') marcarPuzzleResolvido(8);
+            } else {
+                result.innerHTML = '<span style="color:#f00;">✗ FLAG INCORRETA</span>';
+            }
+        });
+    </script>
+</body>
+
+</html>
+

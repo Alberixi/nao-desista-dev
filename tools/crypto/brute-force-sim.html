@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brute Force Sim | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input,
+    select {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      font-family: monospace;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #0f0;
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .stat {
+      background: #1a1d24;
+      padding: 1rem;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      color: #0f0;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / crypto / brute-force-sim</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> BRUTE FORCE SIMULATOR</h1>
+        <p>Simulação de ataque de força bruta</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Alvo (senha a ser descoberta)</h3>
+        <input type="text" id="targetPassword" value="abc123" placeholder="Digite a senha alvo...">
+
+        <h3>Charset</h3>
+        <select id="charset">
+          <option value="lower">a-z (26 caracteres)</option>
+          <option value="lower+number">a-z + 0-9 (36 caracteres)</option>
+          <option value="all">a-z + A-Z + 0-9 (62 caracteres)</option>
+          <option value="full">Tudo + especiais (94 caracteres)</option>
+        </select>
+
+        <h3>Velocidade (tentativas/segundo)</h3>
+        <input type="range" id="speed" min="1" max="100" value="50">
+        <span id="speedValue">50 tentativas/s</span>
+
+        <button onclick="startBruteForce()" id="bruteBtn">INICIAR BRUTE FORCE</button>
+        <button onclick="stopBruteForce()" id="stopBtn" disabled>PARAR</button>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value" id="attempts">0</div>
+            <div class="stat-label">Tentativas</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="elapsed">0s</div>
+            <div class="stat-label">Tempo</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="rate">0/s</div>
+            <div class="stat-label">Taxa</div>
+          </div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div id="bruteResult" class="result-box"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Brute Force Sim</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    let bruteActive = false;
+    let attempts = 0;
+    let startTime;
+    let timerInterval;
+    let currentPassword = '';
+
+    function getCharset(type) {
+      switch (type) {
+        case 'lower': return 'abcdefghijklmnopqrstuvwxyz';
+        case 'lower+number': return 'abcdefghijklmnopqrstuvwxyz0123456789';
+        case 'all': return 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        case 'full': return 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+        default: return 'abcdefghijklmnopqrstuvwxyz';
+      }
+    }
+
+    function bruteForceStep(charset, target, maxLength = 6) {
+      // Função recursiva simplificada para demonstração
+      function generate(current, length) {
+        if (current.length === length) {
+          attempts++;
+          if (current === target) {
+            return current;
+          }
+          return null;
+        }
+
+        for (let i = 0; i < charset.length; i++) {
+          const result = generate(current + charset[i], length);
+          if (result) return result;
+        }
+        return null;
+      }
+
+      for (let len = 1; len <= maxLength; len++) {
+        const found = generate('', len);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function startBruteForce() {
+      const target = document.getElementById('targetPassword').value;
+      const charsetType = document.getElementById('charset').value;
+      const charset = getCharset(charsetType);
+      const speed = parseInt(document.getElementById('speed').value);
+
+      if (!target) {
+        alert('Digite uma senha alvo');
+        return;
+      }
+
+      bruteActive = true;
+      attempts = 0;
+      startTime = Date.now();
+
+      document.getElementById('bruteBtn').disabled = true;
+      document.getElementById('stopBtn').disabled = false;
+      document.getElementById('bruteResult').innerHTML = '🔍 Iniciando brute force...';
+
+      // Timer
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        document.getElementById('elapsed').innerHTML = elapsed + 's';
+        document.getElementById('attempts').innerHTML = attempts;
+        document.getElementById('rate').innerHTML = Math.floor(attempts / (elapsed || 1)) + '/s';
+      }, 100);
+
+      // Simular brute force (não vai realmente quebrar, só demonstra)
+      setTimeout(() => {
+        if (bruteActive) {
+          const possibleTargets = ['abc123', '123456', 'password', 'admin'];
+          if (possibleTargets.includes(target)) {
+            document.getElementById('bruteResult').innerHTML = `
+                            <span style="color:#0f0;">✅ SENHA ENCONTRADA!</span><br>
+                            Senha: ${target}<br>
+                            Tentativas: ${attempts}<br>
+                            Tempo: ${Math.floor((Date.now() - startTime) / 1000)}s
+                        `;
+          } else {
+            document.getElementById('bruteResult').innerHTML = `
+                            <span style="color:#f00;">❌ Simulação limitada</span><br>
+                            Para demonstração, use uma das senhas: abc123, 123456, password, admin
+                        `;
+          }
+          stopBruteForce();
+        }
+      }, 3000);
+    }
+
+    function stopBruteForce() {
+      bruteActive = false;
+      clearInterval(timerInterval);
+      document.getElementById('bruteBtn').disabled = false;
+      document.getElementById('stopBtn').disabled = true;
+    }
+
+    document.getElementById('speed').addEventListener('input', function (e) {
+      document.getElementById('speedValue').innerHTML = e.target.value + ' tentativas/s';
+    });
+  </script>
+</body>
+
+</html>

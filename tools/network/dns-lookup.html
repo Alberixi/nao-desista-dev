@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DNS Lookup | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input,
+    select {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    .record-type {
+      color: #ffaa00;
+      font-weight: bold;
+    }
+
+    .record-value {
+      color: #0f0;
+      font-family: monospace;
+    }
+
+    .dns-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .dns-table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .dns-table tr:hover {
+      background: #1a1d24;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / network / dns-lookup</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> DNS LOOKUP</h1>
+        <p>Consulte registros DNS de domínios</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Domínio</h3>
+        <input type="text" id="domain" value="google.com" placeholder="ex: google.com">
+
+        <h3>Tipo de registro</h3>
+        <select id="recordType">
+          <option value="A">A (IPv4)</option>
+          <option value="AAAA">AAAA (IPv6)</option>
+          <option value="MX">MX (Mail Exchange)</option>
+          <option value="NS">NS (Name Server)</option>
+          <option value="TXT">TXT (Texto)</option>
+          <option value="CNAME">CNAME (Alias)</option>
+          <option value="SOA">SOA (Start of Authority)</option>
+          <option value="ALL">Todos</option>
+        </select>
+
+        <button onclick="dnsLookup()">CONSULTAR DNS</button>
+
+        <div id="dnsResult" class="result-box"></div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Comandos reais</h3>
+          <div class="result-box">
+            <p><strong>nslookup google.com</strong></p>
+            <p><strong>dig google.com A</strong></p>
+            <p><strong>host -t mx google.com</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - DNS Lookup</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function dnsLookup() {
+      const domain = document.getElementById('domain').value;
+      const type = document.getElementById('recordType').value;
+
+      // Simulação de registros DNS
+      const dnsRecords = {
+        'google.com': {
+          'A': ['142.250.185.46', '142.250.185.46'],
+          'AAAA': ['2607:f8b0:4005:805::200e'],
+          'MX': ['aspmx.l.google.com', 'alt1.aspmx.l.google.com'],
+          'NS': ['ns1.google.com', 'ns2.google.com', 'ns3.google.com', 'ns4.google.com'],
+          'TXT': ['"v=spf1 include:_spf.google.com ~all"'],
+          'CNAME': [],
+          'SOA': 'ns1.google.com. dns-admin.google.com. 123456789 900 900 1800 60'
+        },
+        'github.com': {
+          'A': ['140.82.112.4'],
+          'MX': ['aspmx.l.google.com'],
+          'NS': ['ns1.github.com', 'ns2.github.com'],
+          'TXT': ['"MS=ms12345678"']
+        },
+        'naodesista.dev': {
+          'A': ['192.168.1.100'],
+          'MX': ['mail.naodesista.dev'],
+          'NS': ['ns1.naodesista.dev'],
+          'TXT': ['"flag{dns_records_expostos}"']
+        }
+      };
+
+      let records = dnsRecords[domain] || {
+        'A': ['192.0.2.1'],
+        'MX': ['mail.' + domain],
+        'NS': ['ns1.' + domain],
+        'TXT': ['"domínio não encontrado na base simulada"']
+      };
+
+      let resultHTML = `<strong>📋 Registros DNS para ${domain}:</strong><br><br>`;
+      resultHTML += '<table class="dns-table">';
+
+      if (type === 'ALL') {
+        for (let [rtype, values] of Object.entries(records)) {
+          if (Array.isArray(values)) {
+            values.forEach(value => {
+              resultHTML += `<tr><td class="record-type">${rtype}</td><td class="record-value">${value}</td></tr>`;
+            });
+          } else {
+            resultHTML += `<tr><td class="record-type">${rtype}</td><td class="record-value">${values}</td></tr>`;
+          }
+        }
+      } else {
+        const values = records[type] || ['Registro não encontrado'];
+        if (Array.isArray(values)) {
+          values.forEach(value => {
+            resultHTML += `<tr><td class="record-type">${type}</td><td class="record-value">${value}</td></tr>`;
+          });
+        } else {
+          resultHTML += `<tr><td class="record-type">${type}</td><td class="record-value">${values}</td></tr>`;
+        }
+      }
+
+      resultHTML += '</table>';
+      document.getElementById('dnsResult').innerHTML = resultHTML;
+    }
+  </script>
+</body>
+
+</html>

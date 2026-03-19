@@ -1,0 +1,3 @@
+Captura com dados exfiltrados em pacotes ICMP.
+Filtre por icmp e reconstrua os dados.
+Flag: flag{dados_exfiltrados_icmp}

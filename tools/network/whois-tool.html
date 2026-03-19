@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WHOIS Tool | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+
+    .whois-section {
+      margin-bottom: 1rem;
+    }
+
+    .whois-label {
+      color: #ffaa00;
+      font-weight: bold;
+    }
+
+    .whois-value {
+      color: #0f0;
+      margin-left: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / network / whois</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> WHOIS TOOL</h1>
+        <p>Consulte informações de domínios e IPs</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Domínio ou IP</h3>
+        <input type="text" id="query" value="google.com" placeholder="ex: google.com ou 8.8.8.8">
+
+        <button onclick="whoisLookup()">CONSULTAR WHOIS</button>
+
+        <div id="whoisResult" class="result-box"></div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Comandos reais</h3>
+          <div class="result-box">
+            <p><strong>whois google.com</strong></p>
+            <p><strong>whois 8.8.8.8</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - WHOIS Tool</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function whoisLookup() {
+      const query = document.getElementById('query').value;
+
+      // Simulação de respostas WHOIS
+      const whoisData = {
+        'google.com': `
+                    Domain Name: GOOGLE.COM
+                    Registry Domain ID: 2138514_DOMAIN_COM-VRSN
+                    Registrar: MarkMonitor Inc.
+                    Registrar IANA ID: 292
+                    Registrar Abuse Contact Email: abusecomplaints@markmonitor.com
+                    Registrar Abuse Contact Phone: +1.2083895740
+                    Domain Status: clientDeleteProhibited
+                    Domain Status: clientTransferProhibited
+                    Name Server: NS1.GOOGLE.COM
+                    Name Server: NS2.GOOGLE.COM
+                    Name Server: NS3.GOOGLE.COM
+                    Name Server: NS4.GOOGLE.COM
+                    Created: 1997-09-15T04:00:00Z
+                    Updated: 2019-09-09T15:39:04Z
+                `,
+        '8.8.8.8': `
+                    NetRange:       8.8.8.0 - 8.8.8.255
+                    CIDR:           8.8.8.0/24
+                    NetName:        LVLT-GOGL-8-8-8
+                    NetHandle:      NET-8-8-8-0-1
+                    Parent:         NET-8-0-0-0-1
+                    NetType:        Direct Assignment
+                    Organization:   Google LLC (GOGL)
+                    RegDate:        2014-03-14
+                    Updated:        2014-03-14
+                    Ref:            https://whois.arin.net/rest/net/NET-8-8-8-0-1
+
+                    OrgName:        Google LLC
+                    OrgId:          GOGL
+                    Address:        1600 Amphitheatre Parkway
+                    City:           Mountain View
+                    StateProv:      CA
+                    PostalCode:     94043
+                    Country:        US
+                `,
+        'naodesista.dev': `
+                    Domain Name: NAODESISTA.DEV
+                    Registry Domain ID: 123456789_DOMAIN_DEV-VRSN
+                    Registrar: NameCheap Inc.
+                    Created: 2024-01-01
+                    Updated: 2024-03-15
+                    Name Server: NS1.NAODESISTA.DEV
+                    Status: active
+
+                    ⚠️ FLAG OCULTA: flag{whois_information_leak}
+                `
+      };
+
+      let result = whoisData[query] || `
+                Domain Name: ${query}
+                Registry Domain ID: 987654321_DOMAIN_COM-VRSN
+                Registrar: Example Registrar Inc.
+                Created: 2020-01-01
+                Updated: 2024-01-01
+                Name Server: NS1.${query}
+                Name Server: NS2.${query}
+                Status: active
+
+                ⚠️ Informação simulada - domínio não encontrado na base.
+            `;
+
+      document.getElementById('whoisResult').innerHTML = `<pre class="whois-value">${result}</pre>`;
+    }
+  </script>
+</body>
+
+</html>

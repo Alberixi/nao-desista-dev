@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sniffer Simulator | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    select,
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    select {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .packet {
+      font-family: monospace;
+      border-bottom: 1px solid #333;
+      padding: 0.5rem;
+    }
+
+    .packet:hover {
+      background: #1a1d24;
+    }
+
+    .packet-time {
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    .packet-src {
+      color: #ffaa00;
+    }
+
+    .packet-dst {
+      color: #66c0f0;
+    }
+
+    .packet-proto {
+      color: #0f0;
+    }
+
+    .packet-info {
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / network / sniffer-sim</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> SNIFFER SIMULATOR</h1>
+        <p>Simulação de captura de pacotes em rede</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Interface</h3>
+        <select id="interface">
+          <option value="eth0">eth0 - Ethernet</option>
+          <option value="wlan0">wlan0 - Wi-Fi</option>
+          <option value="lo">lo - Loopback</option>
+        </select>
+
+        <h3>Filtro</h3>
+        <select id="filter">
+          <option value="all">Todos os pacotes</option>
+          <option value="tcp">Apenas TCP</option>
+          <option value="udp">Apenas UDP</option>
+          <option value="http">Apenas HTTP</option>
+          <option value="dns">Apenas DNS</option>
+        </select>
+
+        <button onclick="startSniffer()" id="sniffBtn">INICIAR CAPTURA</button>
+        <button onclick="stopSniffer()" id="stopBtn" disabled>PARAR</button>
+        <button onclick="clearPackets()">LIMPAR</button>
+
+        <div id="snifferResult" class="result-box"></div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Comandos tcpdump/Wireshark</h3>
+          <div class="result-box">
+            <p><strong>tcpdump -i eth0</strong></p>
+            <p><strong>tcpdump -i eth0 port 80</strong></p>
+            <p><strong>tshark -i eth0 -Y "http"</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Sniffer Sim</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    let sniffing = false;
+    let interval;
+    let packets = [];
+
+    const packetTemplates = [
+      { proto: 'TCP', src: '192.168.1.100:54321', dst: '142.250.185.46:80', info: '[SYN]' },
+      { proto: 'TCP', src: '142.250.185.46:80', dst: '192.168.1.100:54321', info: '[SYN, ACK]' },
+      { proto: 'TCP', src: '192.168.1.100:54321', dst: '142.250.185.46:80', info: '[ACK]' },
+      { proto: 'HTTP', src: '192.168.1.100:54322', dst: '93.184.216.34:80', info: 'GET /index.html HTTP/1.1' },
+      { proto: 'HTTP', src: '93.184.216.34:80', dst: '192.168.1.100:54322', info: 'HTTP/1.1 200 OK' },
+      { proto: 'DNS', src: '192.168.1.100:49152', dst: '8.8.8.8:53', info: 'A? google.com' },
+      { proto: 'DNS', src: '8.8.8.8:53', dst: '192.168.1.100:49152', info: 'A 142.250.185.46' },
+      { proto: 'UDP', src: '192.168.1.100:12345', dst: '192.168.1.255:9999', info: 'Broadcast' },
+    ];
+
+    function startSniffer() {
+      sniffing = true;
+      packets = [];
+      document.getElementById('sniffBtn').disabled = true;
+      document.getElementById('stopBtn').disabled = false;
+
+      interval = setInterval(() => {
+        if (!sniffing) return;
+
+        const filter = document.getElementById('filter').value;
+        let newPacket = { ...packetTemplates[Math.floor(Math.random() * packetTemplates.length)] };
+        newPacket.time = new Date().toLocaleTimeString();
+
+        if (filter !== 'all' && newPacket.proto.toLowerCase() !== filter) {
+          return;
+        }
+
+        packets.unshift(newPacket);
+        if (packets.length > 50) packets.pop();
+
+        displayPackets();
+      }, 1500);
+    }
+
+    function stopSniffer() {
+      sniffing = false;
+      clearInterval(interval);
+      document.getElementById('sniffBtn').disabled = false;
+      document.getElementById('stopBtn').disabled = true;
+    }
+
+    function clearPackets() {
+      packets = [];
+      displayPackets();
+    }
+
+    function displayPackets() {
+      let html = '';
+      packets.forEach(p => {
+        html += `
+                    <div class="packet">
+                        <span class="packet-time">[${p.time}]</span>
+                        <span class="packet-src">${p.src}</span> →
+                        <span class="packet-dst">${p.dst}</span>
+                        <span class="packet-proto"> (${p.proto})</span>
+                        <span class="packet-info"> ${p.info}</span>
+                    </div>
+                `;
+      });
+      document.getElementById('snifferResult').innerHTML = html || 'Nenhum pacote capturado';
+    }
+  </script>
+</body>
+
+</html>

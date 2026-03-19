@@ -1,0 +1,253 @@
+nao-desista-dev/
+│
+├── index.html                        ok
+├── style.css                         ok
+├── script.js                         ok
+│
+├── puzzles/
+│   ├── nivel-1-iniciante/
+│   │   ├── 01-audio-misterioso.html  ok
+│   │   ├── 02-base64-basico.html     ok
+│   │   ├── 03-rot13-simples.html     ok
+│   │   ├── 04-hexadecimal-101.html   ok
+│   │   ├── 05-binario-basico.html    ok
+│   │   ├── 06-metadados-imagem.html  ok
+│   │   ├── 07-strings-ocultas.html   ok
+│   │   ├── 08-morse-code.html        ok
+│   │   ├── 09-zip-senha-fraca.html   ok
+│   │   └── 10-html-hidden.html       ok
+│   │
+│   ├── nivel-2-intermediario/           ok
+│   │   ├── 11-esteganografia-lsb.html   ok
+│   │   ├── 12-audio-espectro.html       ok
+│   │   ├── 13-base64-multicamadas.html  ok
+│   │   ├── 14-xor-encryption.html       ok
+│   │   ├── 15-rsa-basico.html           ok
+│   │   ├── 16-hash-identify.html        ok
+│   │   ├── 17-forense-disco.html        ok
+│   │   ├── 18-pcap-analysis.html        ok
+│   │   ├── 19-exif-data.html            ok
+│   │   └── 20-pdf-embedded.html         ok
+│   │
+│   ├── nivel-3-avancado/                   ok
+│   │   ├── 21-esteganografia-audio.html    ok
+│   │   ├── 22-forense-memoria.html         ok
+│   │   ├── 23-reversing-simples.html       ok
+│   │   ├── 24-network-forensics.html       ok
+│   │   ├── 25-malware-analysis.html        ok
+│   │   ├── 26-crypto-wallets.html          ok
+│   │   ├── 27-blockchain-basics.html       ok
+│   │   ├── 28-steganography-multiple.html  ok
+│   │   ├── 29-encryption-cracking.html     ok
+│   │   └── 30-osint-challenge.html         ok
+│   │
+│   ├── nivel-4-especialista/               ok
+│   │   ├── 31-forense-android.html         ok
+│   │   ├── 32-wifi-hacking.html            ok
+│   │   ├── 33-binary-exploitation.html     ok
+│   │   ├── 34-web-vulnerabilities.html     ok
+│   │   ├── 35-sql-injection-lab.html       ok
+│   │   ├── 36-xss-challenge.html           ok
+│   │   ├── 37-csrf-attack.html             ok
+│   │   ├── 38-jwt-tokens.html              ok
+│   │   ├── 39-oauth-bypass.html            ok
+│   │   └── 40-api-security.html            ok
+│   │
+│   └── nivel-5-mestre/                     ok
+│       ├── 41-forense-iot.html             ok
+│       ├── 42-cloud-forensics.html         ok
+│       ├── 43-darkweb-investigation.html   ok
+│       ├── 44-cryptocurrency-tracing.html  ok
+│       ├── 45-zero-day-analysis.html       ok
+│       ├── 46-apt-simulation.html          ok
+│       ├── 47-ransomware-lab.html          ok
+│       ├── 48-botnet-analysis.html         ok
+│       ├── 49-quantum-crypto.html          ok
+│       └── 50-final-challenge.html         ok
+│
+├── labs/
+│   ├── ambiente-linux/
+│   │   ├── docker-compose.yml
+│   │   ├── vagrantfile
+│   │   └── scripts/
+│   │       ├── setup-forensics.sh
+│   │       ├── install-tools.sh
+│   │       └── vulnerable-services.sh
+│   │
+│   ├── ambiente-windows/
+│   │   ├── powershell-scripts/
+│   │   └── tools/
+│   │
+│   └── ambiente-rede/
+│       ├── topologias/
+│       ├── pcaps/
+│       └── scripts-python/
+│
+├── challenges/
+│   ├── ctf-weekly/
+│   │   ├── semana-1/
+│   │   ├── semana-2/
+│   │   └── ...
+│   │
+│   ├── hackthebox-style/
+│   │   ├── machines/
+│   │   └── walkthroughs/
+│   │
+│   └── real-cases/
+│       ├── case-1-data-breach/
+│       ├── case-2-ransomware/
+│       └── case-3-insider-threat/
+│
+├── tools/
+│   ├── decoders/
+│   │   ├── base64-decode.html
+│   │   ├── rot13-tool.html
+│   │   ├── hex-converter.html
+│   │   ├── xor-decoder.html
+│   │   ├── hash-identifier.html
+│   │   ├── cipher-detector.html
+│   │   └── steganography-online.html
+│   │
+│   ├── forense/
+│   │   ├── file-analyzer.html
+│   │   ├── metadata-viewer.html
+│   │   ├── hex-editor-online.html
+│   │   ├── pcap-analyzer.html
+│   │   ├── disk-mounter.html
+│   │   └── memory-analyzer.html
+│   │
+│   ├── crypto/
+│   │   ├── rsa-calculator.html
+│   │   ├── aes-encrypt.html
+│   │   ├── hash-generator.html
+│   │   ├── password-cracker-sim.html
+│   │   ├── wordlist-generator.html
+│   │   └── brute-force-sim.html
+│   │
+│   └── network/
+│       ├── port-scanner.html
+│       ├── sniffer-sim.html
+│       ├── dns-lookup.html
+│       ├── whois-tool.html
+│       └── subnet-calc.html
+│
+├── academy/
+│   ├── cursos/
+│   │   ├── esteganografia-101/
+│   │   ├── forense-digital/
+│   │   ├── criptografia/
+│   │   ├── osint/
+│   │   ├── pentest-web/
+│   │   ├── malware-analysis/
+│   │   ├── reverse-engineering/
+│   │   └── blockchain-security/
+│   │
+│   ├── workshops/
+│   │   ├── linux-forensics/
+│   │   ├── wireshark-master/
+│   │   ├── volatility-lab/
+│   │   └── metasploit-basics/
+│   │
+│   └── certificacoes/
+│       ├── ceh-prep/
+│       ├── oscp-prep/
+│       ├── cissp-prep/
+│       └── gcih-prep/
+│
+├── library/
+│   ├── ebooks/
+│   │   ├── portugues/
+│   │   └── ingles/
+│   │
+│   ├── papers/
+│   │   ├── academicos/
+│   │   └── whitepapers/
+│   │
+│   └── cheat-sheets/
+│       ├── linux-commands.pdf
+│       ├── wireshark-filters.pdf
+│       ├── sql-injection.pdf
+│       └── crypto-algorithms.pdf
+│
+├── community/
+│   ├── forum/
+│   ├── hall-of-fame/
+│   ├── rankings/
+│   ├── achievements/
+│   └── teams/
+│
+├── assets/
+│   ├── audio/
+│   │   ├── espectro/
+│   │   ├── morse/
+│   │   ├── reverso/
+│   │   └── esteganografia/
+│   │
+│   ├── images/
+│   │   ├── stego/
+│   │   ├── forense/
+│   │   └── challenges/
+│   │
+│   ├── files/
+│   │   ├── pdfs/
+│   │   ├── docs/
+│   │   ├── executaveis/
+│   │   └── compactados/
+│   │
+│   └── pcaps/
+│       ├── http/
+│       ├── dns/
+│       ├── tcp/
+│       └── attacks/
+│
+├── docs/
+│   ├── guias/
+│   │   ├── como-comecar.md
+│   │   ├── glossary.md
+│   │   ├── faq.md
+│   │   └── troubleshooting.md
+│   │
+│   ├── tutoriais/
+│   │   ├── esteganografia.md
+│   │   ├── forense.md
+│   │   ├── criptografia.md
+│   │   ├── redes.md
+│   │   └── web-security.md
+│   │
+│   └── referencias/
+│       ├── livros.md
+│       ├── cursos-online.md
+│       ├── certificacoes.md
+│       └── comunidades.md
+│
+├── tools-lab/
+│   ├── python-scripts/
+│   │   ├── stego-tools/
+│   │   ├── crypto-tools/
+│   │   ├── forensics-tools/
+│   │   └── network-tools/
+│   │
+│   ├── bash-scripts/
+│   │   ├── automation/
+│   │   ├── analysis/
+│   │   └── reporting/
+│   │
+│   └── docker/
+│       ├── vulnerable-apps/
+│       ├── forensics-lab/
+│       └── malware-sandbox/
+│
+├── .github/
+│   ├── workflows/
+│   ├── ISSUE_TEMPLATE/
+│   └── pull_request_template.md
+│
+├── .vscode/
+│   ├── settings.json
+│   └── extensions.json
+│
+├── package.json
+├── docker-compose.yml
+├── .gitignore
+├── LICENSE
+└── README.md

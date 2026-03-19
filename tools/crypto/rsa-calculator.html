@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSA Calculator | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      font-family: monospace;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      font-family: monospace;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / crypto / rsa-calculator</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> RSA CALCULATOR</h1>
+        <p>Calcule chaves RSA e decifre mensagens</p>
+      </div>
+
+      <div class="tool-area">
+        <div class="grid">
+          <div>
+            <h3>Gerar chaves</h3>
+            <input type="number" id="primeP" placeholder="p (primo)" value="61">
+            <input type="number" id="primeQ" placeholder="q (primo)" value="53">
+            <button onclick="generateRSA()">GERAR CHAVES</button>
+          </div>
+          <div>
+            <h3>Decifrar mensagem</h3>
+            <input type="number" id="cipherText" placeholder="Mensagem cifrada (c)" value="2790">
+            <input type="number" id="privKey" placeholder="Chave privada (d)">
+            <input type="number" id="modulus" placeholder="Módulo (n)">
+            <button onclick="decryptRSA()">DECIFRAR</button>
+          </div>
+        </div>
+
+        <div id="rsaResult" class="result-box"></div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Fórmulas RSA</h3>
+          <div class="result-box">
+            <p>n = p * q</p>
+            <p>φ(n) = (p-1)*(q-1)</p>
+            <p>e * d ≡ 1 (mod φ(n))</p>
+            <p>c = m^e mod n</p>
+            <p>m = c^d mod n</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - RSA Calculator</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function generateRSA() {
+      const p = parseInt(document.getElementById('primeP').value);
+      const q = parseInt(document.getElementById('primeQ').value);
+
+      const n = p * q;
+      const phi = (p - 1) * (q - 1);
+
+      // e comum = 65537
+      const e = 65537;
+
+      // Calcular d (inverso modular)
+      let d = 1;
+      while ((d * e) % phi !== 1) {
+        d++;
+        if (d > 1000000) break;
+      }
+
+      const result = `
+                <strong>🔐 Chaves RSA geradas:</strong><br>
+                p = ${p}<br>
+                q = ${q}<br>
+                n = ${n}<br>
+                φ(n) = ${phi}<br>
+                e = ${e} (público)<br>
+                d = ${d} (privado)<br>
+                <br>
+                <span class="text-secondary">Chave pública: (n=${n}, e=${e})</span><br>
+                <span class="text-secondary">Chave privada: (n=${n}, d=${d})</span>
+            `;
+
+      document.getElementById('rsaResult').innerHTML = result;
+    }
+
+    function decryptRSA() {
+      const c = parseInt(document.getElementById('cipherText').value);
+      const d = parseInt(document.getElementById('privKey').value);
+      const n = parseInt(document.getElementById('modulus').value);
+
+      // Calcular m = c^d mod n (simplificado)
+      let m = 1;
+      for (let i = 0; i < d; i++) {
+        m = (m * c) % n;
+      }
+
+      document.getElementById('rsaResult').innerHTML = `
+                <strong>🔓 Mensagem decifrada:</strong><br>
+                c = ${c}<br>
+                d = ${d}<br>
+                n = ${n}<br>
+                m = ${m}<br>
+                <br>
+                <span class="text-secondary">Mensagem original: ${m}</span>
+            `;
+    }
+  </script>
+</body>
+
+</html>

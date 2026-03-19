@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disk Mounter Simulator | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input[type="file"] {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    .file-list {
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: monospace;
+    }
+
+    .file-item {
+      padding: 0.25rem;
+      border-bottom: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .file-item:hover {
+      background: #1a1d24;
+    }
+
+    .folder {
+      color: #ffaa00;
+    }
+
+    .file {
+      color: #0f0;
+    }
+
+    .deleted {
+      color: #f00;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / forense / disk-mounter</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> DISK MOUNTER SIMULATOR</h1>
+        <p>Monte imagens de disco e explore arquivos deletados</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Carregar imagem de disco</h3>
+        <input type="file" id="diskImage" accept=".dd,.raw,.img,.iso">
+        <button onclick="mountDisk()">MONTAR IMAGEM</button>
+
+        <div id="diskInfo" class="result-box"></div>
+
+        <div id="fileBrowser" style="display: none;">
+          <h3>📁 Sistema de arquivos montado</h3>
+          <div class="file-list" id="fileList"></div>
+
+          <div style="margin-top: 1rem;">
+            <h4>Ferramentas de recuperação</h4>
+            <button onclick="scanDeleted()">ESCANEAR ARQUIVOS DELETADOS</button>
+            <button onclick="carveFiles()">CARVING DE ARQUIVOS</button>
+          </div>
+
+          <div id="recoveryResult" class="result-box" style="margin-top: 1rem;"></div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Comandos úteis (Linux)</h3>
+          <div class="result-box">
+            <p><strong>mount -o loop,ro imagem.dd /mnt</strong> - Montar imagem</p>
+            <p><strong>foremost -i imagem.dd -o output/</strong> - Recuperar arquivos</p>
+            <p><strong>scalpel imagem.dd -o output/</strong> - Carving de arquivos</p>
+            <p><strong>testdisk imagem.dd</strong> - Recuperar partições</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Disk Mounter</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    let files = [];
+    let deletedFiles = [];
+
+    function mountDisk() {
+      const fileInput = document.getElementById('diskImage');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        document.getElementById('diskInfo').innerHTML = '❌ Selecione uma imagem de disco';
+        return;
+      }
+
+      // Simular informações do disco
+      const diskSize = file.size;
+      const sizeInMB = (diskSize / (1024 * 1024)).toFixed(2);
+
+      document.getElementById('diskInfo').innerHTML = `
+                <strong>Imagem:</strong> ${file.name}<br>
+                <strong>Tamanho:</strong> ${sizeInMB} MB<br>
+                <strong>Sistema de arquivos:</strong> ext4 (simulado)<br>
+                <strong>Setores:</strong> ${Math.floor(diskSize / 512)}<br>
+                <strong>Status:</strong> ✅ Montado em /mnt/forense
+            `;
+
+      // Simular arquivos no sistema
+      files = [
+        { name: 'documentos/', type: 'folder', size: '-' },
+        { name: 'fotos/', type: 'folder', size: '-' },
+        { name: 'documentos/contrato.pdf', type: 'file', size: '245 KB' },
+        { name: 'documentos/planilha.xlsx', type: 'file', size: '120 KB' },
+        { name: 'fotos/vacation.jpg', type: 'file', size: '3.2 MB' },
+        { name: 'fotos/family.png', type: 'file', size: '2.8 MB' },
+        { name: 'README.txt', type: 'file', size: '1 KB' },
+        { name: 'config.conf', type: 'file', size: '4 KB' },
+      ];
+
+      deletedFiles = [
+        { name: 'documentos/secret.pdf', type: 'file', size: '156 KB', deleted: true },
+        { name: 'flag.txt', type: 'file', size: '0.5 KB', deleted: true },
+        { name: 'passwords.txt', type: 'file', size: '2 KB', deleted: true },
+      ];
+
+      displayFiles(files);
+      document.getElementById('fileBrowser').style.display = 'block';
+    }
+
+    function displayFiles(fileList) {
+      let html = '';
+      fileList.forEach(f => {
+        const icon = f.type === 'folder' ? '📁' : '📄';
+        const className = f.type === 'folder' ? 'folder' : 'file';
+        html += `<div class="file-item"><span class="${className}">${icon} ${f.name}</span><span>${f.size}</span></div>`;
+      });
+      document.getElementById('fileList').innerHTML = html;
+    }
+
+    function scanDeleted() {
+      let html = '<strong>🔍 Arquivos deletados encontrados:</strong><br>';
+      deletedFiles.forEach(f => {
+        html += `<div class="file-item"><span class="deleted">🗑️ ${f.name}</span><span>${f.size}</span></div>`;
+      });
+      document.getElementById('recoveryResult').innerHTML = html;
+    }
+
+    function carveFiles() {
+      document.getElementById('recoveryResult').innerHTML = `
+                <strong>⛏️ Carving realizado com sucesso!</strong><br>
+                Arquivos recuperados:<br>
+                - 📄 documento_recuperado_1.pdf (156 KB)<br>
+                - 📄 flag.txt (0.5 KB)<br>
+                - 📄 passwords.txt (2 KB)<br>
+                <br>
+                <span class="text-secondary">Dica: A flag está em flag.txt</span>
+            `;
+    }
+  </script>
+</body>
+
+</html>

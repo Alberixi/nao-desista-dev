@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCAP Analyzer | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input[type="file"] {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .packet {
+      border-bottom: 1px solid #333;
+      padding: 0.5rem;
+      font-family: monospace;
+    }
+
+    .packet:hover {
+      background: #1a1d24;
+    }
+
+    .filter-input {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / forense / pcap-analyzer</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> PCAP ANALYZER</h1>
+        <p>Analise capturas de rede (formato PCAP simulado)</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Carregar arquivo PCAP</h3>
+        <input type="file" id="pcapInput" accept=".pcap,.cap">
+        <button onclick="analyzePCAP()">ANALISAR</button>
+
+        <div class="filter-input">
+          <input type="text" id="filterInput" placeholder="Filtro (ex: http, tcp, 192.168.*)" style="flex: 1;">
+          <button onclick="applyFilter()">FILTRAR</button>
+        </div>
+
+        <div id="pcapResult" class="result-box"></div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Comandos úteis (Wireshark)</h3>
+          <div class="result-box">
+            <p><strong>tshark -r captura.pcap</strong> - Listar pacotes</p>
+            <p><strong>tshark -r captura.pcap -Y "http"</strong> - Filtrar HTTP</p>
+            <p><strong>tshark -r captura.pcap -T fields -e ip.src -e ip.dst</strong> - IPs origem/destino</p>
+            <p><strong>tcpflow -r captura.pcap</strong> - Reconstruir fluxos TCP</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - PCAP Analyzer</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    let packets = [];
+
+    function analyzePCAP() {
+      const fileInput = document.getElementById('pcapInput');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        document.getElementById('pcapResult').innerHTML = '❌ Selecione um arquivo PCAP';
+        return;
+      }
+
+      // Simular análise de PCAP com dados de exemplo
+      packets = [
+        { time: '0.001', src: '192.168.1.100', dst: '192.168.1.1', proto: 'TCP', info: 'Port 443 → 54812 [SYN]' },
+        { time: '0.002', src: '192.168.1.1', dst: '192.168.1.100', proto: 'TCP', info: 'Port 54812 → 443 [SYN, ACK]' },
+        { time: '0.003', src: '192.168.1.100', dst: '192.168.1.1', proto: 'TCP', info: 'Port 443 → 54812 [ACK]' },
+        { time: '0.010', src: '192.168.1.100', dst: '93.184.216.34', proto: 'HTTP', info: 'GET /index.html HTTP/1.1' },
+        { time: '0.015', src: '93.184.216.34', dst: '192.168.1.100', proto: 'HTTP', info: 'HTTP/1.1 200 OK' },
+        { time: '0.020', src: '192.168.1.100', dst: '8.8.8.8', proto: 'DNS', info: 'Standard query A google.com' },
+        { time: '0.025', src: '8.8.8.8', dst: '192.168.1.100', proto: 'DNS', info: 'Standard response A 142.250.185.46' },
+        { time: '0.030', src: '192.168.1.100', dst: '185.165.29.101', proto: 'TCP', info: 'Port 4444 → 49158 [SYN]' },
+      ];
+
+      displayPackets(packets);
+    }
+
+    function displayPackets(packetsToShow) {
+      let html = `<strong>📊 ${packetsToShow.length} pacotes encontrados</strong><br><br>`;
+      packetsToShow.forEach(p => {
+        html += `<div class="packet">[${p.time}] ${p.src} → ${p.dst} (${p.proto}) ${p.info}</div>`;
+      });
+      document.getElementById('pcapResult').innerHTML = html;
+    }
+
+    function applyFilter() {
+      const filter = document.getElementById('filterInput').value.toLowerCase();
+
+      if (!filter) {
+        displayPackets(packets);
+        return;
+      }
+
+      const filtered = packets.filter(p => {
+        return p.src.includes(filter) ||
+          p.dst.includes(filter) ||
+          p.proto.toLowerCase().includes(filter) ||
+          p.info.toLowerCase().includes(filter);
+      });
+
+      displayPackets(filtered);
+    }
+  </script>
+</body>
+
+</html>

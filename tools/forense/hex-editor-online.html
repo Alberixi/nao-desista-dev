@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hex Editor Online | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input[type="file"],
+    textarea {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      font-family: monospace;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .hex-view {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      display: flex;
+    }
+
+    .hex-column {
+      flex: 1;
+    }
+
+    .hex-offset {
+      color: #ffaa00;
+      margin-right: 1rem;
+    }
+
+    .hex-bytes {
+      color: #0f0;
+    }
+
+    .hex-ascii {
+      color: #66c0f0;
+      margin-left: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / forense / hex-editor</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> HEX EDITOR ONLINE</h1>
+        <p>Visualize e edite arquivos em hexadecimal</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Carregar arquivo</h3>
+        <input type="file" id="fileInput">
+        <button onclick="loadHex()">CARREGAR</button>
+
+        <div id="hexContainer" class="hex-view" style="display: none;">
+          <div class="hex-column" id="hexOffset"></div>
+          <div class="hex-column" id="hexBytes"></div>
+          <div class="hex-column" id="hexAscii"></div>
+        </div>
+
+        <div id="hexResult" class="result-box"></div>
+
+        <h3 style="margin-top: 2rem;">Converter texto para hex</h3>
+        <textarea id="textInput" rows="3" placeholder="Digite o texto..."></textarea>
+        <button onclick="textToHex()">CONVERTER PARA HEX</button>
+        <div id="textHexResult" class="result-box"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Hex Editor</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function loadHex() {
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        document.getElementById('hexResult').innerHTML = '❌ Selecione um arquivo';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const arrayBuffer = e.target.result;
+        const bytes = new Uint8Array(arrayBuffer);
+
+        let offsetHTML = '';
+        let bytesHTML = '';
+        let asciiHTML = '';
+
+        // Mostrar primeiros 256 bytes apenas
+        const maxBytes = Math.min(256, bytes.length);
+
+        for (let i = 0; i < maxBytes; i += 16) {
+          offsetHTML += (i).toString(16).padStart(8, '0') + '<br>';
+
+          let byteLine = '';
+          let asciiLine = '';
+
+          for (let j = 0; j < 16; j++) {
+            if (i + j < maxBytes) {
+              byteLine += bytes[i + j].toString(16).padStart(2, '0').toUpperCase() + ' ';
+              const c = bytes[i + j];
+              asciiLine += (c >= 32 && c <= 126) ? String.fromCharCode(c) : '.';
+            } else {
+              byteLine += '   ';
+              asciiLine += ' ';
+            }
+          }
+
+          bytesHTML += byteLine + '<br>';
+          asciiHTML += asciiLine + '<br>';
+        }
+
+        document.getElementById('hexOffset').innerHTML = offsetHTML;
+        document.getElementById('hexBytes').innerHTML = bytesHTML;
+        document.getElementById('hexAscii').innerHTML = asciiHTML;
+        document.getElementById('hexContainer').style.display = 'flex';
+        document.getElementById('hexResult').innerHTML = `<strong>Total:</strong> ${bytes.length} bytes (mostrando primeiros 256)`;
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function textToHex() {
+      const text = document.getElementById('textInput').value;
+      let hex = '';
+      for (let i = 0; i < text.length; i++) {
+        hex += text.charCodeAt(i).toString(16).padStart(2, '0').toUpperCase() + ' ';
+      }
+      document.getElementById('textHexResult').innerHTML = hex;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+# Dependências
+node_modules/
+package-lock.json
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.production
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Arquivos temporários
+*.log
+*.tmp
+*.temp
+*.cache
+
+# Arquivos grandes
+*.bin
+*.raw
+*.dd
+*.mem
+*.dmp
+
+# Pastas de build
+dist/
+build/
+out/
+
+# Credenciais
+**/senha.txt
+**/password.txt
+**/credentials.txt

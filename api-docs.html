@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Docs | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .api-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .api-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .api-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .endpoint {
+      background: #111;
+      border-left: 4px solid #0f0;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .method {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 3px;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+
+    .get {
+      background: #006600;
+      color: #fff;
+    }
+
+    .post {
+      background: #660066;
+      color: #fff;
+    }
+
+    .url {
+      font-family: monospace;
+      color: #0f0;
+    }
+
+    .code-block {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+      border: 1px solid #333;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> api / docs</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> API</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="api-container">
+      <div class="api-header">
+        <h1 class="api-title">> 📡 API DOCUMENTATION</h1>
+        <p>Base URL: <code>https://api.naodesista.dev/v1</code></p>
+      </div>
+
+      <h2>🔐 Autenticação</h2>
+      <div class="endpoint">
+        <span class="method post">POST</span> <span class="url">/auth/login</span>
+        <p style="margin-top:0.5rem;">Autentica um agente e retorna um token JWT.</p>
+        <div class="code-block">
+          {
+          "username": "agente",
+          "password": "senha123",
+          "api_key": "sua_chave_api"
+          }
+        </div>
+        <p><strong>Resposta:</strong></p>
+        <div class="code-block">
+          {
+          "token": "eyJhbGciOiJIUzI1NiIs...",
+          "expires_in": 3600
+          }
+        </div>
+      </div>
+
+      <h2>📊 Puzzles</h2>
+
+      <div class="endpoint">
+        <span class="method get">GET</span> <span class="url">/puzzles</span>
+        <p>Lista todos os puzzles disponíveis.</p>
+        <div class="code-block">
+          [
+          {
+          "id": 1,
+          "title": "Áudio Misterioso",
+          "difficulty": "easy",
+          "solved": false
+          }
+          ]
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <span class="method get">GET</span> <span class="url">/puzzles/{id}</span>
+        <p>Retorna detalhes de um puzzle específico.</p>
+        <div class="code-block">
+          {
+          "id": 1,
+          "title": "Áudio Misterioso",
+          "description": "Uma mensagem foi escondida...",
+          "difficulty": "easy",
+          "files": ["misterio.wav"],
+          "hints": ["Analise o espectrograma entre 14kHz e 16kHz"]
+          }
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <span class="method post">POST</span> <span class="url">/puzzles/{id}/verify</span>
+        <p>Verifica se uma flag está correta.</p>
+        <div class="code-block">
+          {
+          "flag": "flag{exemplo}"
+          }
+        </div>
+        <p><strong>Resposta:</strong></p>
+        <div class="code-block">
+          {
+          "correct": true,
+          "message": "Flag correta! Puzzle resolvido."
+          }
+        </div>
+      </div>
+
+      <h2>👥 Agentes</h2>
+
+      <div class="endpoint">
+        <span class="method get">GET</span> <span class="url">/agents/ranking</span>
+        <p>Retorna o ranking dos top agentes.</p>
+        <div class="code-block">
+          [
+          {
+          "position": 1,
+          "username": "GrandMaster",
+          "puzzles_solved": 50,
+          "flags": 127,
+          "avg_time": 300
+          }
+          ]
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <span class="method get">GET</span> <span class="url">/agents/{username}</span>
+        <p>Retorna perfil de um agente.</p>
+        <div class="code-block">
+          {
+          "username": "GrandMaster",
+          "member_since": "2024-01-15",
+          "puzzles_solved": 50,
+          "achievements": 23,
+          "last_flag": "2024-03-17T10:30:00Z"
+          }
+        </div>
+      </div>
+
+      <h2>📈 Estatísticas</h2>
+
+      <div class="endpoint">
+        <span class="method get">GET</span> <span class="url">/stats/global</span>
+        <p>Estatísticas globais da plataforma.</p>
+        <div class="code-block">
+          {
+          "total_puzzles": 50,
+          "total_solved": 1337,
+          "total_agents": 1337,
+          "total_flags": 3891,
+          "by_level": {
+          "beginner": 89,
+          "intermediate": 76,
+          "advanced": 62,
+          "expert": 48,
+          "master": 23
+          }
+          }
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <span class="method get">GET</span> <span class="url">/stats/realtime</span>
+        <p>Estatísticas em tempo real (WebSocket).</p>
+        <div class="code-block">
+          {
+          "agents_online": 42,
+          "last_flag": "2 seconds ago",
+          "current_record": "12s (Puzzle 02)"
+          }
+        </div>
+      </div>
+
+      <h2>🛠️ Ferramentas</h2>
+
+      <div class="endpoint">
+        <span class="method get">GET</span> <span class="url">/tools/decode/base64</span>
+        <p>Decodifica Base64 via API.</p>
+        <div class="code-block">
+          GET /tools/decode/base64?string=Vm0wd2QyUXlVWGxV
+        </div>
+        <p><strong>Resposta:</strong></p>
+        <div class="code-block">
+          {
+          "input": "Vm0wd2QyUXlVWGxV",
+          "decoded": "use_steghide_na_imagem"
+          }
+        </div>
+      </div>
+
+      <h2>⚠️ Códigos de Erro</h2>
+      <div class="code-block">
+        400: Bad Request - Parâmetros inválidos
+        401: Unauthorized - Token ausente ou inválido
+        403: Forbidden - Sem permissão
+        404: Not Found - Recurso não encontrado
+        429: Too Many Requests - Limite de taxa excedido
+        500: Internal Server Error - Erro no servidor
+      </div>
+
+      <h2>📌 Rate Limits</h2>
+      <div class="code-block">
+        - 100 requisições por minuto (autenticado)
+        - 20 requisições por minuto (não autenticado)
+        - Headers: X-RateLimit-Limit, X-RateLimit-Remaining
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <p>Para usar a API, obtenha sua chave em <a href="community/forum.html"
+            style="color:#66c0f0;">/community/forum</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - API Documentation v1.0</p>
+  </footer>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>

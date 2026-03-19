@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferramentas - Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .tool-section {
+      margin: 2rem 0;
+    }
+
+    .tool-section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tool-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .tool-card:hover {
+      border-color: #0f0;
+      transform: translateY(-2px);
+    }
+
+    .tool-name {
+      color: #0f0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-desc {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-link {
+      color: #66c0f0;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .tool-link:hover {
+      text-decoration: underline;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / README</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> FERRAMENTAS</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="../docs/referencias/ferramentas-completas.html" class="nav-link"><i class="fas fa-tools"></i>
+        DOWNLOADS</a>
+      <a href="../docs/guias/guia-rapido-iniciante.html" class="nav-link"><i class="fas fa-rocket"></i> GUIA RÁPIDO</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🛠️ FERRAMENTAS DE INVESTIGAÇÃO</h1>
+        <p>Ferramentas online para análise forense, esteganografia, criptografia e rede</p>
+      </div>
+
+      <div class="tool-section">
+        <h2>🔊 Análise de Áudio</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Audacity</div>
+            <div class="tool-desc">Editor e gravador de áudio multi-plataforma. Análise de espectrograma, reverso, LSB.
+            </div>
+            <a href="../tools/decoders/index.html" class="tool-link">🔗 Ferramentas online</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Sonic Visualiser</div>
+            <div class="tool-desc">Visualização detalhada de áudio para análise forense.</div>
+            <a href="../tools/decoders/index.html" class="tool-link">🔗 Ferramentas online</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Spek</div>
+            <div class="tool-desc">Visualizador rápido de espectrograma.</div>
+            <a href="../tools/decoders/index.html" class="tool-link">🔗 Ferramentas online</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🔍 Forense Digital</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Autopsy</div>
+            <div class="tool-desc">Plataforma forense completa com interface gráfica.</div>
+            <a href="../tools/forense/index.html" class="tool-link">🔗 Ferramentas online</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">The Sleuth Kit</div>
+            <div class="tool-desc">Ferramentas de linha de comando para análise forense.</div>
+            <a href="../tools/forense/file-analyzer.html" class="tool-link">🔗 File Analyzer</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Volatility</div>
+            <div class="tool-desc">Framework para análise de memória RAM.</div>
+            <a href="../tools/forense/memory-analyzer.html" class="tool-link">🔗 Memory Analyzer</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Foremost</div>
+            <div class="tool-desc">Recuperação de arquivos deletados por carving.</div>
+            <a href="../tools/forense/disk-mounter.html" class="tool-link">🔗 Disk Mounter</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🔐 Criptografia</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">OpenSSL</div>
+            <div class="tool-desc">Toolkit de criptografia e certificados.</div>
+            <a href="../tools/crypto/index.html" class="tool-link">🔗 Ferramentas online</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">HashCat</div>
+            <div class="tool-desc">Quebra de hashes avançada (GPU/CPU).</div>
+            <a href="../tools/crypto/hash-identifier.html" class="tool-link">🔗 Hash Identifier</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">John the Ripper</div>
+            <div class="tool-desc">Quebra de senhas multi-plataforma.</div>
+            <a href="../tools/crypto/password-cracker-sim.html" class="tool-link">🔗 Password Cracker</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">CyberChef</div>
+            <div class="tool-desc">Ferramenta online para decodificação, criptografia e análise.</div>
+            <a href="../tools/decoders/cipher-detector.html" class="tool-link">🔗 Cipher Detector</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🖼️ Esteganografia</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Steghide</div>
+            <div class="tool-desc">Esconde e extrai dados de imagens/áudio.</div>
+            <a href="../tools/decoders/steganography-online.html" class="tool-link">🔗 Steg Online</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">ExifTool</div>
+            <div class="tool-desc">Leitura e edição de metadados EXIF.</div>
+            <a href="../tools/forense/metadata-viewer.html" class="tool-link">🔗 Metadata Viewer</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Binwalk</div>
+            <div class="tool-desc">Análise de firmware e arquivos embutidos.</div>
+            <a href="../tools/forense/file-analyzer.html" class="tool-link">🔗 File Analyzer</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🌐 Rede</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Wireshark</div>
+            <div class="tool-desc">Analisador de protocolos de rede.</div>
+            <a href="../tools/network/pcap-analyzer.html" class="tool-link">🔗 PCAP Analyzer</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">Nmap</div>
+            <div class="tool-desc">Scanner de portas e descoberta de rede.</div>
+            <a href="../tools/network/port-scanner.html" class="tool-link">🔗 Port Scanner</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">tcpdump</div>
+            <div class="tool-desc">Captura de pacotes em linha de comando.</div>
+            <a href="../tools/network/sniffer-sim.html" class="tool-link">🔗 Sniffer Simulator</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>🌍 Web Hacking</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Burp Suite</div>
+            <div class="tool-desc">Proxy e ferramentas para testes web.</div>
+            <a href="../tools/network/index.html" class="tool-link">🔗 Ferramentas de rede</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">SQLMap</div>
+            <div class="tool-desc">Automação de SQL injection.</div>
+            <a href="../tools/decoders/index.html" class="tool-link">🔗 Decoders</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">OWASP ZAP</div>
+            <div class="tool-desc">Scanner de vulnerabilidades web.</div>
+            <a href="../tools/network/index.html" class="tool-link">🔗 Ferramentas de rede</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>⚙️ Engenharia Reversa</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">Ghidra</div>
+            <div class="tool-desc">Framework de RE da NSA.</div>
+            <a href="../tools/forense/hex-editor-online.html" class="tool-link">🔗 Hex Editor</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">GDB</div>
+            <div class="tool-desc">Debugger do GNU.</div>
+            <a href="../tools/forense/memory-analyzer.html" class="tool-link">🔗 Memory Analyzer</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h2>📋 Utilitários Linux</h2>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-name">strings</div>
+            <div class="tool-desc">Extrai texto legível de binários.</div>
+            <a href="../tools/forense/file-analyzer.html" class="tool-link">🔗 File Analyzer</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">xxd / hexdump</div>
+            <div class="tool-desc">Visualização hexadecimal.</div>
+            <a href="../tools/forense/hex-editor-online.html" class="tool-link">🔗 Hex Editor</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-name">grep</div>
+            <div class="tool-desc">Busca de padrões.</div>
+            <a href="../tools/decoders/index.html" class="tool-link">🔗 Decoders</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links" style="justify-content: center; margin-top: 2rem;">
+        <a href="../docs/referencias/ferramentas-completas.html" class="nav-link">📥 PÁGINA DE DOWNLOADS</a>
+        <a href="../docs/guias/linux-commands.html" class="nav-link">🐧 COMANDOS LINUX</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Ferramentas de Investigação</p>
+    <p class="copyright">Use as ferramentas online ou baixe as versões completas</p>
+  </footer>
+  <script src="../assets/js/script.js"></script>
+</body>
+
+</html>

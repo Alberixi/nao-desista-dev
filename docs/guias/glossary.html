@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glossário | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .glossary-section {
+      margin: 2rem 0;
+    }
+
+    .glossary-section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .glossary-item {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 1rem;
+    }
+
+    .glossary-item:hover {
+      border-color: #0f0;
+    }
+
+    .term {
+      color: #ffaa00;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .definition {
+      color: #ccc;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #1a1d24;
+      color: #666;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / guias / glossary</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> GLOSSÁRIO</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 📚 GLOSSÁRIO DO INVESTIGADOR</h1>
+      </div>
+
+      <div class="glossary-section">
+        <h2>🔐 Criptografia</h2>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <div class="term">AES</div>
+            <div class="definition">Advanced Encryption Standard - Algoritmo de criptografia simétrica usado
+              globalmente.</div>
+            <span class="tag">criptografia</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Base64</div>
+            <div class="definition">Codificação que representa dados binários em texto ASCII (A-Z, a-z, 0-9, +, /).
+            </div>
+            <span class="tag">codificação</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Cifra de César</div>
+            <div class="definition">Substituição onde cada letra é deslocada um número fixo de posições no alfabeto.
+            </div>
+            <span class="tag">clássica</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Hash</div>
+            <div class="definition">Função unidirecional que gera uma impressão digital única dos dados.</div>
+            <span class="tag">criptografia</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">MD5</div>
+            <div class="definition">Algoritmo de hash de 128 bits (atualmente considerado inseguro para criptografia).
+            </div>
+            <span class="tag">hash</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">RSA</div>
+            <div class="definition">Criptografia assimétrica baseada na fatoração de números primos grandes.</div>
+            <span class="tag">assimétrica</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">ROT13</div>
+            <div class="definition">Cifra de César com deslocamento de 13 posições (aplicar duas vezes volta ao
+              original).</div>
+            <span class="tag">clássica</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">SHA</div>
+            <div class="definition">Secure Hash Algorithm - Família de funções hash (SHA-1, SHA-256, SHA-512).</div>
+            <span class="tag">hash</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">XOR</div>
+            <div class="definition">Operação lógica "ou exclusivo" usada em criptografia (reversível com a mesma chave).
+            </div>
+            <span class="tag">operação</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2>🕵️ Esteganografia</h2>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <div class="term">Esteganografia</div>
+            <div class="definition">Técnica de esconder informações dentro de outros arquivos (imagens, áudios, vídeos).
+            </div>
+            <span class="tag">ocultação</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">LSB</div>
+            <div class="definition">Least Significant Bit - Bit menos significativo, usado para esconder dados em
+              imagens/áudio.</div>
+            <span class="tag">imagem</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Metadados</div>
+            <div class="definition">Dados sobre dados (EXIF em imagens, propriedades de arquivos, informações de
+              documento).</div>
+            <span class="tag">informação</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">EXIF</div>
+            <div class="definition">Exchangeable Image File Format - Metadados em imagens (câmera, GPS, data).</div>
+            <span class="tag">imagem</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Espectrograma</div>
+            <div class="definition">Representação visual do espectro de frequências de um áudio ao longo do tempo.</div>
+            <span class="tag">áudio</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Carving</div>
+            <div class="definition">Técnica de recuperar arquivos baseada em suas assinaturas (magic numbers).</div>
+            <span class="tag">forense</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2>🔍 Forense Digital</h2>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <div class="term">Dump de Memória</div>
+            <div class="definition">Cópia do conteúdo da RAM para análise forense (arquivos .raw, .mem).</div>
+            <span class="tag">memória</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Imageamento</div>
+            <div class="definition">Cópia bit-a-bit de um disco ou partição para análise forense.</div>
+            <span class="tag">disco</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">IoC</div>
+            <div class="definition">Indicator of Compromise - Evidência de invasão ou atividade maliciosa.</div>
+            <span class="tag">indicador</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">PCAP</div>
+            <div class="definition">Formato de arquivo para captura de pacotes de rede (Packet CAPture).</div>
+            <span class="tag">rede</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Volatility</div>
+            <div class="definition">Framework open source para análise de memória RAM.</div>
+            <span class="tag">ferramenta</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Wireshark</div>
+            <div class="definition">Ferramenta de análise de protocolos de rede (sniffer de pacotes).</div>
+            <span class="tag">ferramenta</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2>🌐 Rede</h2>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <div class="term">DNS</div>
+            <div class="definition">Domain Name System - Traduz nomes de domínio para endereços IP.</div>
+            <span class="tag">protocolo</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">HTTP</div>
+            <div class="definition">Hypertext Transfer Protocol - Protocolo de transferência de hipertexto.</div>
+            <span class="tag">protocolo</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">HTTPS</div>
+            <div class="definition">Versão segura do HTTP com criptografia SSL/TLS.</div>
+            <span class="tag">protocolo</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">IP</div>
+            <div class="definition">Internet Protocol - Endereço numérico que identifica um dispositivo na rede.</div>
+            <span class="tag">endereço</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Porta</div>
+            <div class="definition">Ponto de comunicação em um dispositivo (ex: 80 para HTTP, 443 para HTTPS).</div>
+            <span class="tag">rede</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">TCP</div>
+            <div class="definition">Transmission Control Protocol - Protocolo confiável e orientado à conexão.</div>
+            <span class="tag">protocolo</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">UDP</div>
+            <div class="definition">User Datagram Protocol - Protocolo não confiável e sem conexão.</div>
+            <span class="tag">protocolo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2>🛡️ Segurança Web</h2>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <div class="term">CSRF</div>
+            <div class="definition">Cross-Site Request Forgery - Ataque que força usuário a executar ações indesejadas.
+            </div>
+            <span class="tag">ataque</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">IDOR</div>
+            <div class="definition">Insecure Direct Object Reference - Acesso direto a objetos sem autorização.</div>
+            <span class="tag">vulnerabilidade</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">JWT</div>
+            <div class="definition">JSON Web Token - Token de autenticação em formato JSON assinado.</div>
+            <span class="tag">token</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">OAuth</div>
+            <div class="definition">Protocolo de autorização para acesso delegado a recursos.</div>
+            <span class="tag">protocolo</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">SQLi</div>
+            <div class="definition">SQL Injection - Injeção de comandos SQL maliciosos.</div>
+            <span class="tag">ataque</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">XSS</div>
+            <div class="definition">Cross-Site Scripting - Injeção de scripts maliciosos em páginas web.</div>
+            <span class="tag">ataque</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2>💻 Comandos Linux</h2>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <div class="term">cat</div>
+            <div class="definition">Mostra conteúdo de arquivo (concatenate).</div>
+            <span class="tag">comando</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">chmod</div>
+            <div class="definition">Altera permissões de arquivos/diretórios.</div>
+            <span class="tag">comando</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">grep</div>
+            <div class="definition">Busca texto em arquivos (Global Regular Expression Print).</div>
+            <span class="tag">comando</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">ls</div>
+            <div class="definition">Lista arquivos e pastas (list).</div>
+            <span class="tag">comando</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">strings</div>
+            <div class="definition">Extrai texto legível de arquivos binários.</div>
+            <span class="tag">comando</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">xxd</div>
+            <div class="definition">Visualização hexadecimal de arquivos.</div>
+            <span class="tag">comando</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2>📁 Tipos de Arquivo</h2>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <div class="term">.pcap</div>
+            <div class="definition">Captura de pacotes de rede (Wireshark, tcpdump).</div>
+            <span class="tag">extensão</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">.raw / .mem</div>
+            <div class="definition">Dump de memória RAM.</div>
+            <span class="tag">extensão</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">.dd / .img</div>
+            <div class="definition">Imagem de disco.</div>
+            <span class="tag">extensão</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">.elf</div>
+            <div class="definition">Executável Linux (Executable and Linkable Format).</div>
+            <span class="tag">extensão</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">.exe</div>
+            <div class="definition">Executável Windows.</div>
+            <span class="tag">extensão</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2>🎯 Flags e Conceitos</h2>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <div class="term">Flag</div>
+            <div class="definition">String no formato <code>flag{...}</code> que comprova a solução do puzzle.</div>
+            <span class="tag">objetivo</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">CTF</div>
+            <div class="definition">Capture The Flag - Competição de segurança onde participantes buscam flags.</div>
+            <span class="tag">competição</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">OSINT</div>
+            <div class="definition">Open Source Intelligence - Inteligência de fontes abertas.</div>
+            <span class="tag">técnica</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">APT</div>
+            <div class="definition">Advanced Persistent Threat - Ameaça persistente avançada (ataques direcionados).
+            </div>
+            <span class="tag">ameaça</span>
+          </div>
+          <div class="glossary-item">
+            <div class="term">Zero Day</div>
+            <div class="definition">Vulnerabilidade desconhecida pelo fabricante (0 dias de patch).</div>
+            <span class="tag">vulnerabilidade</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box" style="background: #111; border-left: 4px solid #0f0; padding: 1rem; margin-top: 2rem;">
+        <strong>📚 Sabia que?</strong> Este glossário contém os termos mais comuns encontrados nos puzzles. Use como
+        referência sempre que encontrar um termo desconhecido!
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Glossário</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

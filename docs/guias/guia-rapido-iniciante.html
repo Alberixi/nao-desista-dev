@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia Rápido para Iniciantes | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .quick-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 1rem;
+    }
+
+    .quick-card:hover {
+      border-color: #0f0;
+    }
+
+    .command-list {
+      background: #000;
+      padding: 1rem;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    .command-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #333;
+      padding: 0.5rem;
+    }
+
+    .command-name {
+      color: #0f0;
+      font-family: monospace;
+    }
+
+    .command-desc {
+      color: #ccc;
+    }
+
+    .tool-tag {
+      background: #1a1d24;
+      color: #ffaa00;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      display: inline-block;
+      margin: 0.2rem;
+      font-size: 0.9rem;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / guias / guia-rapido</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> GUIA INICIANTE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="como-comecar.html" class="nav-link"><i class="fas fa-compass"></i> COMO COMEÇAR</a>
+      <a href="linux-commands.html" class="nav-link"><i class="fa-brands fa-linux"></i> COMANDOS LINUX</a>
+      <a href="glossary.html" class="nav-link"><i class="fas fa-book"></i> GLOSSÁRIO</a>
+      <a href="../tutoriais/esteganografia.html" class="nav-link"><i class="fas fa-image"></i> ESTEGANOGRAFIA</a>
+      <a href="../tutoriais/forense.html" class="nav-link"><i class="fas fa-microscope"></i> FORENSE</a>
+      <a href="../tutoriais/criptografia.html" class="nav-link"><i class="fas fa-lock"></i> CRIPTOGRAFIA</a>
+      <a href="../referencias/ferramentas.html" class="nav-link"><i class="fas fa-tools"></i> FERRAMENTAS</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> ⚡ GUIA RÁPIDO PARA INICIANTES</h1>
+        <p>Tudo que você precisa saber para começar sua jornada</p>
+      </div>
+
+      <div class="section">
+        <h2>🎯 Primeiros Passos</h2>
+        <div class="quick-grid">
+          <div class="quick-card">
+            <div style="color: #0f0; font-size: 2rem; text-align: center;">1</div>
+            <h3 style="text-align: center;">Comece pelo Início</h3>
+            <p style="color: #ccc;">Resolva os puzzles 01-10 (Nível Iniciante) em ordem. Eles ensinam as bases.</p>
+          </div>
+          <div class="quick-card">
+            <div style="color: #0f0; font-size: 2rem; text-align: center;">2</div>
+            <h3 style="text-align: center;">Use as Ferramentas</h3>
+            <p style="color: #ccc;">Acesse a pasta <code>/tools</code> para decodificadores online.</p>
+          </div>
+          <div class="quick-card">
+            <div style="color: #0f0; font-size: 2rem; text-align: center;">3</div>
+            <h3 style="text-align: center;">Consulte a Documentação</h3>
+            <p style="color: #ccc;">Sempre que travar, os guias têm dicas valiosas.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔧 Ferramentas Essenciais (Resumo)</h2>
+        <div>
+          <span class="tool-tag">Audacity</span>
+          <span class="tool-tag">Wireshark</span>
+          <span class="tool-tag">Steghide</span>
+          <span class="tool-tag">Exiftool</span>
+          <span class="tool-tag">Binwalk</span>
+          <span class="tool-tag">Foremost</span>
+          <span class="tool-tag">Volatility</span>
+          <span class="tool-tag">John</span>
+          <span class="tool-tag">Hashcat</span>
+          <span class="tool-tag">SQLMap</span>
+          <span class="tool-tag">Burp Suite</span>
+          <span class="tool-tag">Nmap</span>
+          <span class="tool-tag">Strings</span>
+          <span class="tool-tag">Ghidra</span>
+        </div>
+        <p style="margin-top: 1rem;">📥 <a href="../referencias/ferramentas.html" style="color: #66c0f0;">Links para
+            download na página de ferramentas</a></p>
+      </div>
+
+      <div class="section">
+        <h2>🐧 Comandos Linux que Você Precisa Saber</h2>
+        <div class="command-list">
+          <div class="command-item">
+            <span class="command-name">ls -la</span>
+            <span class="command-desc">Lista arquivos (incluindo ocultos)</span>
+          </div>
+          <div class="command-item">
+            <span class="command-name">cat arquivo</span>
+            <span class="command-desc">Mostra conteúdo do arquivo</span>
+          </div>
+          <div class="command-item">
+            <span class="command-name">grep "texto" *</span>
+            <span class="command-desc">Busca texto em arquivos</span>
+          </div>
+          <div class="command-item">
+            <span class="command-name">strings arquivo</span>
+            <span class="command-desc">Extrai texto de binários</span>
+          </div>
+          <div class="command-item">
+            <span class="command-name">file arquivo</span>
+            <span class="command-desc">Identifica tipo do arquivo</span>
+          </div>
+          <div class="command-item">
+            <span class="command-name">hexdump -C arquivo</span>
+            <span class="command-desc">Visualização hexadecimal</span>
+          </div>
+          <div class="command-item">
+            <span class="command-name">find . -name "*.txt"</span>
+            <span class="command-desc">Procura arquivos por nome</span>
+          </div>
+          <div class="command-item">
+            <span class="command-name">exiftool imagem.jpg</span>
+            <span class="command-desc">Metadados da imagem</span>
+          </div>
+        </div>
+        <p>📖 <a href="linux-commands.html" style="color: #66c0f0;">Guia completo de comandos Linux</a></p>
+      </div>
+
+      <div class="section">
+        <h2>📚 Codificações Comuns</h2>
+        <div class="quick-grid">
+          <div class="quick-card">
+            <h3>Base64</h3>
+            <p style="color: #ccc;">Começa com letras maiúsculas/minúsculas e números, termina com =</p>
+            <div class="command-name">echo "texto" | base64</div>
+          </div>
+          <div class="quick-card">
+            <h3>Hexadecimal</h3>
+            <p style="color: #ccc;">Apenas 0-9 e A-F, geralmente em pares</p>
+            <div class="command-name">xxd -r</div>
+          </div>
+          <div class="quick-card">
+            <h3>ROT13</h3>
+            <p style="color: #ccc;">Deslocamento de 13 letras (a→n, b→o)</p>
+            <div class="command-name">tr 'A-Za-z' 'N-ZA-Mn-za-m'</div>
+          </div>
+          <div class="quick-card">
+            <h3>Binário</h3>
+            <p style="color: #ccc;">Apenas 0 e 1, grupos de 8 bits</p>
+            <div class="command-name">Converter para ASCII</div>
+          </div>
+        </div>
+        <p>🔧 <a href="../../tools/decoders/" style="color: #66c0f0;">Use os decodificadores online em /tools</a></p>
+      </div>
+
+      <div class="section">
+        <h2>🔍 Técnicas Rápidas por Tipo de Puzzle</h2>
+
+        <h3>🖼️ Imagens</h3>
+        <ol style="color: #ccc; margin-left: 2rem;">
+          <li><span class="command-name">exiftool imagem.jpg</span> - Metadados</li>
+          <li><span class="command-name">steghide extract -sf imagem.jpg</span> - Dados escondidos</li>
+          <li><span class="command-name">binwalk imagem.png</span> - Arquivos embutidos</li>
+          <li><span class="command-name">zsteg imagem.png</span> - LSB em PNG</li>
+        </ol>
+
+        <h3>🎵 Áudio</h3>
+        <ol style="color: #ccc; margin-left: 2rem;">
+          <li>Audacity → View → Spectrogram - Imagem nas frequências</li>
+          <li><span class="command-name">strings audio.wav | grep flag</span> - Texto oculto</li>
+        </ol>
+
+        <h3>📄 Arquivos</h3>
+        <ol style="color: #ccc; margin-left: 2rem;">
+          <li><span class="command-name">strings arquivo | grep flag</span> - Texto legível</li>
+          <li><span class="command-name">binwalk arquivo</span> - Arquivos embutidos</li>
+          <li><span class="command-name">foremost -i arquivo -o output/</span> - Carving</li>
+        </ol>
+
+        <h3>🌐 Rede (PCAP)</h3>
+        <ol style="color: #ccc; margin-left: 2rem;">
+          <li><span class="command-name">tshark -r captura.pcap -Y "http"</span> - Filtrar HTTP</li>
+          <li><span class="command-name">tcpflow -r captura.pcap</span> - Reconstruir fluxos</li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <h2>🏆 Dicas de Ouro</h2>
+        <div class="tip-box">
+          <ul style="color: #ccc;">
+            <li><strong>🔍 SEMPRE inspecione o código fonte</strong> (F12) - há pistas escondidas</li>
+            <li><strong>📝 Leia a descrição do puzzle</strong> com atenção - ela contém dicas</li>
+            <li><strong>🔄 Tente múltiplas abordagens</strong> - a primeira pode não funcionar</li>
+            <li><strong>📚 Use a documentação</strong> - os tutoriais foram feitos para ajudar</li>
+            <li><strong>🤝 Pergunte na comunidade</strong> - ninguém sabe tudo sozinho</li>
+            <li><strong>⏸️ Faça pausas</strong> - às vezes a solução vem quando você descansa</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📋 Checklist do Iniciante</h2>
+        <div style="background: #111; padding: 1rem; border-radius: 5px;">
+          <p><input type="checkbox"> Li o guia "Como Começar"</p>
+          <p><input type="checkbox"> Entendi o formato das flags: <code>flag{...}</code></p>
+          <p><input type="checkbox"> Sei usar o terminal interativo (<code>help</code>, <code>ls</code>,
+            <code>cat</code>)
+          </p>
+          <p><input type="checkbox"> Conheço as ferramentas básicas (exiftool, strings, steghide)</p>
+          <p><input type="checkbox"> Resolvi pelo menos 1 puzzle do nível iniciante</p>
+          <p><input type="checkbox"> Sei onde encontrar ajuda (documentação, comunidade)</p>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>🌟 Lembre-se:</strong> Todo mestre já foi um iniciante que não desistiu. Continue praticando!
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        <a href="como-comecar.html" class="nav-link">📖 GUIA COMPLETO</a>
+        <a href="../tutoriais/esteganografia.html" class="nav-link">🖼️ ESTEGANOGRAFIA</a>
+        <a href="../tutoriais/forense.html" class="nav-link">🔍 FORENSE</a>
+        <a href="../referencias/ferramentas.html" class="nav-link">🔧 FERRAMENTAS</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Guia Rápido para Iniciantes</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

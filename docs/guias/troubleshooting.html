@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Troubleshooting | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .problem-box {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .problem-box:hover {
+      border-color: #ffaa00;
+    }
+
+    .problem-title {
+      color: #ffaa00;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .symptom {
+      color: #ff3e3e;
+      font-family: monospace;
+      background: #1a1d24;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      display: inline-block;
+      margin: 0.5rem 0;
+    }
+
+    .solution {
+      color: #0f0;
+      padding-left: 1rem;
+      border-left: 2px solid #0f0;
+      margin: 0.5rem 0;
+    }
+
+    .code-block {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+      border: 1px solid #333;
+      overflow-x: auto;
+    }
+
+    .warning-box {
+      background: #331100;
+      border-left: 4px solid #ffaa00;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / guias / troubleshooting</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> SOLUÇÃO DE PROBLEMAS</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🔧 GUIA DE TROUBLESHOOTING</h1>
+      </div>
+
+      <p>Problemas comuns e soluções na plataforma Não Desista Dev.</p>
+
+      <div class="section">
+        <h2>🚫 Puzzle não carrega</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">A página do puzzle fica em branco ou não carrega o CSS</div>
+
+          <div class="problem-title">Soluções</div>
+
+          <div class="solution">1. Verifique o caminho dos arquivos</div>
+          <div class="code-block">
+            Estrutura correta:
+            raiz/
+            ├── assets/
+            │ ├── css/
+            │ │ └── style.css
+            │ └── js/
+            │ └── script.js
+            └── puzzles/
+            └── nivel-x/
+            └── puzzle.html
+          </div>
+
+          <div class="solution">2. Links corretos no HTML</div>
+          <div class="code-block">
+            &lt;link rel="stylesheet" href="../../assets/css/style.css"&gt;
+            &lt;script src="../../assets/js/script.js"&gt;&lt;/script&gt;
+          </div>
+
+          <div class="solution">3. Abra o console do navegador (F12) e veja erros 404</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔗 Botões de navegação não funcionam</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Os botões "Anterior" e "Próximo" não levam aos puzzles corretos</div>
+
+          <div class="problem-title">Solução</div>
+          <div class="solution">Verifique os links no arquivo HTML:</div>
+          <div class="code-block">
+            &lt;div class="nav-buttons"&gt;
+            &lt;a href="01-audio-misterioso.html" class="nav-button"&gt;ANTERIOR&lt;/a&gt;
+            &lt;a href="../../index.html" class="nav-button"&gt;ÍNDICE&lt;/a&gt;
+            &lt;a href="03-rot13-simples.html" class="nav-button"&gt;PRÓXIMO&lt;/a&gt;
+            &lt;/div&gt;
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🎨 CSS não aplica</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Página aparece sem cores, só texto preto no fundo branco</div>
+
+          <div class="problem-title">Soluções</div>
+          <div class="solution">1. Caminho incorreto: Ajuste o <code>href</code> do CSS</div>
+          <div class="solution">2. Cache do navegador: Limpe o cache (Ctrl+F5)</div>
+          <div class="solution">3. Arquivo style.css existe? Verifique se está em <code>assets/css/</code></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📊 Progresso não salva</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Puzzles resolvidos voltam a aparecer como não resolvidos</div>
+
+          <div class="problem-title">Soluções</div>
+          <div class="solution">1. LocalStorage limpo: Não limpe os dados do navegador</div>
+          <div class="solution">2. Função marcarPuzzleResolvido: Verifique se está sendo chamada</div>
+          <div class="code-block">
+            if (flag === CORRECT_FLAG) {
+            if (typeof marcarPuzzleResolvido === 'function') {
+            marcarPuzzleResolvido(id);
+            }
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🖥️ Terminal interativo não responde</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Digitar comandos no terminal não produz saída</div>
+
+          <div class="problem-title">Soluções</div>
+          <div class="solution">1. Verifique o script.js: A função <code>setupTerminal()</code> deve ser chamada no
+            <code>DOMContentLoaded</code>
+          </div>
+          <div class="solution">2. Conflito de IDs: O input deve ter <code>id="terminal-input"</code></div>
+          <div class="solution">3. Erro no console: Verifique erros no console (F12)</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📁 Arquivos não baixam</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Links de download de assets não funcionam</div>
+
+          <div class="problem-title">Solução</div>
+          <div class="solution">Crie os arquivos dummy ou reais na pasta correta:</div>
+          <div class="code-block">
+            # Criar arquivos dummy
+            New-Item -Path "assets/audio/espectro/misterio.wav" -ItemType File
+            New-Item -Path "assets/images/stego/gato.jpg" -ItemType File
+            New-Item -Path "assets/files/compactados/arquivo.zip" -ItemType File
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🏆 Flag não é aceita</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Mesmo com a flag correta, a verificação falha</div>
+
+          <div class="problem-title">Soluções</div>
+          <div class="solution">1. Case sensitive: <code>flag{...}</code> vs <code>FLAG{...}</code></div>
+          <div class="solution">2. Espaços extras: Remova espaços antes/depois</div>
+          <div class="solution">3. Formato incorreto: Deve ser exatamente <code>flag{...}</code></div>
+          <div class="solution">4. Verifique a flag no código:</div>
+          <div class="code-block">
+            const CORRECT_FLAG = "flag{...}";
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔄 Puzzle 50 não mostra celebração</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Ao acertar a flag final, não aparece a mensagem de parabéns</div>
+
+          <div class="problem-title">Solução</div>
+          <div class="solution">Verifique se a função <code>mostrarCelebracao()</code> está definida:</div>
+          <div class="code-block">
+            function mostrarCelebracao() {
+            alert('🏆 PARABÉNS MESTRE! 🏆');
+            console.log('%c🏆 50 PUZZLES COMPLETOS! 🏆', 'color: gold; font-size: 20px');
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🌐 Links quebrados no menu</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Cliques nos puzzles da página inicial levam a páginas 404</div>
+
+          <div class="problem-title">Solução</div>
+          <div class="solution">Atualize o <code>script.js</code> com os caminhos corretos:</div>
+          <div class="code-block">
+            {
+            id: 1,
+            link: "puzzles/nivel-1-iniciante/01-audio-misterioso.html" // Caminho correto
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📦 Docker/Vagrant não sobe</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Laboratórios não iniciam</div>
+
+          <div class="problem-title">Soluções</div>
+          <div class="solution">1. Verifique se Docker está instalado: <code>docker --version</code></div>
+          <div class="solution">2. Verifique se Vagrant está instalado: <code>vagrant --version</code></div>
+          <div class="solution">3. Portas conflitantes: Mude as portas no docker-compose.yml</div>
+          <div class="solution">4. Permissões: Execute como administrador</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔐 Erro de permissão nos scripts</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Scripts bash não executam no Linux</div>
+
+          <div class="problem-title">Solução</div>
+          <div class="code-block">
+            chmod +x labs/ambiente-linux/scripts/*.sh
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📝 Arquivos .md não renderizam</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Sintoma</div>
+          <div class="symptom">Documentação aparece como texto puro</div>
+
+          <div class="problem-title">Solução</div>
+          <div class="solution">Use uma extensão de Markdown no VSCode ou visualize diretamente no GitHub.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🐛 Outros problemas</h2>
+
+        <div class="problem-box">
+          <div class="problem-title">Se nenhuma solução acima funcionar:</div>
+
+          <div class="solution">1. Abra o console do navegador (F12)</div>
+          <div class="solution">2. Copie o erro exibido</div>
+          <div class="solution">3. Reporte no GitHub com:</div>
+          <div class="code-block">
+            - Descrição do problema
+            - Passos para reproduzir
+            - Screenshot do erro
+            - Informações do sistema
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Ainda com problemas?</strong> Venha conversar conosco no Discord!
+        <a href="https://discord.gg/naodesistadev" style="color: #66c0f0;">discord.gg/naodesistadev</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Troubleshooting</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

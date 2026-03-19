@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estatísticas | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .stats-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .stats-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stats-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-card:hover {
+      border-color: #0f0;
+    }
+
+    .stat-value {
+      font-size: 3rem;
+      color: #0f0;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      color: #ccc;
+      margin-top: 0.5rem;
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      color: #ffaa00;
+      margin-bottom: 1rem;
+    }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .ranking-table th {
+      background: #1a1d24;
+      color: #0f0;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .ranking-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .ranking-table tr:hover {
+      background: #1a1d24;
+    }
+
+    .gold {
+      color: gold;
+    }
+
+    .silver {
+      color: silver;
+    }
+
+    .bronze {
+      color: #cd7f32;
+    }
+
+    .progress-bar {
+      background: #333;
+      height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+
+    .progress-fill {
+      background: #0f0;
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> stats / global</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ESTATÍSTICAS</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="stats-container">
+      <div class="stats-header">
+        <h1 class="stats-title">> 📊 ESTATÍSTICAS GLOBAIS</h1>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-puzzle-piece"></i></div>
+          <div class="stat-value" id="total-puzzles">50</div>
+          <div class="stat-label">Puzzles Totais</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-value" id="solved-global">1.337</div>
+          <div class="stat-label">Puzzles Resolvidos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-value" id="total-agents">1.337</div>
+          <div class="stat-label">Agentes Ativos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-flag"></i></div>
+          <div class="stat-value" id="total-flags">3.891</div>
+          <div class="stat-label">Flags Capturadas</div>
+        </div>
+      </div>
+
+      <h2>🏆 Top 10 Agentes</h2>
+      <table class="ranking-table">
+        <tr>
+          <th>#</th>
+          <th>Agente</th>
+          <th>Puzzles</th>
+          <th>Flags</th>
+          <th>Tempo Médio</th>
+        </tr>
+        <tr>
+          <td><span class="gold">🥇 1</span></td>
+          <td>GrandMaster</td>
+          <td>50/50</td>
+          <td>127</td>
+          <td>5 min</td>
+        </tr>
+        <tr>
+          <td><span class="silver">🥈 2</span></td>
+          <td>UltimateHacker</td>
+          <td>50/50</td>
+          <td>98</td>
+          <td>7 min</td>
+        </tr>
+        <tr>
+          <td><span class="bronze">🥉 3</span></td>
+          <td>Legendary</td>
+          <td>49/50</td>
+          <td>76</td>
+          <td>8 min</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Mythic</td>
+          <td>48/50</td>
+          <td>65</td>
+          <td>9 min</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>GodLike</td>
+          <td>47/50</td>
+          <td>54</td>
+          <td>10 min</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>SpeedRunner</td>
+          <td>45/50</td>
+          <td>43</td>
+          <td>6 min</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>FastHacker</td>
+          <td>42/50</td>
+          <td>38</td>
+          <td>7 min</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>QuickSolve</td>
+          <td>40/50</td>
+          <td>32</td>
+          <td>8 min</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>RapidFire</td>
+          <td>38/50</td>
+          <td>29</td>
+          <td>9 min</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Lightning</td>
+          <td>35/50</td>
+          <td>25</td>
+          <td>10 min</td>
+        </tr>
+      </table>
+
+      <h2>📈 Progresso por Nível</h2>
+      <div style="margin: 2rem 0;">
+        <div>Nível Iniciante (01-10) <span style="float: right;">89%</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 89%;"></div>
+        </div>
+
+        <div style="margin-top: 1rem;">Nível Intermediário (11-20) <span style="float: right;">76%</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 76%;"></div>
+        </div>
+
+        <div style="margin-top: 1rem;">Nível Avançado (21-30) <span style="float: right;">62%</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 62%;"></div>
+        </div>
+
+        <div style="margin-top: 1rem;">Nível Especialista (31-40) <span style="float: right;">48%</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 48%;"></div>
+        </div>
+
+        <div style="margin-top: 1rem;">Nível Mestre (41-50) <span style="float: right;">23%</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 23%;"></div>
+        </div>
+      </div>
+
+      <h2>⏱️ Recordes</h2>
+      <div style="display: grid; grid-template-columns: repeat(3,1fr); gap:1rem;">
+        <div class="stat-card">
+          <div class="stat-value">12s</div>
+          <div>Puzzle 02 (Base64)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">45s</div>
+          <div>Puzzle 50 (Final)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2h</div>
+          <div>Todos Nível 1</div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem; color: #666;">
+        Atualizado em: 17/03/2024 10:30
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Estatísticas Globais</p>
+  </footer>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>

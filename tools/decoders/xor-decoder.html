@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XOR Decoder | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    textarea,
+    input {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      font-family: monospace;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / decoders / xor</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> XOR DECODER</h1>
+        <p>XOR é reversível: (A XOR B) XOR B = A</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Decodificar XOR com chave única</h3>
+        <textarea id="xorInput" rows="3" placeholder="Texto ou hex para decodificar..."></textarea>
+        <input type="text" id="xorKey" placeholder="Chave (ex: 42, 0x2A, ou texto)">
+        <div style="display: flex; gap: 1rem;">
+          <button onclick="xorDecode()">DECODIFICAR</button>
+          <button onclick="xorBruteforce()">BRUTE FORCE (0-255)</button>
+        </div>
+        <div id="xorResult" class="result-box"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Ferramenta XOR</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function xorDecode() {
+      const input = document.getElementById('xorInput').value;
+      let key = document.getElementById('xorKey').value;
+
+      // Converter key para número se possível
+      if (key.startsWith('0x')) {
+        key = parseInt(key, 16);
+      } else if (!isNaN(key)) {
+        key = parseInt(key);
+      } else {
+        document.getElementById('xorResult').innerHTML = 'Use uma chave numérica (ex: 42 ou 0x2A)';
+        return;
+      }
+
+      // Tentar decodificar como hex primeiro
+      let bytes = [];
+      const hexPattern = /^[0-9a-fA-F\s]+$/;
+      if (input.replace(/\s/g, '').match(hexPattern)) {
+        const hex = input.replace(/\s/g, '');
+        for (let i = 0; i < hex.length; i += 2) {
+          bytes.push(parseInt(hex.substr(i, 2), 16));
+        }
+      } else {
+        for (let i = 0; i < input.length; i++) {
+          bytes.push(input.charCodeAt(i));
+        }
+      }
+
+      let result = '';
+      for (let i = 0; i < bytes.length; i++) {
+        result += String.fromCharCode(bytes[i] ^ key);
+      }
+      document.getElementById('xorResult').innerHTML = result;
+    }
+
+    function xorBruteforce() {
+      const input = document.getElementById('xorInput').value;
+      let results = '';
+
+      // Converter input para bytes
+      let bytes = [];
+      for (let i = 0; i < input.length; i++) {
+        bytes.push(input.charCodeAt(i));
+      }
+
+      for (let key = 0; key < 256; key++) {
+        let result = '';
+        for (let i = 0; i < bytes.length; i++) {
+          result += String.fromCharCode(bytes[i] ^ key);
+        }
+        if (result.includes('flag') || result.includes('FLAG') || result.includes('{')) {
+          results += `Chave ${key}: ${result}<br>`;
+        }
+      }
+      document.getElementById('xorResult').innerHTML = results || 'Nenhum resultado legível encontrado';
+    }
+  </script>
+</body>
+
+</html>

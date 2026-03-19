@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .error-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 4rem 2rem;
+      margin: 4rem auto;
+      max-width: 800px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+    }
+
+    .error-code {
+      font-size: 8rem;
+      color: var(--text-primary);
+      text-shadow: 0 0 20px var(--text-primary);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .error-title {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+
+    .error-message {
+      color: #ffaa00;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      font-style: italic;
+    }
+
+    .error-solutions {
+      background: #111;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .solution-item {
+      margin: 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .solution-icon {
+      color: #0f0;
+      font-size: 1.5rem;
+      width: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      background: transparent;
+      border: 2px solid var(--text-primary);
+      color: var(--text-primary);
+      padding: 0.75rem 2rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .glitch {
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00ffff;
+      }
+
+      25% {
+        text-shadow: -2px 2px 0 #ff00ff, 2px -2px 0 #00ffff;
+      }
+
+      50% {
+        text-shadow: 2px -2px 0 #ff00ff, -2px 2px 0 #00ffff;
+      }
+
+      75% {
+        text-shadow: -2px -2px 0 #ff00ff, 2px 2px 0 #00ffff;
+      }
+
+      100% {
+        text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00ffff;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title">
+      <i class="fas fa-terminal"></i>
+      <span>NÃO_DESISTA_DEV / 404</span>
+    </div>
+    <div class="terminal-status">
+      <div class="status-item">
+        <i class="fas fa-circle blink" style="color: #ff0000;"></i>
+        <span>PÁGINA NÃO ENCONTRADA</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="error-container">
+      <div class="error-code glitch">404</div>
+      <div class="error-title">ARQUIVO NÃO ENCONTRADO</div>
+      <div class="error-message">"... ou será que está escondido?"</div>
+      <!-- procure por secret-nokia.html -->
+      <div class="error-solutions">
+        <div class="solution-item">
+          <div class="solution-icon"><i class="fas fa-search"></i></div>
+          <div>Talvez você precise inspecionar o código fonte (F12)</div>
+        </div>
+        <div class="solution-item">
+          <div class="solution-icon"><i class="fas fa-eye"></i></div>
+          <div>Ou talvez a página esteja em um diretório oculto</div>
+        </div>
+        <div class="solution-item">
+          <div class="solution-icon"><i class="fas fa-terminal"></i></div>
+          <div>Use <code>ls -la</code> no terminal interativo para ver arquivos ocultos</div>
+        </div>
+        <div class="solution-item">
+          <div class="solution-icon"><i class="fas fa-flag"></i></div>
+          <div>Ou quem sabe... isso é um puzzle?</div>
+        </div>
+      </div>
+
+      <!-- Mensagem oculta no código fonte -->
+      <!-- flag{404_puzzle_escondido} -->
+
+      <div class="buttons">
+        <a href="index.html" class="btn"><i class="fas fa-home"></i> VOLTAR AO INÍCIO</a>
+        <a href="puzzles/nivel-1-iniciante/01-audio-misterioso.html" class="btn"><i class="fas fa-puzzle-piece"></i>
+          PRIMEIRO PUZZLE</a>
+        <a href="labs/gerador.html" class="btn"><i class="fas fa-flask"></i> LABORATÓRIO</a>
+      </div>
+
+      <div style="margin-top: 3rem; color: #666; font-size: 0.9rem;">
+        <p>Dica: Nem tudo que está perdido está realmente perdido.</p>
+        <p style="color: #0f0;">"O verdadeiro investigador cria os próprios caminhos."</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - 404: Página não encontrada (ou será que sim?)</p>
+  </footer>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>

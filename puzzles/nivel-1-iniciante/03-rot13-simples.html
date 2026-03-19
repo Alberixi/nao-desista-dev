@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon/favicon.svg">
+    <link rel="alternate icon" href="../../assets/images/favicon/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 03: ROT13 Simples | Não Desista Dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .puzzle-container {
+            background: var(--bg-secondary);
+            border: 2px solid var(--text-primary);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .puzzle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--text-secondary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .puzzle-title {
+            font-size: 2rem;
+            color: var(--text-primary);
+        }
+
+        .puzzle-difficulty-badge {
+            background: #00aa00;
+            color: black;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .challenge-area {
+            background: #000;
+            border-radius: 5px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px dashed var(--text-secondary);
+        }
+
+        .hint-box {
+            background: rgba(102, 192, 240, 0.1);
+            border-left: 4px solid var(--text-secondary);
+            padding: 1rem;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+
+        .flag-input-area {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .flag-input {
+            flex: 1;
+            min-width: 250px;
+            background: var(--bg-primary);
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            padding: 0.75rem;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+        }
+
+        .flag-submit-btn {
+            background: transparent;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            padding: 0.75rem 2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .flag-submit-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .tool-tag {
+            background: var(--bg-primary);
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border: 1px solid var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .code-block {
+            background: #000;
+            color: #0f0;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            border: 1px solid var(--text-primary);
+        }
+        .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.nav-button {
+    background: transparent;
+    border: 1px solid var(--text-primary);
+    color: var(--text-primary);
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+}
+.nav-button:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+}
+.nav-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    border-color: #666;
+    color: #666;
+}
+    </style>
+</head>
+
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header class="terminal-header">
+        <div class="terminal-title"><i class="fas fa-terminal"></i> PUZZLE 03 - ROT13 SIMPLES</div>
+        <div class="terminal-status">
+            <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> NÍVEL: INICIANTE</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <a href="../../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR AO TERMINAL</a>
+        <div class="puzzle-container">
+            <div class="nav-buttons">
+                <a href="02-base64-basico.html" class="nav-button"><i class="fas fa-arrow-left"></i> ANTERIOR (02)</a>
+                <a href="../../index.html" class="nav-button"><i class="fas fa-home"></i> ÍNDICE</a>
+                <a href="04-hexadecimal-101.html" class="nav-button">PRÓXIMO (04) <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <p>Encontramos uma mensagem cifrada com ROT13, uma cifra de substituição simples onde cada letra é trocada
+                pela 13ª posição à frente no alfabeto.</p>
+
+            <div class="challenge-area">
+                <h3><i class="fas fa-lock"></i> MENSAGEM CIFRADA</h3>
+                <div class="code-block">sbbq pbqr vf n zrffntr</div>
+
+                <h3 style="margin-top: 2rem;"><i class="fas fa-microscope"></i> DECODIFICADOR ROT13</h3>
+                <input type="text" id="rot13Input" placeholder="Digite o texto cifrado"
+                    style="width:100%; padding:0.5rem; background:#000; color:#0f0; border:1px solid #0f0;">
+                <button onclick="rot13()"
+                    style="margin-top:1rem; background:#0f0; color:#000; padding:0.5rem 1rem; border:none; cursor:pointer; font-weight:bold;">DECODIFICAR</button>
+                <div id="rot13Result"
+                    style="margin-top:1rem; color:#0f0; font-family:monospace; background:#111; padding:1rem; border-radius:5px;">
+                </div>
+            </div>
+
+            <div class="hint-box">
+                <i class="fas fa-lightbulb"></i> <strong>DICA:</strong> ROT13 é seu próprio inverso. Aplicar ROT13 duas
+                vezes volta ao texto original.
+            </div>
+
+            <h3><i class="fas fa-tools"></i> FERRAMENTAS</h3>
+            <div class="tool-list"><span class="tool-tag">ROT13</span><span class="tool-tag">Cifra de César</span></div>
+
+            <h3><i class="fas fa-flag"></i> SUBMETER FLAG</h3>
+            <div class="flag-input-area">
+                <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+                <button class="flag-submit-btn" id="submitFlag">VERIFICAR</button>
+            </div>
+            <div id="resultMessage"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>NÃO DESISTA DEV - Puzzle 03</p>
+    </footer>
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        function rot13() {
+            let input = document.getElementById('rot13Input').value;
+            let output = input.replace(/[a-zA-Z]/g, c =>
+                String.fromCharCode(c.charCodeAt(0) + (c.toLowerCase() < 'n' ? 13 : -13)));
+            document.getElementById('rot13Result').innerText = output;
+        }
+        document.getElementById('submitFlag').addEventListener('click', function () {
+            const flag = document.getElementById('flagInput').value.trim();
+            const result = document.getElementById('resultMessage');
+            if (flag === 'flag{rot13_e_simples}') {
+                result.innerHTML = '<span style="color:#0f0;">✓ FLAG CORRETA!</span>';
+                if (typeof marcarPuzzleResolvido === 'function') marcarPuzzleResolvido(3);
+            } else {
+                result.innerHTML = '<span style="color:#f00;">✗ FLAG INCORRETA</span>';
+            }
+        });
+    </script>
+</body>
+
+</html>
+

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Port Scanner | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .tool-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .tool-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .tool-area {
+      background: #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px dashed var(--text-secondary);
+    }
+
+    input,
+    select {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.75rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .result-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .port-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .port-item:hover {
+      background: #1a1d24;
+    }
+
+    .port-open {
+      color: #0f0;
+      font-weight: bold;
+    }
+
+    .port-closed {
+      color: #666;
+    }
+
+    .port-service {
+      color: #ffaa00;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> tools / network / port-scanner</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> ONLINE</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1 class="tool-title">> PORT SCANNER</h1>
+        <p>Simulação de scan de portas</p>
+      </div>
+
+      <div class="tool-area">
+        <h3>Alvo</h3>
+        <input type="text" id="target" value="scanme.nmap.org" placeholder="IP ou domínio">
+
+        <h3>Range de portas</h3>
+        <div style="display: flex; gap: 1rem;">
+          <input type="number" id="portStart" value="1" placeholder="Início">
+          <input type="number" id="portEnd" value="1000" placeholder="Fim">
+        </div>
+
+        <h3>Tipo de scan</h3>
+        <select id="scanType">
+          <option value="tcp">TCP Connect Scan</option>
+          <option value="syn">SYN Stealth Scan</option>
+          <option value="udp">UDP Scan</option>
+        </select>
+
+        <button onclick="startScan()">INICIAR SCAN</button>
+
+        <div id="scanResult" class="result-box"></div>
+
+        <div style="margin-top: 2rem;">
+          <h3>Comandos Nmap reais</h3>
+          <div class="result-box">
+            <p><strong>nmap -p 1-1000 scanme.nmap.org</strong></p>
+            <p><strong>nmap -sS -p 1-1000 192.168.1.1</strong> (SYN stealth)</p>
+            <p><strong>nmap -sU -p 1-1000 192.168.1.1</strong> (UDP)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Port Scanner</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    function startScan() {
+      const target = document.getElementById('target').value;
+      const start = parseInt(document.getElementById('portStart').value);
+      const end = parseInt(document.getElementById('portEnd').value);
+      const scanType = document.getElementById('scanType').value;
+
+      document.getElementById('scanResult').innerHTML = '🔍 Escaneando...';
+
+      setTimeout(() => {
+        // Simular portas abertas comuns
+        const commonPorts = {
+          21: 'FTP',
+          22: 'SSH',
+          23: 'Telnet',
+          25: 'SMTP',
+          80: 'HTTP',
+          443: 'HTTPS',
+          3306: 'MySQL',
+          3389: 'RDP',
+          5432: 'PostgreSQL',
+          6379: 'Redis',
+          8080: 'HTTP-Alt',
+          27017: 'MongoDB'
+        };
+
+        let resultHTML = `<strong>📊 Resultado do scan em ${target}:</strong><br><br>`;
+        let found = 0;
+
+        for (let port = start; port <= end; port += Math.ceil((end - start) / 20)) {
+          if (port in commonPorts) {
+            resultHTML += `<div class="port-item">
+                            <span class="port-open">✅ Porta ${port} aberta</span>
+                            <span class="port-service">${commonPorts[port]}</span>
+                        </div>`;
+            found++;
+          } else if (port % 100 === 0) {
+            resultHTML += `<div class="port-item">
+                            <span class="port-closed">❌ Porta ${port} fechada</span>
+                            <span class="port-service">-</span>
+                        </div>`;
+          }
+        }
+
+        resultHTML += `<br><span class="text-secondary">Total: ${found} portas abertas encontradas</span>`;
+        document.getElementById('scanResult').innerHTML = resultHTML;
+      }, 2000);
+    }
+  </script>
+</body>
+
+</html>

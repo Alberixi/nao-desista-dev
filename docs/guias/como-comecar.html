@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Como Começar | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .tip-box {
+      background: #111;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .warning-box {
+      background: #331100;
+      border-left: 4px solid #ffaa00;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .level-card {
+      background: #111;
+      padding: 1rem;
+      border-radius: 5px;
+      text-align: center;
+      border: 1px solid #333;
+    }
+
+    .level-card:hover {
+      border-color: #0f0;
+    }
+
+    .level-card .level {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .level-card .ids {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .level-card .desc {
+      color: #0f0;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .command-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .command-table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .command-table td:first-child {
+      color: #0f0;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / guias / como-comecar</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> GUIA</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🚀 COMO COMEÇAR - GUIA DO INVESTIGADOR</h1>
+      </div>
+
+      <p>Bem-vindo, agente! Este guia vai te ajudar a navegar pela plataforma Não Desista Dev e começar sua jornada de
+        investigação digital.</p>
+
+      <div class="tip-box">
+        <strong>💡 DICA:</strong> A persistência é a chave. Não desista no primeiro obstáculo!
+      </div>
+
+      <div class="section">
+        <h2>📋 Pré-requisitos</h2>
+        <p>Antes de começar, tenha em mãos:</p>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>Um navegador moderno (Chrome, Firefox, Edge)</li>
+          <li>Curiosidade e persistência</li>
+          <li>Conhecimentos básicos de terminal (útil mas não obrigatório)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>🎯 Navegando pela Plataforma</h2>
+
+        <h3>Página Inicial (index.html)</h3>
+        <p>A página principal contém:</p>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li><strong>Terminal Header:</strong> Status do sistema e contador de agentes</li>
+          <li><strong>Hero Section:</strong> Boas-vindas e terminal informativo</li>
+          <li><strong>Stats Grid:</strong> Estatísticas gerais (puzzles, ferramentas, flags)</li>
+          <li><strong>Puzzles Grid:</strong> Todos os 50 desafios organizados por nível</li>
+          <li><strong>Ferramentas:</strong> Links para ferramentas úteis</li>
+          <li><strong>Documentação:</strong> Guias e referências</li>
+          <li><strong>Terminal Interativo:</strong> Simulador de terminal Linux</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>📊 Níveis de Dificuldade</h2>
+        <p>Os puzzles são organizados em 5 níveis:</p>
+        <p>
+        <h2>🏁 Formato das Flags</h2>
+        <p>Todas as respostas seguem o formato:</p>
+
+        <code>flag{exemplo_de_resposta}</code></p>
+        <div class="level-grid">
+          <div class="level-card">
+            <div class="level" style="color: #00aa00;">🟢 Iniciante</div>
+            <div class="ids">01-10</div>
+            <div class="desc">Conceitos básicos de codificação</div>
+          </div>
+          <div class="level-card">
+            <div class="level" style="color: #ffaa00;">🟡 Intermediário</div>
+            <div class="ids">11-20</div>
+            <div class="desc">Técnicas combinadas</div>
+          </div>
+          <div class="level-card">
+            <div class="level" style="color: #ff3e3e;">🟠 Avançado</div>
+            <div class="ids">21-30</div>
+            <div class="desc">Esteganografia e forense</div>
+          </div>
+          <div class="level-card">
+            <div class="level" style="color: #9b59b6;">🔴 Especialista</div>
+            <div class="ids">31-40</div>
+            <div class="desc">Exploração de vulnerabilidades</div>
+          </div>
+          <div class="level-card">
+            <div class="level" style="color: #e74c3c;">🟣 Mestre</div>
+            <div class="ids">41-50</div>
+            <div class="desc">Desafios complexos e APTs</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🛠️ Como Usar os Puzzles</h2>
+        <ol style="color: #ccc; margin-left: 2rem;">
+          <li><strong>Acesse um puzzle</strong> clicando no card correspondente</li>
+          <li><strong>Leia a descrição</strong> do desafio</li>
+          <li><strong>Baixe os arquivos</strong> disponíveis (quando houver)</li>
+          <li><strong>Use as ferramentas</strong> recomendadas</li>
+          <li><strong>Descubra a flag</strong> no formato <code>flag{...}</code></li>
+          <li><strong>Submeta a flag</strong> no campo de verificação</li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <h2>💡 Dicas Importantes</h2>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>🔍 <strong>Inspecione o código fonte</strong> (F12) - sempre há pistas</li>
+          <li>📚 <strong>Consulte a documentação</strong> antes de desistir</li>
+          <li>🛠️ <strong>Use as ferramentas</strong> disponíveis na pasta /tools</li>
+          <li>🤝 <strong>Participe da comunidade</strong> para trocar ideias</li>
+          <li>🏆 <strong>Colecione flags</strong> e veja seu progresso</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>🐧 Terminal Interativo</h2>
+        <p>O terminal na página inicial simula comandos Linux úteis:</p>
+
+        <table class="command-table">
+          <tr>
+            <td>help</td>
+            <td>Lista todos os comandos</td>
+          </tr>
+          <tr>
+            <td>ls</td>
+            <td>Lista arquivos</td>
+          </tr>
+          <tr>
+            <td>cat</td>
+            <td>Lê arquivos</td>
+          </tr>
+          <tr>
+            <td>ping</td>
+            <td>Testa conectividade</td>
+          </tr>
+          <tr>
+            <td>status</td>
+            <td>Verifica progresso</td>
+          </tr>
+          <tr>
+            <td>hint</td>
+            <td>Dica do dia</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>📈 Progresso e Conquistas</h2>
+        <p>Seu progresso é salvo localmente no navegador. Ao resolver um puzzle:</p>
+        <ol style="color: #ccc; margin-left: 2rem;">
+          <li>A flag é verificada</li>
+          <li>O puzzle é marcado como "RESOLVIDO"</li>
+          <li>O contador de flags aumenta</li>
+          <li>O status do sistema é atualizado</li>
+        </ol>
+
+        <div class="warning-box">
+          <strong>⚠️ Atenção:</strong> Se você limpar os dados do navegador, seu progresso será perdido!
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🆘 Precisa de Ajuda?</h2>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>📖 Leia os tutoriais específicos</li>
+          <li>💬 Acesse o fórum da comunidade</li>
+          <li>🎯 Use as dicas disponíveis em cada puzzle</li>
+          <li>🧪 Pratique nos laboratórios</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>🎓 Próximos Passos</h2>
+        <ol style="color: #ccc; margin-left: 2rem;">
+          <li>Comece pelos puzzles 01-10 (Iniciante)</li>
+          <li>Avance gradualmente pelos níveis</li>
+          <li>Explore as ferramentas</li>
+          <li>Participe dos CTFs semanais</li>
+          <li>Compartilhe suas conquistas</li>
+        </ol>
+      </div>
+
+      <div class="tip-box">
+        <strong>🏆 Lembre-se:</strong> A jornada é longa, mas cada flag encontrada é uma vitória!
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Guia Como Começar</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

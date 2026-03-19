@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esteganografia | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .example-box {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .example-box:hover {
+      border-color: #0f0;
+    }
+
+    .code-block {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+      border: 1px solid #333;
+      overflow-x: auto;
+    }
+
+    .command {
+      background: #1a1d24;
+      color: #ffaa00;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .warning-box {
+      background: #331100;
+      border-left: 4px solid #ffaa00;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .puzzle-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .puzzle-table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .puzzle-table td:first-child {
+      color: #0f0;
+      font-weight: bold;
+    }
+
+    .puzzle-table td:last-child {
+      color: #ccc;
+    }
+
+    .puzzle-table tr:hover {
+      background: #1a1d24;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / tutoriais / esteganografia</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> TUTORIAL</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../../index.html" class="back-button"><i class="fas fa-arrow-left"></i> VOLTAR</a>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🖼️ TUTORIAL DE ESTEGANOGRAFIA</h1>
+      </div>
+
+      <div class="section">
+        <h2>O que é Esteganografia?</h2>
+        <p>Esteganografia é a técnica de esconder informações dentro de outros arquivos (imagens, áudios, vídeos) de
+          forma que a existência da mensagem seja camuflada. Diferente da criptografia, que torna a mensagem ilegível, a
+          esteganografia a torna <strong>invisível</strong>.</p>
+      </div>
+
+      <div class="section">
+        <h2>📌 Conceitos Básicos</h2>
+
+        <h3>1. LSB (Least Significant Bit)</h3>
+        <p>O método mais comum em imagens. Altera o último bit de cada pixel para armazenar dados.</p>
+        <div class="example-box">
+          <div class="code-block">
+            Pixel original: 10101100 10110011 10101101
+            Dado a esconder: 1 0 1
+            Pixel modificado: 10101101 10110010 10101101
+          </div>
+          <p><strong>Explicação:</strong> O último bit de cada cor foi alterado para armazenar os bits da mensagem.
+            Visualmente, a diferença é imperceptível.</p>
+        </div>
+
+        <h3>2. Metadados (EXIF)</h3>
+        <p>Dados podem ser escondidos nos metadados de imagens (autor, câmera, GPS, etc.)</p>
+        <div class="code-block">
+          exiftool imagem.jpg
+          # Resultado:
+          # Author : flag{metadados_expostos}
+          # GPS Position : 40.7128° N, 74.0060° W
+        </div>
+
+        <h3>3. Esteganografia em Áudio</h3>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li><strong>Espectrograma:</strong> Mensagens visíveis nas frequências</li>
+          <li><strong>LSB em áudio:</strong> Bits menos significativos das amostras</li>
+          <li><strong>Eco:</strong> Informação codificada em ecos</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>🛠️ Ferramentas</h2>
+
+        <h3>Para Imagens</h3>
+        <div class="code-block">
+          # Steghide
+          steghide embed -cf imagem.jpg -ef mensagem.txt -pf senha
+          steghide extract -sf imagem.jpg -pf senha
+
+          # zsteg (PNG/BMP)
+          zsteg imagem.png
+
+          # Stegsolve (análise visual)
+          java -jar stegsolve.jar
+
+          # Exiftool (metadados)
+          exiftool imagem.jpg
+
+          # Binwalk (arquivos embutidos)
+          binwalk imagem.png
+        </div>
+
+        <h3>Para Áudio</h3>
+        <div class="code-block">
+          # Sonic Visualiser (espectrograma)
+          sonic-visualiser audio.wav
+
+          # Audacity (análise e LSB)
+          audacity audio.wav
+
+          # MP3Stego
+          mp3stego -X -P senha audio.mp3
+        </div>
+
+        <h3>Para PDFs e Documentos</h3>
+        <div class="code-block">
+          # pdfdetach (extrair anexos)
+          pdfdetach -saveall documento.pdf
+
+          # strings (texto legível)
+          strings documento.pdf | grep flag
+
+          # pdf-parser (análise de streams)
+          pdf-parser documento.pdf
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔍 Técnicas de Detecção</h2>
+
+        <h3>1. Análise Visual</h3>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>Inspecionar planos de bits em imagens (Stegsolve)</li>
+          <li>Verificar diferenças sutis nas cores</li>
+        </ul>
+
+        <h3>2. Análise Estatística</h3>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>Testes qui-quadrado para LSB</li>
+          <li>Análise de entropia</li>
+        </ul>
+
+        <h3>3. Ferramentas Automáticas</h3>
+        <div class="code-block">
+          # stegdetect
+          stegdetect imagem.jpg
+
+          # stegbreak
+          stegbreak -r rules.ini -f imagem.jpg
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🎯 Exemplos Práticos</h2>
+
+        <h3>Exemplo 1: Esconder texto em imagem com steghide</h3>
+        <div class="example-box">
+          <div class="code-block">
+            # Criar mensagem
+            echo "flag{esteganografia_basica}" > mensagem.txt
+
+            # Esconder na imagem
+            steghide embed -cf gato.jpg -ef mensagem.txt -pf ""
+
+            # Extrair depois
+            steghide extract -sf gato.jpg -pf ""
+          </div>
+        </div>
+
+        <h3>Exemplo 2: LSB manual com Python</h3>
+        <div class="example-box">
+          <div class="code-block">
+            from PIL import Image
+
+            def esconder_mensagem(imagem, mensagem):
+            img = Image.open(imagem)
+            pixels = list(img.getdata())
+
+            # Converter mensagem para binário
+            bin_mensagem = ''.join(format(ord(c), '08b') for c in mensagem)
+
+            # Esconder nos LSBs
+            novos_pixels = []
+            for i, pixel in enumerate(pixels):
+            if i < len(bin_mensagem): # Modificar LSB do vermelho novo_pixel=(pixel[0] & 0xFE) | int(bin_mensagem[i])
+              novos_pixels.append((novo_pixel, pixel[1], pixel[2])) else: novos_pixels.append(pixel) # Salvar nova
+              imagem img.putdata(novos_pixels) img.save('imagem_com_segredo.png') </div>
+          </div>
+
+          <h3>Exemplo 3: Espectrograma em áudio</h3>
+          <div class="example-box">
+            <div class="code-block">
+              # No Audacity:
+              # 1. Abrir arquivo de áudio
+              # 2. Menu: View > Spectrogram
+              # 3. Ajustar frequências
+              # 4. Mensagem aparece como texto visual
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>🧪 Puzzles Relacionados</h2>
+          <table class="puzzle-table">
+            <tr>
+              <td>Puzzle 01</td>
+              <td>Espectrograma em áudio</td>
+            </tr>
+            <tr>
+              <td>Puzzle 11</td>
+              <td>Esteganografia LSB</td>
+            </tr>
+            <tr>
+              <td>Puzzle 12</td>
+              <td>Áudio espectro</td>
+            </tr>
+            <tr>
+              <td>Puzzle 21</td>
+              <td>Esteganografia avançada</td>
+            </tr>
+            <tr>
+              <td>Puzzle 28</td>
+              <td>Múltiplas camadas</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="section">
+          <h2>📚 Guia Passo a Passo</h2>
+
+          <h3>Para puzzles de imagem:</h3>
+          <ol style="color: #ccc; margin-left: 2rem;">
+            <li><strong>Verifique metadados:</strong> <span class="command">exiftool imagem.jpg</span></li>
+            <li><strong>Analise visualmente:</strong> Stegsolve</li>
+            <li><strong>Teste ferramentas comuns:</strong> <span class="command">steghide</span>, <span
+                class="command">zsteg</span></li>
+            <li><strong>Varredura binária:</strong> <span class="command">binwalk imagem.jpg</span></li>
+            <li><strong>Extraia LSB:</strong> Scripts Python ou ferramentas dedicadas</li>
+          </ol>
+
+          <h3>Para puzzles de áudio:</h3>
+          <ol style="color: #ccc; margin-left: 2rem;">
+            <li><strong>Escute:</strong> Pode ter mensagem em morse</li>
+            <li><strong>Espectrograma:</strong> Audacity/Sonic Visualiser</li>
+            <li><strong>LSB de áudio:</strong> Python com numpy</li>
+            <li><strong>Análise de eco:</strong> Ferramentas especializadas</li>
+          </ol>
+
+          <h3>Para PDFs/Documentos:</h3>
+          <ol style="color: #ccc; margin-left: 2rem;">
+            <li><strong>strings:</strong> <span class="command">strings documento.pdf | grep flag</span></li>
+            <li><strong>Anexos:</strong> <span class="command">pdfdetach -saveall documento.pdf</span></li>
+            <li><strong>Metadados:</strong> <span class="command">exiftool documento.pdf</span></li>
+            <li><strong>Análise de streams:</strong> <span class="command">pdf-parser documento.pdf</span></li>
+          </ol>
+        </div>
+
+        <div class="tip-box">
+          <strong>💡 Dica do Mestre:</strong> Nem sempre a primeira camada é a resposta. Às vezes, a flag está escondida
+          em múltiplas camadas de esteganografia.
+        </div>
+
+        <div class="warning-box">
+          <strong>⚠️ Atenção:</strong> Sempre faça backup dos arquivos originais antes de tentar extrair dados. Algumas
+          ferramentas podem modificar o arquivo.
+        </div>
+
+        <div class="section">
+          <h2>🎓 Exercícios</h2>
+          <ol style="color: #ccc; margin-left: 2rem;">
+            <li><strong>Básico:</strong> Esconda "flag{teste}" em uma imagem PNG</li>
+            <li><strong>Intermediário:</strong> Esconda uma imagem dentro de outra</li>
+            <li><strong>Avançado:</strong> Combine LSB + criptografia XOR</li>
+          </ol>
+        </div>
+
+        <div class="section">
+          <h2>📖 Referências</h2>
+          <ul style="color: #ccc; margin-left: 2rem;">
+            <li><a href="https://en.wikipedia.org/wiki/Steganography" target="_blank"
+                style="color: #66c0f0;">Steganography - Wikipedia</a></li>
+            <li><a href="https://towardsdatascience.com/lsb-steganography" target="_blank" style="color: #66c0f0;">LSB
+                Steganography - Tutorial</a></li>
+            <li><a href="https://steghide.sourceforge.net/documentation.php" target="_blank"
+                style="color: #66c0f0;">Steghide Manual</a></li>
+          </ul>
+        </div>
+
+        <div class="tip-box">
+          <strong>🏆 Lembre-se:</strong> "A arte de esconder é tão importante quanto a arte de revelar." - Mestre dos
+          Investigadores
+        </div>
+      </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Tutorial de Esteganografia</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

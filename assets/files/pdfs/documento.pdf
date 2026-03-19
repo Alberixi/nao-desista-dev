@@ -1,0 +1,3 @@
+PDF com anexo escondido para Puzzle 20.
+Use pdfdetach -saveall documento.pdf para extrair.
+Anexo: flag.txt contendo a flag.

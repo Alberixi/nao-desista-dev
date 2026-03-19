@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursos Online | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .course-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .course-card:hover {
+      border-color: #0f0;
+      transform: translateY(-2px);
+    }
+
+    .course-title {
+      color: #0f0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-instructor {
+      color: #ffaa00;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-desc {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .course-level {
+      display: inline-block;
+      background: #1a1d24;
+      color: #66c0f0;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+    }
+
+    .course-link {
+      color: #66c0f0;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid #66c0f0;
+      padding: 0.3rem 0.8rem;
+      border-radius: 3px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .course-link:hover {
+      background: #66c0f0;
+      color: #000;
+    }
+
+    .platform-badge {
+      background: #1a1d24;
+      color: #ffaa00;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .free-badge {
+      background: #006600;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+    }
+
+    .paid-badge {
+      background: #660000;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / referencias / cursos-online</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> CURSOS</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="ferramentas-completas.html" class="nav-link"><i class="fas fa-tools"></i> FERRAMENTAS</a>
+      <a href="../guias/guia-rapido-iniciante.html" class="nav-link"><i class="fas fa-rocket"></i> GUIA RÁPIDO</a>
+      <a href="livros.html" class="nav-link"><i class="fas fa-book"></i> LIVROS</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🎓 CURSOS ONLINE RECOMENDADOS</h1>
+        <p>Plataformas e cursos gratuitos e pagos para aprender segurança</p>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Dica:</strong> Muitas plataformas oferecem períodos de teste grátis. Aproveite!
+      </div>
+
+      <!-- Plataformas Internacionais -->
+      <div class="section">
+        <h2>🌎 Plataformas Internacionais</h2>
+
+        <h3>Coursera</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">Coursera</span>
+            <span class="free-badge">Gratuito (auditoria)</span>
+            <div class="course-title">IBM Cybersecurity Analyst</div>
+            <div class="course-instructor">IBM</div>
+            <div class="course-desc">Certificado profissional em cibersegurança. Cobre fundamentos, redes, forense.
+            </div>
+            <span class="course-level">Iniciante</span>
+            <a href="https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Coursera</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">Introduction to Cyber Security</div>
+            <div class="course-instructor">NYU</div>
+            <div class="course-desc">Introdução à segurança cibernética, ameaças e defesas.</div>
+            <span class="course-level">Iniciante</span>
+            <a href="https://www.coursera.org/learn/intro-cyber-security" target="_blank" class="course-link">Acessar
+              Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Coursera</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">Cryptography I</div>
+            <div class="course-instructor">Stanford</div>
+            <div class="course-desc">Curso clássico de criptografia com Dan Boneh.</div>
+            <span class="course-level">Intermediário</span>
+            <a href="https://www.coursera.org/learn/crypto" target="_blank" class="course-link">Acessar Curso</a>
+          </div>
+        </div>
+
+        <h3>edX</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">edX</span>
+            <span class="free-badge">Gratuito (auditoria)</span>
+            <div class="course-title">CS50's Introduction to Cybersecurity</div>
+            <div class="course-instructor">Harvard</div>
+            <div class="course-desc">Curso introdutório de Harvard sobre segurança.</div>
+            <span class="course-level">Iniciante</span>
+            <a href="https://www.edx.org/course/cs50s-introduction-to-cybersecurity" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">edX</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">Cybersecurity Fundamentals</div>
+            <div class="course-instructor">RIT</div>
+            <div class="course-desc">Fundamentos de segurança da informação.</div>
+            <span class="course-level">Iniciante</span>
+            <a href="https://www.edx.org/course/cybersecurity-fundamentals" target="_blank" class="course-link">Acessar
+              Curso</a>
+          </div>
+        </div>
+
+        <h3>Udemy</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">Udemy</span>
+            <span class="paid-badge">Pago (promoções frequentes)</span>
+            <div class="course-title">The Complete Ethical Hacking Course</div>
+            <div class="course-instructor">Zaid Sabih</div>
+            <div class="course-desc">Curso completo de ethical hacking, muito popular.</div>
+            <span class="course-level">Iniciante</span>
+            <a href="https://www.udemy.com/course/learn-ethical-hacking-from-scratch/" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Udemy</span>
+            <span class="paid-badge">Pago</span>
+            <div class="course-title">Practical Ethical Hacking</div>
+            <div class="course-instructor">TCM Security</div>
+            <div class="course-desc">Curso prático focado em OSCP e bug bounty.</div>
+            <span class="course-level">Intermediário</span>
+            <a href="https://www.udemy.com/course/practical-ethical-hacking/" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+        </div>
+
+        <h3>Pluralsight</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">Pluralsight</span>
+            <span class="paid-badge">Pago (teste grátis)</span>
+            <div class="course-title">Ethical Hacking Series</div>
+            <div class="course-instructor">Troy Hunt</div>
+            <div class="course-desc">Série completa sobre ethical hacking.</div>
+            <span class="course-level">Intermediário</span>
+            <a href="https://www.pluralsight.com/paths/ethical-hacking" target="_blank" class="course-link">Acessar
+              Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Pluralsight</span>
+            <span class="paid-badge">Pago</span>
+            <div class="course-title">CISSP Prep</div>
+            <div class="course-instructor">Kevin Henry</div>
+            <div class="course-desc">Preparatório para certificação CISSP.</div>
+            <span class="course-level">Avançado</span>
+            <a href="https://www.pluralsight.com/paths/cissp" target="_blank" class="course-link">Acessar Curso</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cursos em Português -->
+      <div class="section">
+        <h2>🇧🇷 Cursos em Português</h2>
+
+        <h3>Desec Security</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">Desec</span>
+            <span class="paid-badge">Pago</span>
+            <div class="course-title">Profissão Pentester</div>
+            <div class="course-instructor">Desec Security</div>
+            <div class="course-desc">Curso completo de pentest, muito conceituado no Brasil.</div>
+            <span class="course-level">Intermediário</span>
+            <a href="https://desecsecurity.com/curso-pentester" target="_blank" class="course-link">Acessar Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Desec</span>
+            <span class="paid-badge">Pago</span>
+            <div class="course-title">Analista Forense</div>
+            <div class="course-instructor">Desec Security</div>
+            <div class="course-desc">Curso de forense digital computacional.</div>
+            <span class="course-level">Intermediário</span>
+            <a href="https://desecsecurity.com/curso-forense" target="_blank" class="course-link">Acessar Curso</a>
+          </div>
+        </div>
+
+        <h3>Solyd Offensive Security</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">Solyd</span>
+            <span class="paid-badge">Pago</span>
+            <div class="course-title">Pentest Profissional</div>
+            <div class="course-instructor">Solyd</div>
+            <div class="course-desc">Curso de pentest com laboratórios práticos.</div>
+            <span class="course-level">Intermediário</span>
+            <a href="https://solyd.com.br/treinamentos/pentest-profissional" target="_blank" class="course-link">Acessar
+              Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Solyd</span>
+            <span class="paid-badge">Pago</span>
+            <div class="course-title">Red Team</div>
+            <div class="course-instructor">Solyd</div>
+            <div class="course-desc">Técnicas avançadas de ataque e evasão.</div>
+            <span class="course-level">Avançado</span>
+            <a href="https://solyd.com.br/treinamentos/red-team" target="_blank" class="course-link">Acessar Curso</a>
+          </div>
+        </div>
+
+        <h3>Udemy (cursos em PT-BR)</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">Udemy</span>
+            <span class="paid-badge">Pago</span>
+            <div class="course-title">Pentest do Zero ao Profissional</div>
+            <div class="course-instructor">Diogenes Souza</div>
+            <div class="course-desc">Curso completo de pentest em português.</div>
+            <span class="course-level">Iniciante</span>
+            <a href="https://www.udemy.com/course/pentest-do-zero-ao-profissional/" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Udemy</span>
+            <span class="paid-badge">Pago</span>
+            <div class="course-title">Hacking Ético</div>
+            <div class="course-instructor">Pedro Fiuza</div>
+            <div class="course-desc">Introdução ao hacking ético na prática.</div>
+            <span class="course-level">Iniciante</span>
+            <a href="https://www.udemy.com/course/hacking-etico-na-pratica/" target="_blank" class="course-link">Acessar
+              Curso</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cursos Gratuitos -->
+      <div class="section">
+        <h2>🆓 Cursos Gratuitos</h2>
+
+        <h3>YouTube (Canais Recomendados)</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">YouTube</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">David Bombal</div>
+            <div class="course-desc">Pentest, redes, CTF, ferramentas.</div>
+            <a href="https://youtube.com/@davidbombal" target="_blank" class="course-link">Acessar Canal</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">YouTube</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">IppSec</div>
+            <div class="course-desc">Walkthroughs completos do Hack The Box.</div>
+            <a href="https://youtube.com/@ippsec" target="_blank" class="course-link">Acessar Canal</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">YouTube</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">The Cyber Mentor</div>
+            <div class="course-desc">Pentest, bug bounty, OSCP.</div>
+            <a href="https://youtube.com/@thecybermentor" target="_blank" class="course-link">Acessar Canal</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">YouTube</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">Mentebinária</div>
+            <div class="course-desc">Canal brasileiro de engenharia reversa.</div>
+            <a href="https://youtube.com/@mentebinaria" target="_blank" class="course-link">Acessar Canal</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">YouTube</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">Gabriel Pato</div>
+            <div class="course-desc">Pentest e CTF em português.</div>
+            <a href="https://youtube.com/@gabrielpato" target="_blank" class="course-link">Acessar Canal</a>
+          </div>
+        </div>
+
+        <h3>Cybrary</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">Cybrary</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">Introduction to IT & Cybersecurity</div>
+            <div class="course-desc">Curso introdutório gratuito.</div>
+            <a href="https://www.cybrary.it/course/introduction-to-it-and-cybersecurity" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Cybrary</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">Advanced Penetration Testing</div>
+            <div class="course-desc">Pentest avançado gratuito.</div>
+            <a href="https://www.cybrary.it/course/advanced-penetration-testing" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+        </div>
+
+        <h3>Hack The Box Academy</h3>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">HTB Academy</span>
+            <span class="free-badge">Módulos gratuitos</span>
+            <div class="course-title">Introduction to Web Applications</div>
+            <div class="course-desc">Módulo introdutório gratuito.</div>
+            <a href="https://academy.hackthebox.com/course/preview/introduction-to-web-applications" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">HTB Academy</span>
+            <span class="free-badge">Gratuito</span>
+            <div class="course-title">Penetration Testing Process</div>
+            <div class="course-desc">Processo de pentest gratuito.</div>
+            <a href="https://academy.hackthebox.com/course/preview/penetration-testing-process" target="_blank"
+              class="course-link">Acessar Curso</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plataformas de Prática -->
+      <div class="section">
+        <h2>🎯 Plataformas de Prática</h2>
+        <div class="courses-grid">
+          <div class="course-card">
+            <span class="platform-badge">Hack The Box</span>
+            <div class="course-title">Hack The Box</div>
+            <div class="course-desc">Máquinas vulneráveis para praticar pentest.</div>
+            <a href="https://www.hackthebox.com" target="_blank" class="course-link">Acessar</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">TryHackMe</span>
+            <div class="course-title">TryHackMe</div>
+            <div class="course-desc">Aprendizado guiado com laboratórios.</div>
+            <a href="https://tryhackme.com" target="_blank" class="course-link">Acessar</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">PentesterLab</span>
+            <div class="course-title">PentesterLab</div>
+            <div class="course-desc">Vulnerabilidades web práticas.</div>
+            <a href="https://pentesterlab.com" target="_blank" class="course-link">Acessar</a>
+          </div>
+          <div class="course-card">
+            <span class="platform-badge">Root-Me</span>
+            <div class="course-title">Root-Me</div>
+            <div class="course-desc">Desafios de segurança variados.</div>
+            <a href="https://www.root-me.org" target="_blank" class="course-link">Acessar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>📌 Recomendação:</strong> Comece pelos cursos gratuitos do YouTube e Cybrary, depois avance para os
+        pagos. Pratique no Hack The Box e TryHackMe diariamente!
+      </div>
+
+      <div class="nav-links" style="justify-content: center;">
+        <a href="../../index.html" class="nav-link">🏠 VOLTAR AO INÍCIO</a>
+        <a href="livros.html" class="nav-link">📚 LIVROS</a>
+        <a href="certificacoes.html" class="nav-link">🏅 CERTIFICAÇÕES</a>
+        <a href="comunidades.html" class="nav-link">👥 COMUNIDADES</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Cursos Online</p>
+    <p class="copyright">Links verificados em 2024</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>

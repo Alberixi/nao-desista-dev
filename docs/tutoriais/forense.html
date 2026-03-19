@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forense Digital | Não Desista Dev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .doc-container {
+      background: var(--bg-secondary);
+      border: 2px solid var(--text-primary);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #0f0;
+      border-left: 4px solid #0f0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h3 {
+      color: #ffaa00;
+      margin: 1rem 0;
+    }
+
+    .code-block {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+      border: 1px solid #333;
+      overflow-x: auto;
+    }
+
+    .tip-box {
+      background: #112233;
+      border-left: 4px solid #66c0f0;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #0f0;
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <header class="terminal-header">
+    <div class="terminal-title"><i class="fas fa-terminal"></i> docs / tutoriais / forense</div>
+    <div class="terminal-status">
+      <div class="status-item"><i class="fas fa-circle blink" style="color: #00ff00;"></i> TUTORIAL</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> INÍCIO</a>
+      <a href="../guias/guia-rapido-iniciante.html" class="nav-link"><i class="fas fa-rocket"></i> GUIA RÁPIDO</a>
+      <a href="../referencias/ferramentas-completas.html" class="nav-link"><i class="fas fa-tools"></i> FERRAMENTAS</a>
+    </div>
+
+    <div class="doc-container">
+      <div class="doc-header">
+        <h1 class="doc-title">> 🔍 TUTORIAL DE FORENSE DIGITAL</h1>
+      </div>
+
+      <div class="section">
+        <h2>O que é Forense Digital?</h2>
+        <p>Forense digital é a ciência de investigar dispositivos eletrônicos para encontrar evidências de crimes ou
+          incidentes. Envolve recuperar dados deletados, analisar sistemas de arquivos, examinar memória RAM e
+          investigar tráfego de rede.</p>
+      </div>
+
+      <div class="section">
+        <h2>📌 Áreas da Forense</h2>
+
+        <h3>1. Forense de Disco</h3>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>Recuperação de arquivos deletados</li>
+          <li>Análise de sistemas de arquivos (NTFS, ext4, FAT32)</li>
+          <li>Carving de arquivos por assinaturas</li>
+        </ul>
+
+        <h3>2. Forense de Memória (RAM)</h3>
+        <ul style="color: #ccc; margin-left: 2rem;">
+          <li>Análise de processos em execução</li>
+          <li>Extração de senhas e chaves</li>
+          <li>Detecção de malware residente</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>🛠️ Ferramentas Essenciais</h2>
+
+        <h3>Para Disco</h3>
+        <div class="code-block">
+          # The Sleuth Kit
+          fls -r imagem.dd # Listar arquivos
+          icat imagem.dd 123 > arquivo # Extrair por inode
+          fsstat imagem.dd # Info do sistema
+
+          # Foremost (carving)
+          foremost -i imagem.dd -o output/
+
+          # TestDisk / PhotoRec
+          testdisk imagem.dd
+          photorec imagem.dd
+        </div>
+
+        <h3>Para Memória</h3>
+        <div class="code-block">
+          # Volatility
+          volatility -f memory.raw imageinfo
+          volatility -f memory.raw --profile=Win10x64 pslist
+          volatility -f memory.raw --profile=Win10x64 netscan
+        </div>
+
+        <h3>Para Rede</h3>
+        <div class="code-block">
+          # Wireshark
+          wireshark captura.pcap
+
+          # tshark
+          tshark -r captura.pcap -Y "http"
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🧪 Exemplos Práticos</h2>
+
+        <h3>Exemplo 1: Analisar imagem de disco</h3>
+        <div class="code-block">
+          # 1. Identificar partições
+          mmls imagem.dd
+
+          # 2. Listar arquivos
+          fls -o 2048 imagem.dd
+
+          # 3. Extrair arquivo específico
+          icat -o 2048 imagem.dd 12 > recuperado.txt
+        </div>
+
+        <h3>Exemplo 2: Analisar dump de memória</h3>
+        <div class="code-block">
+          # 1. Identificar perfil
+          volatility -f memory.raw imageinfo
+
+          # 2. Listar processos
+          volatility -f memory.raw --profile=Win10x64 pslist
+
+          # 3. Ver conexões de rede
+          volatility -f memory.raw --profile=Win10x64 netscan
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Dica:</strong> Sempre trabalhe com cópias e documente cada passo da investigação!
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>NÃO DESISTA DEV - Tutorial de Forense</p>
+  </footer>
+  <script src="../../assets/js/script.js"></script>
+</body>
+
+</html>
