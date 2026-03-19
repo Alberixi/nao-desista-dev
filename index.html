@@ -301,7 +301,56 @@ vt?
   </footer>
 
   <script src="assets/js/script.js"></script>
+<!-- NO FINAL DA INDEX, ANTES DO </body> -->
+<div id="contador-secreto" style="display: none;">0</div>
 
+<script>
+    // =====================================================
+    // CONTADOR SECRETO - NÃO DESISTA DEV
+    // =====================================================
+
+    // Contador de visitas (armazenado localmente)
+    if (!localStorage.getItem('ndd_visitas')) {
+        localStorage.setItem('ndd_visitas', 1);
+    } else {
+        let visitas = parseInt(localStorage.getItem('ndd_visitas')) + 1;
+        localStorage.setItem('ndd_visitas', visitas);
+    }
+
+    // Contador de puzzles resolvidos (simulado)
+    let puzzlesResolvidos = 0;
+    if (localStorage.getItem('ndd_puzzles')) {
+        puzzlesResolvidos = parseInt(localStorage.getItem('ndd_puzzles'));
+    }
+
+    // Elemento oculto
+    const contadorSecreto = document.getElementById('contador-secreto');
+
+    // Atualiza contador a cada puzzle resolvido (exemplo)
+    function incrementarPuzzle() {
+        puzzlesResolvidos++;
+        localStorage.setItem('ndd_puzzles', puzzlesResolvidos);
+        contadorSecreto.textContent = puzzlesResolvidos;
+
+        console.log('%c🔓 PUZZLE RESOLVIDO! Total: ' + puzzlesResolvidos, 'color: #00ff9d;');
+    }
+
+    // Mostra estatísticas secretas no console (aperte F12)
+    console.log('%c🕵️ ESTATÍSTICAS SECRETAS:', 'color: #ffaa00; font-size: 14px;');
+    console.log('%c📍 Visitas: ' + localStorage.getItem('ndd_visitas'), 'color: #00ff9d;');
+    console.log('%c📍 Puzzles resolvidos: ' + puzzlesResolvidos, 'color: #00ff9d;');
+    console.log('%c📍 Progresso: ' + Math.round((puzzlesResolvidos/50)*100) + '%', 'color: #00ff9d;');
+
+    // Easter egg: se clicar 7 vezes no título
+    let clickCount = 0;
+    document.querySelector('.terminal-title')?.addEventListener('click', function() {
+        clickCount++;
+        if (clickCount >= 7) {
+            alert('🕯️ VOCÊ ENCONTROU O CONTADOR SECRETO!\nVisitas: ' + localStorage.getItem('ndd_visitas') + '\nPuzzles: ' + puzzlesResolvidos);
+            clickCount = 0;
+        }
+    });
+</script>
 </body>
 
 </html>

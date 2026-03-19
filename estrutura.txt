@@ -251,3 +251,46 @@ nao-desista-dev/
 ├── .gitignore
 ├── LICENSE
 └── README.md
+
+
+https://alberixi.github.io/nao-desista-dev/
+
+
+usando terminal do vscode 
+
+git init
+git add .
+git commit -m "Projeto completo Não Desista Dev v1.0.2"
+git branch -M main
+git remote add origin https://github.com/alberixi/nao-desista-dev.git
+git push -u origin main
+
+
+
+DICA IMPORTANTE:
+Se for a primeira vez usando git no VSCode, pode pedir:
+
+Usuário: alberixi
+
+Senha: use um token (não a senha normal do GitHub)
+
+Como gerar token:
+GitHub > Settings > Developer settings > Personal access tokens > Tokens (classic)
+
+Generate new token
+
+Marcar repo e workflow
+
+Copiar o token e usar como senha
+
+🎯 DEPOIS DO DEPLOY:
+Passo	Ação
+1	Teste o link: alberixi.github.io/nao-desista-dev
+2	Verifique se index.html carrega
+3	Teste alguns puzzles
+4	Comemore! 🎉
+
+
+https://nao-desista-dev.netlify.app/
+
+conta sah.pri.btt@gmail.com netlify

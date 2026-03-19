@@ -487,11 +487,11 @@
             <p style="margin-bottom: 0.5rem;">A flag está no formato: <code style="background: #000; padding: 0.2rem 0.5rem;">flag{...}</code></p>
 
             <div class="flag-input-area">
-                <input type="text" class="flag-input" id="flagInput" placeholder="flag{xss_refletido_cookie}" value="flag{xss_refletido_cookie}">
-                <button class="flag-submit-btn" id="submitFlag">
-                    <i class="fas fa-check"></i> VERIFICAR
-                </button>
-            </div>
+    <input type="text" class="flag-input" id="flagInput" placeholder="flag{...}">
+    <button class="flag-submit-btn" id="submitFlag">
+        <i class="fas fa-check"></i> VERIFICAR
+    </button>
+</div>
             <div id="resultMessage"></div>
         </div>
     </main>
@@ -504,60 +504,68 @@
     </footer>
 
     <script src="../../assets/js/script.js"></script>
-    <script>
-        // SISTEMA DE SUBMISSÃO DA FLAG (FUNCIONAL)
-        document.getElementById('submitFlag').addEventListener('click', function() {
-            const flag = document.getElementById('flagInput').value.trim();
-            const result = document.getElementById('resultMessage');
+    <script src="../../assets/js/script.js"></script>
+<script>
+    // =====================================================
+    // SISTEMA DE SUBMISSÃO DA FLAG - CORRIGIDO!
+    // =====================================================
+    document.getElementById('submitFlag').addEventListener('click', function() {
+        const flag = document.getElementById('flagInput').value.trim();
+        const result = document.getElementById('resultMessage');
 
-            // FLAG CORRETA (didática)
-            if (flag === 'flag{xss_refletido_cookie}') {
-                result.innerHTML = '<span style="color:#0f0; background: #003300; border: 1px solid #0f0;">✓ FLAG CORRETA! XSS executado com sucesso!</span>';
+        // FLAG CORRETA
+        if (flag === 'flag{xss_refletido_cookie}') {
 
-                // Efeito visual de acerto
-                document.body.style.animation = 'none';
-                document.body.offsetHeight;
-                document.body.style.animation = 'crt-scan 8s linear infinite';
+            result.innerHTML = '<span style="color:#0f0; background: #003300; border: 1px solid #0f0;">✓ FLAG CORRETA! XSS executado com sucesso!</span>';
 
-                // Marcar como resolvido (se a função existir)
-                if (typeof marcarPuzzleResolvido === 'function') {
-                    marcarPuzzleResolvido(36);
-                }
+            // 🔥 CORREÇÃO: Remove animação problemática
+            // document.body.style.animation = 'crt-scan 8s linear infinite'; ← ISSO CAUSAVA O BUG!
 
-                // Homenagem ao Celeron D
-                console.log('%c🕯️ EM MEMÓRIA DO CELERON D LGA775 - PUZZLE 36 CONCLUÍDO! 🕯️', 'color: #ffaa00; font-size: 16px; font-weight: bold;');
-            } else {
-                result.innerHTML = '<span style="color:#f00; background: #330000; border: 1px solid #f00;">✗ FLAG INCORRETA. Capture o cookie com XSS.</span>';
+            // Efeito visual sutil no lugar
+            document.querySelector('.puzzle-container').style.animation = 'container-pulse 0.5s 3';
 
-                // Dica extra se a flag estiver vazia
-                if (flag === '') {
-                    result.innerHTML += '<br><small style="color: #ffaa00;">Dica: A flag é flag{xss_refletido_cookie}</small>';
-                }
+            // Marcar como resolvido
+            if (typeof marcarPuzzleResolvido === 'function') {
+                marcarPuzzleResolvido(36);
             }
-        });
 
-        // ENTER NO CAMPO DE FLAG TAMBÉM SUBMETE
-        document.getElementById('flagInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('submitFlag').click();
+            // Homenagem no console
+            console.log('%c🕯️ PUZZLE 36 CONCLUÍDO! 🕯️', 'color: #ffaa00; font-size: 16px;');
+            console.log('%cEm memória do Celeron D LGA775', 'color: #666;');
+
+        } else {
+            result.innerHTML = '<span style="color:#f00; background: #330000; border: 1px solid #f00;">✗ FLAG INCORRETA. Capture o cookie com XSS.</span>';
+
+            if (flag === '') {
+                result.innerHTML += '<br><small style="color: #ffaa00;">Dica: A flag é flag{xss_refletido_cookie}</small>';
             }
-        });
+        }
+    });
 
-        // EASTER EGG: SE DIGITAR "CELERON" NO CONSOLE
-        console.log('%c🔍 Digite "celeron" para uma surpresa...', 'color: #666;');
+    // ENTER NO CAMPO DE FLAG
+    document.getElementById('flagInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('submitFlag').click();
+        }
+    });
 
-        let celeronCount = 0;
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'c' || e.key === 'C') {
-                celeronCount++;
-                if (celeronCount >= 5) {
-                    alert('🕯️ CELERON D LGA775 VIVE! 33 PUZZLES CONQUISTADOS! 🕯️');
-                    celeronCount = 0;
-                }
-            } else {
-                celeronCount = 0;
-            }
-        });
-    </script>
+    // EASTER EGG DO CELERON D (CORRIGIDO - só aparece se digitar CELERON completo)
+    console.log('%c🔍 Dica: tente digitar CELERON...', 'color: #666;');
+
+    let celeronCount = [];
+    document.addEventListener('keydown', function(e) {
+        const key = e.key.toLowerCase();
+        celeronCount.push(key);
+
+        // Mantém só as últimas 7 teclas
+        if (celeronCount.length > 7) celeronCount.shift();
+
+        // Verifica se digitou "celeron"
+        if (celeronCount.join('').includes('celeron')) {
+            alert('🕯️ CELERON D LGA775 VIVE! 33 PUZZLES CONQUISTADOS! 🕯️');
+            celeronCount = []; // Reseta
+        }
+    });
+</script>
 </body>
 </html>
