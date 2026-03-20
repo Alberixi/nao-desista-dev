@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head><meta charset="UTF-8">
+<title>PHP Básico | Não Desista Dev</title>
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<style>.tutorial-container{max-width:900px;margin:2rem auto;}.tutorial-header h1{color:var(--accent);}.tutorial-section{background:var(--bg-card);border-radius:1rem;padding:2rem;margin-bottom:2rem;border:1px solid var(--border);}.code-block{background:var(--bg-body);border-left:4px solid var(--accent);padding:1rem;border-radius:0.5rem;margin:1rem 0;overflow-x:auto;}.code-block pre{font-family:monospace;font-size:0.9rem;}.back-button{color:var(--accent);text-decoration:none;}</style></head>
+<body><header class="site-header"><div class="container header-content">
+<div class="logo-area"><a href="../../../index.html">
+<h1>🚀 não desista.<span class="accent">dev</span></h1></a></div>
+<div class="header-actions">
+<button class="theme-toggle" id="themeToggleBtn">🌙 Modo Escuro</button></div></div>
+</header>
+<main><div class="container tutorial-container">
+<a href="../../../index.html" class="back-button">← Voltar</a>
+<div class="tutorial-header"><h1>🐘 PHP: Do Básico ao Avançado</h1>
+<div class="tutorial-meta"><span>40 min</span><span>Iniciante</span>
+</div></div>
+<div class="tutorial-section"><h2>📌 Introdução</h2>
+<p>PHP é a linguagem mais popular para desenvolvimento web backend. Cerca de 77% dos sites usam PHP.</p></div>
+<div class="tutorial-section"><h2>⚠️ Erro Comum: Esquecer ponto e vírgula</h2>
+<div class="error-box">❌ echo "Olá" // Erro!<div class="code-block">
+<pre>echo "Olá" // Parse error</pre>
+</div></div>
+<div class="success-box">✅ Correção:<div class="code-block"><pre>echo "Olá";</pre>
+</div></div>
+</div>
+<div class="tutorial-section">
+<h2>📝 Sintaxe Básica</h2>
+<div class="code-block">
+<pre>&lt;?php
+// Variáveis
+$nome = "João";
+$idade = 25;
+$preco = 19.90;
+
+// Arrays
+$frutas = ["maçã", "banana", "laranja"];
+
+// Condicionais
+if ($idade >= 18) {
+    echo "Maior de idade";
+}
+
+// Loops
+foreach ($frutas as $fruta) {
+    echo $fruta;
+}
+?&gt;</pre></div></div>
+<div class="tutorial-section"><h2>📝 Exercício</h2><p>Crie um script PHP que recebe um nome via GET e exibe "Olá, [nome]!".</p></div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><p>✨ Não Desista Dev ✨</p></div></div></footer>
+<script src="../../../assets/js/script.js"></script></body></html>

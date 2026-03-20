@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head><meta charset="UTF-8">
+<title>CI/CD GitHub Actions | Não Desista Dev</title>
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<style>.tutorial-container{max-width:900px;margin:2rem auto;}.tutorial-section{background:var(--bg-card);border-radius:1rem;padding:2rem;margin-bottom:2rem;}.code-block{background:var(--bg-body);border-left:4px solid var(--accent);padding:1rem;border-radius:0.5rem;}</style>
+</head>
+<body>
+<header class="site-header"><div class="container header-content">
+<div class="logo-area"><a href="../../../index.html">
+<h1>🚀 não desista.<span class="accent">dev</span></h1></a>
+</div>
+<div class="header-actions"><button class="theme-toggle" id="themeToggleBtn">🌙</button></div>
+</div>
+</header>
+<main>
+<div class="container tutorial-container">
+<a href="../../../index.html" class="back-button">← Voltar</a>
+<div class="tutorial-header"><h1>🚀 CI/CD com GitHub Actions</h1>
+    <div class="tutorial-meta"><span>30 min</span>
+        <span>Intermediário</span></div></div>
+<div class="tutorial-section"><h2>📌 Workflow Básico</h2>
+    <div class="code-block"><pre># .github/workflows/ci.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npm test
+      
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm run build
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist</pre></div></div>
+<div class="tutorial-section"><h2>⚠️ Erro: Segredos não configurados</h2>
+<div class="error-box">❌ Deploy falha sem secrets configurados<div class="code-block">
+<pre># Configurar em: Settings → Secrets and variables → Actions
+# Adicionar: DEPLOY_KEY, AWS_ACCESS_KEY_ID, etc</pre>
+</div></div></div>
+<div class="tutorial-section"><h2>📝 Exercício</h2>
+  <p>Crie um pipeline que roda testes e publica no GitHub Pages.</p></div>
+</div></main>
+<footer><div class="container"><div class="footer-bottom"><p>✨ Não Desista Dev ✨</p>
+</div></div></footer>
+<script src="../../../assets/js/script.js"></script></body></html>

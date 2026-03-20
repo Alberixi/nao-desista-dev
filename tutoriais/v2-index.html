@@ -9,18 +9,18 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e293b'/%3E%3Ctext x='50' y='70' font-size='55' text-anchor='middle' fill='%23f97316'%3E📚%3C/text%3E%3C/svg%3E">
     
-    <!-- CSS - caminho corrigido -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     
     <style>
         /* Estilos adicionais para filtros e busca */
         .filters-section {
             margin: 2rem 0;
-            padding: 1.5rem;
+            padding: 1rem;
             background: var(--bg-card);
             border-radius: 1rem;
             border: 1px solid var(--border);
@@ -34,6 +34,7 @@
             background: var(--bg-body);
             color: var(--text-primary);
             font-size: 1rem;
+            transition: all 0.3s ease;
         }
         
         .search-bar input:focus {
@@ -73,6 +74,7 @@
             color: white;
         }
         
+        /* Banner de navegação */
         .nav-investigation {
             background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(30,41,59,0.9) 100%);
             border: 1px solid var(--accent, #38bdf8);
@@ -96,8 +98,22 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            transition: all 0.3s ease;
         }
         
+        .nav-investigation a:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+        
+        .nav-investigation .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Projetos relacionados */
         .related-projects {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -125,35 +141,18 @@
             margin-bottom: 0.5rem;
         }
         
-        /* CORREÇÃO: Card badge não sobrepor */
-        .card {
-            position: relative;
-            overflow: visible;
+        .project-card h3 {
+            margin-bottom: 0.5rem;
         }
         
-        .card-badge {
-            position: absolute;
-            top: -12px;
-            right: 1rem;
-            background: var(--accent);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-link {
             font-weight: 600;
-            z-index: 10;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .card-title {
-            padding-right: 70px;
-        }
-        
-        @media (max-width: 768px) {
-            .card-title {
-                padding-right: 60px;
-                font-size: 1.1rem;
-            }
         }
     </style>
 </head>
@@ -177,12 +176,14 @@
 
     <main>
         <div class="container">
-            <!-- Banner de navegação -->
+            <!-- Banner de navegação para o projeto de investigação -->
             <div class="nav-investigation">
                 <div class="badge">
+                    <i class="fas fa-code" style="font-size: 1.2rem;"></i>
                     <span>📘 Modo: Aprendizado Ativo</span>
                 </div>
                 <a href="../index.html">
+                    <i class="fas fa-skull"></i>
                     🕵️ VOLTAR PARA INVESTIGAÇÃO
                 </a>
             </div>
@@ -192,7 +193,7 @@
                 <p>Tutoriais completos com problemas comuns, soluções e melhores práticas</p>
             </div>
             
-            <!-- Filtros e Busca -->
+            <!-- Seção de Filtros e Busca -->
             <div class="filters-section">
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder="🔍 Buscar tutoriais por título, descrição ou tecnologia...">
@@ -209,42 +210,36 @@
             </div>
             
             <div class="cards-grid" id="cardsContainer">
-                <div style="text-align: center; padding: 2rem;">Carregando tutoriais...</div>
+                <!-- Cards serão gerados via JavaScript -->
+                <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                    Carregando tutoriais...
+                </div>
             </div>
             
-           <!-- Projetos Relacionados -->
-<h2 style="margin-top: 2rem; color: var(--accent);">🌐 Projetos da Rede</h2>
-<div class="related-projects">
-    <!-- Projetos existentes -->
-    <a href="https://hub-knk.netlify.app" target="_blank" class="project-card">
-        <div class="project-icon">🛠️</div>
-        <h3 style="color: #38bdf8;">Hub de Ferramentas</h3>
-        <p>Ferramentas, dicas e otimização para Windows e Linux</p>
-        <span style="color: #38bdf8;">Acessar →</span>
-    </a>
-    
-    <a href="https://knksnk.netlify.app" target="_blank" class="project-card">
-        <div class="project-icon">💰</div>
-        <h3 style="color: #10b981;">Faucets Cripto</h3>
-        <p>Ganhe pequenas quantias de criptomoedas sem investir</p>
-        <span style="color: #10b981;">Acessar →</span>
-    </a>
-    
-    <a href="../index.html" target="_blank" class="project-card">
-        <div class="project-icon">🕵️</div>
-        <h3 style="color: var(--accent);">Investigação Digital</h3>
-        <p>Puzzles de esteganografia, criptografia e forense</p>
-        <span style="color: var(--accent);">Acessar →</span>
-    </a>
-    
-    <!-- NOVO: Meu Coração -->
-    <a href="#" class="project-card" style="border-color: #ff6b6b;">
-        <div class="project-icon">❤️</div>
-        <h3 style="color: #ff6b6b;">Meu Coração</h3>
-        <p>Em breve - Um projeto especial com muito carinho</p>
-        <span style="color: #ff6b6b;">Em breve →</span>
-    </a>
-</div>
+            <!-- Projetos Relacionados -->
+            <h2 class="section-title" style="margin-top: 2rem;">🌐 Projetos da Rede</h2>
+            <div class="related-projects">
+                <a href="https://hub-knk.netlify.app" target="_blank" class="project-card">
+                    <div class="project-icon">🛠️</div>
+                    <h3 style="color: #38bdf8;">Hub de Ferramentas</h3>
+                    <p>Ferramentas, dicas e otimização para Windows e Linux</p>
+                    <span class="project-link" style="color: #38bdf8;">Acessar →</span>
+                </a>
+                
+                <a href="https://knksnk.netlify.app" target="_blank" class="project-card">
+                    <div class="project-icon">💰</div>
+                    <h3 style="color: #10b981;">Faucets Cripto</h3>
+                    <p>Ganhe pequenas quantias de criptomoedas sem investir</p>
+                    <span class="project-link" style="color: #10b981;">Acessar →</span>
+                </a>
+                
+                <a href="../index.html" target="_blank" class="project-card">
+                    <div class="project-icon">🕵️</div>
+                    <h3 style="color: var(--accent);">Investigação Digital</h3>
+                    <p>Puzzles de esteganografia, criptografia e forense</p>
+                    <span class="project-link" style="color: var(--accent);">Acessar →</span>
+                </a>
+            </div>
             
             <div class="oldest-badge">
                 📚 Conteúdo curado • Atualizado constantemente • Comunidade Não Desista Dev
@@ -270,7 +265,7 @@
                 <div class="footer-section">
                     <h4>🌐 Rede Não Desista Dev</h4>
                     <ul>
-                        <li><a href="../index.html">🔍 Investigação Digital</a></li>
+                        <li><a href="../index.html" target="_blank">🔍 Investigação Digital</a></li>
                         <li><a href="index.html">📚 Tutoriais Dev</a></li>
                         <li><a href="https://hub-knk.netlify.app" target="_blank">🛠️ Hub de Ferramentas</a></li>
                         <li><a href="https://knksnk.netlify.app" target="_blank">💰 Faucets Cripto</a></li>
@@ -279,11 +274,51 @@
             </div>
             <div class="footer-bottom">
                 <p>✨ Projeto colaborativo para <strong>Não Desista Dev</strong> — Aprenda, erre, corrija, evolua! ✨</p>
+                <p style="margin-top: 0.5rem;">Código aberto • Sinta-se à vontade para contribuir</p>
+                <p style="margin-top: 1rem; color: var(--accent);">
+                    <i class="fas fa-flag"></i> <a href="../index.html" style="color: var(--accent);">🔍 Voltar para investigação digital</a>
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- JS - caminho corrigido -->
-    <script src="assets/js/script.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Dados dos tutoriais (fallback caso o script.js não carregue)
+        const defaultTutorials = [
+            {
+                id: 1,
+                title: "CSS Grid: Layouts Modernos",
+                description: "Aprenda CSS Grid do zero ao avançado. Domine layouts responsivos e grids complexos.",
+                codePreview: "display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));",
+                tag: "CSS",
+                difficulty: "Intermediário",
+                duration: "15 min",
+                path: "pages/css-grid.html",
+                category: "frontend"
+            },
+            {
+                id: 2,
+                title: "JavaScript Assíncrono",
+                description: "Domine Promises, Async/Await e evite callback hell com exemplos práticos.",
+                codePreview: "async function fetchData() { const data = await fetch(url); return data.json(); }",
+                tag: "JavaScript",
+                difficulty: "Avançado",
+                duration: "20 min",
+                path: "pages/javascript-async.html",
+                category: "frontend"
+            }
+        ];
+        
+        // Função de fallback caso o script principal falhe
+        if (typeof getAllTutorials === 'undefined') {
+            console.warn('Usando dados de fallback');
+            window.getAllTutorials = function() { return defaultTutorials; };
+            window.getTutorialsByCategory = function(cat) { 
+                return defaultTutorials.filter(t => t.category === cat); 
+            };
+        }
+    </script>
+     <script src="assets/js/script.js"></script>
 </body>
 </html>

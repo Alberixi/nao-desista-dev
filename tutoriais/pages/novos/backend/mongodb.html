@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head><meta charset="UTF-8">
+<title>MongoDB | Não Desista Dev</title>
+<link rel="stylesheet" href="../../../style.css">
+<style>.tutorial-container{max-width:900px;margin:2rem auto;}.tutorial-section{background:var(--bg-card);border-radius:1rem;padding:2rem;margin-bottom:2rem;}.code-block{background:var(--bg-body);border-left:4px solid var(--accent);padding:1rem;border-radius:0.5rem;}</style></head>
+<body>
+<header class="site-header">
+<div class="container header-content">
+<div class="logo-area"><a href="../../../index.html"><h1>🚀 não desista.<span class="accent">dev</span></h1></a></div><div class="header-actions"><button class="theme-toggle" id="themeToggleBtn">🌙</button></div></div></header>
+<main><div class="container tutorial-container">
+<a href="../../../index.html" class="back-button">← Voltar</a>
+<div class="tutorial-header"><h1>🍃 MongoDB: NoSQL na Prática</h1>
+ <div class="tutorial-meta"><span>30 min</span><span>Intermediário</span>
+</div></div>
+<div class="tutorial-section">
+<h2>📌 Operações Básicas</h2><div class="code-block">
+<pre>// Inserir
+db.usuarios.insertOne({
+    nome: "João",
+    email: "joao@email.com",
+    idade: 25
+})
+
+// Buscar
+db.usuarios.find({ idade: { $gt: 18 } })
+
+// Atualizar
+db.usuarios.updateOne(
+    { nome: "João" },
+    { $set: { idade: 26 } }
+)
+
+// Agregação
+db.pedidos.aggregate([
+    { $match: { status: "entregue" } },
+    { $group: { _id: "$cliente", total: { $sum: "$valor" } } }
+])</pre></div></div>
+<div class="tutorial-section"><h2>⚠️ Erro: Esquecer índices</h2><div class="error-box">❌ Buscas lentas em coleções grandes<div class="code-block"><pre>db.usuarios.createIndex({ email: 1 }) // Índice único e rápido</pre></div></div></div>
+<div class="tutorial-section"><h2>📝 Exercício</h2><p>Crie uma coleção de produtos e faça consultas com filtros e agregações.</p></div>
+</div></main>
+<footer><div class="container"><div class="footer-bottom"><p>✨ Não Desista Dev ✨</p></div></div></footer>
+<script src="../../../script.js"></script></body></html>

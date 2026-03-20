@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker: Containerização | Não Desista Dev</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        .tutorial-container { max-width: 900px; margin: 2rem auto; }
+        .tutorial-header { text-align: center; margin-bottom: 2rem; }
+        .tutorial-header h1 { font-size: 2.5rem; color: var(--accent); }
+        .tutorial-meta { display: flex; justify-content: center; gap: 2rem; color: var(--text-muted); margin-bottom: 2rem; flex-wrap: wrap; }
+        .tutorial-section { background: var(--bg-card); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid var(--border); }
+        .tutorial-section h2 { color: var(--accent); margin-bottom: 1rem; }
+        .tutorial-section h3 { margin: 1.5rem 0 1rem; color: var(--text-primary); }
+        .code-block { background: var(--bg-body); border-left: 4px solid var(--accent); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; overflow-x: auto; }
+        .code-block pre { font-family: 'Courier New', monospace; font-size: 0.9rem; color: var(--text-secondary); margin: 0; white-space: pre-wrap; }
+        .error-box { background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .success-box { background: rgba(34,197,94,0.1); border-left: 4px solid #22c55e; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .back-button { display: inline-block; margin-bottom: 2rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+        .docker-command { background: #0f172a; color: #38bdf8; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../../../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../../../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>🐳 Docker: Containerização na Prática</h1>
+                <div class="tutorial-meta">
+                    <span>📖 35 min de leitura</span>
+                    <span>🎯 Nível: Intermediário</span>
+                    <span>💻 DevOps</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>Docker é a tecnologia de containerização mais popular do mundo. Com ele, você pode empacotar suas aplicações com todas as dependências em containers isolados, garantindo que funcionem da mesma forma em qualquer ambiente. Neste tutorial, vamos aprender desde a instalação até a criação de Dockerfiles e docker-compose.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Container com nome já existente</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Tentar criar container com nome em uso</strong>
+                    <div class="code-block">
+                        <pre>docker run --name meu-app node:18
+docker run --name meu-app node:18
+# Error: Conflict. The container name "/meu-app" is already in use</pre>
+                    </div>
+                    <p><strong>Problema:</strong> O Docker não permite nomes duplicados.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correções possíveis:</strong>
+                    <div class="code-block">
+                        <pre># Opção 1: Remover container existente
+docker rm meu-app
+docker run --name meu-app node:18
+
+# Opção 2: Usar nome diferente
+docker run --name meu-app-2 node:18
+
+# Opção 3: Usar --rm (remove automaticamente ao parar)
+docker run --rm --name meu-app node:18</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Dockerfile ineficiente</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Camadas desnecessárias e ordem incorreta</strong>
+                    <div class="code-block">
+                        <pre>FROM node:18
+COPY . /app
+WORKDIR /app
+RUN npm install
+CMD ["npm", "start"]</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Cada mudança no código força o re-download de todas as dependências.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Otimizar camadas do Dockerfile</strong>
+                    <div class="code-block">
+                        <pre>FROM node:18-alpine AS builder
+WORKDIR /app
+# Primeiro copia apenas package.json (aproveita cache)
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Depois copia o código
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Comandos Essenciais do Docker</h2>
+                
+                <h3>1. Gerenciamento de Containers</h3>
+                <div class="code-block">
+                    <pre># Listar containers em execução
+docker ps
+
+# Listar todos os containers (incluindo parados)
+docker ps -a
+
+# Executar um container
+docker run -d --name meu-app -p 3000:3000 node:18
+
+# Parar um container
+docker stop meu-app
+
+# Iniciar um container parado
+docker start meu-app
+
+# Remover um container
+docker rm meu-app
+
+# Ver logs
+docker logs meu-app -f</pre>
+                </div>
+                
+                <h3>2. Gerenciamento de Imagens</h3>
+                <div class="code-block">
+                    <pre># Listar imagens
+docker images
+
+# Baixar imagem
+docker pull node:18-alpine
+
+# Construir imagem a partir de Dockerfile
+docker build -t minha-app:1.0 .
+
+# Remover imagem
+docker rmi minha-app:1.0</pre>
+                </div>
+                
+                <h3>3. Dockerfile Básico para Node.js</h3>
+                <div class="code-block">
+                    <pre># Dockerfile
+FROM node:18-alpine
+
+# Define diretório de trabalho
+WORKDIR /app
+
+# Copia arquivos de dependência
+COPY package*.json ./
+
+# Instala dependências
+RUN npm ci --only=production
+
+# Copia código fonte
+COPY . .
+
+# Expõe a porta
+EXPOSE 3000
+
+# Comando de inicialização
+CMD ["node", "server.js"]</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Dockerfile Otimizado (Multi-stage build):</strong>
+                    <div class="code-block">
+                        <pre># Stage 1: Build
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Stage 2: Produção (imagem menor)
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+RUN npm ci --only=production
+EXPOSE 3000
+CMD ["node", "dist/server.js"]</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🐳 Docker Compose</h2>
+                <p>Para aplicações com múltiplos serviços (API + Banco de Dados), use docker-compose:</p>
+                <div class="code-block">
+                    <pre># docker-compose.yml
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=user
+      - DB_PASSWORD=password
+    depends_on:
+      - postgres
+    volumes:
+      - ./src:/app/src
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=myapp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:</pre>
+                </div>
+                
+                <h3>Comandos Docker Compose:</h3>
+                <div class="code-block">
+                    <pre># Iniciar todos os serviços
+docker-compose up -d
+
+# Ver logs
+docker-compose logs -f
+
+# Parar serviços
+docker-compose down
+
+# Parar e remover volumes
+docker-compose down -v
+
+# Reconstruir imagens
+docker-compose up -d --build</pre>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Crie um ambiente Docker para uma aplicação Node.js com MongoDB:</p>
+                <ul>
+                    <li>Crie um Dockerfile otimizado para a aplicação</li>
+                    <li>Crie um docker-compose.yml com Node.js e MongoDB</li>
+                    <li>Use variáveis de ambiente para configurações</li>
+                    <li>Configure volumes para persistência de dados</li>
+                    <li>Teste a aplicação localmente</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Solução de referência:</strong>
+                    <div class="code-block">
+                        <pre># Dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]
+
+# docker-compose.yml
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/myapp
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:6
+    volumes:
+      - mongo_data:/data/db
+volumes:
+  mongo_data:</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://docs.docker.com/get-started/" target="_blank">Documentação Oficial Docker</a></li>
+                    <li><a href="https://hub.docker.com/" target="_blank">Docker Hub - Repositório de Imagens</a></li>
+                    <li><a href="https://github.com/veggiemonk/awesome-docker" target="_blank">Awesome Docker</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>"Funciona na minha máquina" nunca mais será um problema com Docker!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="../database/sql-basico.html">SQL: Consultas Essenciais →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../../../assets/js/script.js"></script>
+</body>
+</html>

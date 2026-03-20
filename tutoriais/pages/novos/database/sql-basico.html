@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL: Consultas Essenciais | Não Desista Dev</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        .tutorial-container { max-width: 900px; margin: 2rem auto; }
+        .tutorial-header { text-align: center; margin-bottom: 2rem; }
+        .tutorial-header h1 { font-size: 2.5rem; color: var(--accent); }
+        .tutorial-meta { display: flex; justify-content: center; gap: 2rem; color: var(--text-muted); margin-bottom: 2rem; flex-wrap: wrap; }
+        .tutorial-section { background: var(--bg-card); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid var(--border); }
+        .tutorial-section h2 { color: var(--accent); margin-bottom: 1rem; }
+        .tutorial-section h3 { margin: 1.5rem 0 1rem; color: var(--text-primary); }
+        .code-block { background: var(--bg-body); border-left: 4px solid var(--accent); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; overflow-x: auto; }
+        .code-block pre { font-family: 'Courier New', monospace; font-size: 0.9rem; color: var(--text-secondary); margin: 0; white-space: pre-wrap; }
+        .error-box { background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .success-box { background: rgba(34,197,94,0.1); border-left: 4px solid #22c55e; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .back-button { display: inline-block; margin-bottom: 2rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid var(--border); padding: 0.5rem; text-align: left; }
+        th { background: var(--accent); color: white; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../../../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../../../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>🗄️ SQL: Consultas Essenciais</h1>
+                <div class="tutorial-meta">
+                    <span>📖 30 min de leitura</span>
+                    <span>🎯 Nível: Iniciante</span>
+                    <span>💻 Banco de Dados</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>SQL (Structured Query Language) é a linguagem padrão para manipulação de bancos de dados relacionais. Dominar SQL é essencial para qualquer desenvolvedor, seja front-end, back-end ou full-stack. Neste tutorial, vamos aprender as consultas mais importantes do dia a dia.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📊 Estrutura de Exemplo</h2>
+                <p>Vamos usar um banco de dados de exemplo com as tabelas:</p>
+                <div class="code-block">
+                    <pre>-- Tabela USUARIOS
+CREATE TABLE usuarios (
+    id INT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    idade INT,
+    cidade VARCHAR(50)
+);
+
+-- Tabela PEDIDOS
+CREATE TABLE pedidos (
+    id INT PRIMARY KEY,
+    usuario_id INT,
+    produto VARCHAR(100),
+    valor DECIMAL(10,2),
+    data_pedido DATE,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);</pre>
+                </div>
+                
+                <table>
+                    <caption>Usuários</caption>
+                    <thead>
+                        <tr><th>id</th><th>nome</th><th>email</th><th>idade</th><th>cidade</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>João Silva</td><td>joao@email.com</td><td>25</td><td>São Paulo</td></tr>
+                        <tr><td>2</td><td>Maria Santos</td><td>maria@email.com</td><td>30</td><td>Rio de Janeiro</td></tr>
+                        <tr><td>3</td><td>Pedro Costa</td><td>pedro@email.com</td><td>22</td><td>Belo Horizonte</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: SELECT * em produção</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Usar SELECT * em consultas</strong>
+                    <div class="code-block">
+                        <pre>-- Busca todas as colunas, mesmo as desnecessárias
+SELECT * FROM usuarios WHERE cidade = 'São Paulo';</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Consome mais memória, rede e processamento, especialmente em tabelas grandes.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Especificar apenas as colunas necessárias</strong>
+                    <div class="code-block">
+                        <pre>-- Busca apenas as colunas que realmente precisa
+SELECT id, nome, email FROM usuarios WHERE cidade = 'São Paulo';</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: JOIN sem condição (produto cartesiano)</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: JOIN sem ON</strong>
+                    <div class="code-block">
+                        <pre>-- Resultado: 3 usuários × 3 pedidos = 9 linhas (produto cartesiano)
+SELECT * FROM usuarios, pedidos;</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Retorna combinações inválidas e consome recursos desnecessários.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar JOIN com condição</strong>
+                    <div class="code-block">
+                        <pre>-- Retorna apenas combinações válidas
+SELECT u.nome, p.produto, p.valor
+FROM usuarios u
+INNER JOIN pedidos p ON u.id = p.usuario_id;</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Esquecer GROUP BY com funções agregadas</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Usar COUNT sem GROUP BY</strong>
+                    <div class="code-block">
+                        <pre>-- Erro: coluna não agregada sem GROUP BY
+SELECT cidade, COUNT(*) FROM usuarios;</pre>
+                    </div>
+                    <p><strong>Problema:</strong> O banco de dados não sabe como agrupar os resultados.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Adicionar GROUP BY</strong>
+                    <div class="code-block">
+                        <pre>-- Agrupa por cidade e conta usuários por cidade
+SELECT cidade, COUNT(*) as total_usuarios
+FROM usuarios
+GROUP BY cidade
+ORDER BY total_usuarios DESC;</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Consultas Essenciais</h2>
+                
+                <h3>1. SELECT Básico</h3>
+                <div class="code-block">
+                    <pre>-- Selecionar colunas específicas
+SELECT nome, email FROM usuarios;
+
+-- Com alias (apelidos)
+SELECT nome AS "Nome Completo", email FROM usuarios;</pre>
+                </div>
+                
+                <h3>2. WHERE (Filtros)</h3>
+                <div class="code-block">
+                    <pre>-- Operadores de comparação
+SELECT * FROM usuarios WHERE idade >= 25;
+
+-- Operadores lógicos
+SELECT * FROM usuarios WHERE cidade = 'São Paulo' AND idade > 20;
+
+-- LIKE (busca parcial)
+SELECT * FROM usuarios WHERE nome LIKE 'J%'; -- Começa com J
+
+-- IN (lista de valores)
+SELECT * FROM usuarios WHERE cidade IN ('São Paulo', 'Rio de Janeiro');
+
+-- BETWEEN (intervalo)
+SELECT * FROM usuarios WHERE idade BETWEEN 20 AND 30;</pre>
+                </div>
+                
+                <h3>3. JOINs (Relacionamentos)</h3>
+                <div class="code-block">
+                    <pre>-- INNER JOIN: apenas registros que existem em ambas tabelas
+SELECT u.nome, p.produto, p.valor
+FROM usuarios u
+INNER JOIN pedidos p ON u.id = p.usuario_id;
+
+-- LEFT JOIN: todos os usuários, mesmo sem pedidos
+SELECT u.nome, COUNT(p.id) as total_pedidos
+FROM usuarios u
+LEFT JOIN pedidos p ON u.id = p.usuario_id
+GROUP BY u.nome;</pre>
+                </div>
+                
+                <h3>4. Funções Agregadas</h3>
+                <div class="code-block">
+                    <pre>-- COUNT: conta registros
+SELECT COUNT(*) as total_usuarios FROM usuarios;
+
+-- SUM: soma valores
+SELECT SUM(valor) as total_vendas FROM pedidos;
+
+-- AVG: média
+SELECT AVG(idade) as idade_media FROM usuarios;
+
+-- MAX / MIN: máximo e mínimo
+SELECT MAX(valor) as maior_pedido FROM pedidos;</pre>
+                </div>
+                
+                <h3>5. Ordenação e Limite</h3>
+                <div class="code-block">
+                    <pre>-- ORDER BY: ordenar resultados
+SELECT * FROM usuarios ORDER BY nome ASC;  -- A-Z
+SELECT * FROM pedidos ORDER BY valor DESC; -- Maior para menor
+
+-- LIMIT: limitar resultados
+SELECT * FROM usuarios LIMIT 5;
+
+-- Paginação: OFFSET + LIMIT
+SELECT * FROM usuarios LIMIT 10 OFFSET 20; -- Página 3 com 10 itens</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Dica de Performance:</strong>
+                    <p>Sempre use índices em colunas usadas em WHERE, JOIN e ORDER BY para consultas mais rápidas.</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Escreva consultas SQL para:</p>
+                <ul>
+                    <li>Listar os 5 produtos mais caros</li>
+                    <li>Calcular o valor total de pedidos por usuário</li>
+                    <li>Encontrar usuários que nunca fizeram pedidos</li>
+                    <li>Calcular a média de idade por cidade</li>
+                    <li>Listar pedidos dos últimos 30 dias</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Soluções:</strong>
+                    <div class="code-block">
+                        <pre>-- 1. Top 5 produtos mais caros
+SELECT produto, valor FROM pedidos ORDER BY valor DESC LIMIT 5;
+
+-- 2. Valor total por usuário
+SELECT u.nome, SUM(p.valor) as total_gasto
+FROM usuarios u
+LEFT JOIN pedidos p ON u.id = p.usuario_id
+GROUP BY u.nome;
+
+-- 3. Usuários sem pedidos
+SELECT u.* FROM usuarios u
+LEFT JOIN pedidos p ON u.id = p.usuario_id
+WHERE p.id IS NULL;
+
+-- 4. Média de idade por cidade
+SELECT cidade, AVG(idade) as idade_media
+FROM usuarios
+GROUP BY cidade;
+
+-- 5. Pedidos últimos 30 dias
+SELECT * FROM pedidos
+WHERE data_pedido >= CURRENT_DATE - INTERVAL 30 DAY;</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://www.w3schools.com/sql/" target="_blank">W3Schools SQL Tutorial</a></li>
+                    <li><a href="https://sqliteonline.com/" target="_blank">SQL Online Playground</a></li>
+                    <li><a href="https://www.postgresqltutorial.com/" target="_blank">PostgreSQL Tutorial</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>SQL é uma habilidade essencial para qualquer profissional de tecnologia. Pratique diariamente!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="../devops/docker-basico.html">Docker: Containerização →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../../../assets/js/script.js"></script>
+</body>
+</html>

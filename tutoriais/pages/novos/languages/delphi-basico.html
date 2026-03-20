@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8">
+<title>Delphi/Object Pascal | Não Desista Dev</title>
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<style>.tutorial-container{max-width:900px;margin:2rem auto;}
+.tutorial-section{background:var(--bg-card);border-radius:1rem;padding:2rem;margin-bottom:2rem;}
+.code-block{background:var(--bg-body);border-left:4px solid var(--accent);padding:1rem;border-radius:0.5rem;}
+</style></head>
+<body>
+<header class="site-header"><div class="container header-content"><div class="logo-area">
+<a href="../../../index.html"><h1>🚀 não desista.<span class="accent">dev</span>
+</h1></a></div><div class="header-actions">
+<button class="theme-toggle" id="themeToggleBtn">🌙</button>
+</div></div>
+</header>
+<main>
+<div class="container tutorial-container">
+<a href="../../../index.html" class="back-button">← Voltar</a>
+<div class="tutorial-header"><h1>🐍 Delphi/Object Pascal</h1>
+<div class="tutorial-meta"><span>30 min</span><span>Intermediário</span>
+</div></div>
+<div class="tutorial-section"><h2>📌 Sintaxe Básica</h2>
+<div class="code-block"><pre>program HelloWorld;
+begin
+    WriteLn('Hello World!');
+    ReadLn;
+end.</pre></div></div>
+<div class="tutorial-section"><h2>📌 Classes em Delphi</h2>
+  <div class="code-block"><pre>type
+  TUsuario = class
+  private
+    FNome: string;
+  public
+    property Nome: string read FNome write FNome;
+    procedure Exibir;
+  end;
+
+procedure TUsuario.Exibir;
+begin
+  WriteLn('Nome: ' + FNome);
+end;</pre></div></div>
+<div class="tutorial-section"><h2>📝 Exercício</h2>
+  <p>Crie uma calculadora simples com soma e multiplicação.</p>
+</div>
+</div>
+</main>
+<footer>
+<div class="container"><div class="footer-bottom"><p>✨ Não Desista Dev ✨</p>
+</div>
+</div>
+</footer>
+<script src="../../../assets/js/script.js"></script>
+</body>
+</html>

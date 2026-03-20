@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+    <meta charset="UTF-8">
+    <title>Python Avançado | Não Desista Dev</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>.tutorial-container{max-width:900px;margin:2rem auto;}.tutorial-section{background:var(--bg-card);border-radius:1rem;padding:2rem;margin-bottom:2rem;}.code-block{background:var(--bg-body);border-left:4px solid var(--accent);padding:1rem;border-radius:0.5rem;}</style></head>
+<body>
+<header class="site-header"><div class="container header-content">
+    <div class="logo-area"><a href="../../../index.html"><h1>🚀 não desista.<span class="accent">dev</span></h1></a></div><div class="header-actions"><button class="theme-toggle" id="themeToggleBtn">🌙</button></div></div></header>
+<main>
+<div class="container tutorial-container">
+<a href="../../../index.html" class="back-button">← Voltar</a>
+<div class="tutorial-header"><h1>🐍 Python Avançado</h1>
+<div class="tutorial-meta"><span>35 min</span>
+<span>Avançado</span>
+</div>
+</div>
+<div class="tutorial-section">
+<h2>📌 Decorators</h2>
+<div class="code-block"><pre>def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        print(f"Tempo: {time.time()-start:.2f}s")
+        return result
+    return wrapper
+
+@timer
+def operacao_demorada():
+    time.sleep(2)</pre>
+</div>
+</div>
+<div class="tutorial-section"><h2>📌 Generators</h2>
+    <div class="code-block"><pre>def gerar_numeros(n):
+    for i in range(n):
+        yield i * 2
+
+for num in gerar_numeros(1000000):
+    # Processa um por um sem carregar tudo na memória
+    pass</pre>
+</div>
+</div>
+<div class="tutorial-section"><h2>📌 Context Managers</h2>
+    <div class="code-block"><pre>with open('arquivo.txt', 'r') as f:
+    conteudo = f.read()
+# Arquivo automaticamente fechado</pre>
+</div><
+/div>
+<div class="tutorial-section">
+    <h2>📝 Exercício</h2>
+    <p>Crie um decorator que repete uma função N vezes.</p></div>
+</div>
+</main>
+<footer>
+<div class="container"><div class="footer-bottom"><p>✨ Não Desista Dev ✨</p>
+</div>
+</div>
+</footer>
+<script src="../../../assets/js/script.js"></script>
+</body>
+</html>

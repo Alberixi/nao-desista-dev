@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite vs Webpack | Não Desista Dev</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e293b'/%3E%3Ctext x='50' y='70' font-size='55' text-anchor='middle' fill='%23f97316'%3E📚%3C/text%3E%3C/svg%3E">
+
+  <link rel="stylesheet" href="../../../assets/css/style.css">
+
+  <style>
+    .tutorial-container {
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+
+    .tutorial-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .tutorial-header h1 {
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .tutorial-meta {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      color: var(--text-muted);
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .tutorial-section {
+      background: var(--bg-card);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .tutorial-section h2 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .code-block {
+      background: var(--bg-body);
+      border-left: 4px solid var(--accent);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .error-box {
+      background: rgba(220, 38, 38, 0.1);
+      border-left: 4px solid #dc2626;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .success-box {
+      background: rgba(34, 197, 94, 0.1);
+      border-left: 4px solid #22c55e;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .comparison-table {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .comparison-table th {
+      background: var(--accent);
+      color: white;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .back-button:hover {
+      text-decoration: underline;
+    }
+
+    /* Navegação para investigação */
+    .nav-investigation {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(30, 41, 59, 0.9) 100%);
+      border: 1px solid var(--accent, #38bdf8);
+      border-radius: 12px;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-investigation a {
+      background: var(--accent, #38bdf8);
+      color: #000;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-investigation a:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .nav-investigation .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="logo-area">
+        <a href="../../index.html" class="logo-link">
+          <h1>🚀 não desista.<span class="accent">dev</span></h1>
+        </a>
+        <p>tutoriais práticos • comunidade • evolução contínua</p>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-text">Modo Escuro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container tutorial-container">
+      <!-- Banner de navegação para investigação -->
+      <div class="nav-investigation">
+        <div class="badge">
+          <i class="fas fa-code" style="font-size: 1.2rem;"></i>
+          <span>📘 Modo: Aprendizado Ativo</span>
+        </div>
+        <a href="../../../index.html">
+          <i class="fas fa-skull"></i>
+          🕵️ VOLTAR PARA INVESTIGAÇÃO
+        </a>
+      </div>
+
+      <a href="../../index.html" class="back-button">← Voltar para tutoriais</a>
+
+      <div class="tutorial-header">
+        <h1>⚡ Vite vs Webpack: Qual Escolher?</h1>
+        <div class="tutorial-meta">
+          <span>📖 15 min de leitura</span>
+          <span>🎯 Nível: Intermediário</span>
+          <span>💻 Build Tools</span>
+        </div>
+      </div>
+
+      <div class="tutorial-section">
+        <h2>📌 Introdução</h2>
+        <p>Webpack dominou o ecossistema JavaScript por anos, mas Vite surgiu como uma alternativa mais rápida e
+          moderna. Ambos são bundlers (empacotadores) que transformam seu código em arquivos otimizados para produção,
+          mas têm abordagens fundamentalmente diferentes.</p>
+      </div>
+
+      <div class="tutorial-section">
+        <h2>📊 Comparação Rápida</h2>
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Característica</th>
+                <th>Vite</th>
+                <th>Webpack</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lançamento</td>
+                <td>2020 (moderno)</td>
+                <td>2012 (maduro)</td>
+              </tr>
+              <tr>
+                <td>Velocidade Dev Server</td>
+                <td>🚀 Extremamente rápido</td>
+                <td>🐌 Mais lento</td>
+              </tr>
+              <tr>
+                <td>Configuração</td>
+                <td>Zero config</td>
+                <td>Complexa</td>
+              </tr>
+              <tr>
+                <td>Plugins</td>
+                <td>Ecosistema em crescimento</td>
+                <td>✅ Maduro, milhares</td>
+              </tr>
+              <tr>
+                <td>Curva de aprendizado</td>
+                <td>Baixa</td>
+                <td>Alta</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tutorial-section">
+        <h2>⚠️ Erro Comum: Usar Webpack para projetos simples</h2>
+        <div class="error-box">
+          <strong>❌ Configuração complexa desnecessária:</strong>
+          <div class="code-block">
+            <pre>// webpack.config.js - 50+ linhas
+module.exports = {
+    entry: './src/index.js',
+    output: { path: path.resolve(__dirname, 'dist') },
+    module: { rules: [...] },
+    plugins: [...],
+    devServer: {...}
+};</pre>
+          </div>
+        </div>
+        <div class="success-box">
+          <strong>✅ Correção: Usar Vite</strong>
+          <div class="code-block">
+            <pre>npm create vite@latest meu-app -- --template react
+cd meu-app
+npm install
+npm run dev</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="tutorial-section">
+        <h2>🚀 Configuração Básica Vite</h2>
+        <div class="code-block">
+          <pre>// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+    plugins: [react()],
+    server: { port: 3000, open: true },
+    build: { outDir: 'dist', sourcemap: true }
+});</pre>
+        </div>
+      </div>
+
+      <div class="tutorial-section">
+        <h2>⚙️ Configuração Webpack (para comparação)</h2>
+        <div class="code-block">
+          <pre>// webpack.config.js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[contenthash].js',
+        clean: true,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: 'babel-loader',
+            },
+        ],
+    },
+    plugins: [
+        new HtmlWebpackPlugin({ template: './public/index.html' }),
+    ],
+    devServer: { port: 3000, hot: true, open: true },
+};</pre>
+        </div>
+      </div>
+
+      <div class="tutorial-section">
+        <h2>💡 Quando Escolher Cada Um</h2>
+        <ul>
+          <li><strong>✅ Escolha Vite quando:</strong> Projetos novos, desenvolvimento rápido, frameworks modernos
+            (React, Vue, Svelte)</li>
+          <li><strong>✅ Escolha Webpack quando:</strong> Projetos legados, suporte a IE11, configurações extremamente
+            customizadas, plugins específicos sem alternativa</li>
+        </ul>
+      </div>
+
+      <div class="tutorial-section">
+        <h2>📝 Exercício Prático</h2>
+        <p>Crie um projeto com Vite e compare o tempo de build com um projeto Webpack similar.</p>
+        <div class="success-box">
+          <strong>🎯 Desafio extra:</strong> Migre um pequeno projeto Webpack para Vite e documente as diferenças
+          encontradas.
+        </div>
+      </div>
+
+      <div class="tutorial-section">
+        <h2>🔗 Recursos Adicionais</h2>
+        <ul>
+          <li><a href="https://vitejs.dev/" target="_blank">Vite Official Docs</a></li>
+          <li><a href="https://webpack.js.org/" target="_blank">Webpack Official Docs</a></li>
+          <li><a href="https://github.com/vitejs/awesome-vite" target="_blank">Awesome Vite</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Sobre o Tutorial</h4>
+          <p>Escolha a ferramenta certa para o trabalho - não há bala de prata!</p>
+        </div>
+        <div class="footer-section">
+          <h4>🌐 Rede Não Desista Dev</h4>
+          <ul>
+            <li><a href="../../../index.html">🔍 Investigação Digital</a></li>
+            <li><a href="../../index.html">📚 Tutoriais Dev</a></li>
+            <li><a href="https://hub-knk.netlify.app" target="_blank">🛠️ Hub de Ferramentas</a></li>
+            <li><a href="https://knksnk.netlify.app" target="_blank">💰 Faucets Cripto</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Compartilhe</h4>
+          <p>Ajude outros devs compartilhando este conteúdo!</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/script.js"></script>
+  <script>
+    // Garantir que o tema funcione
+    document.addEventListener('DOMContentLoaded', function () {
+      const themeBtn = document.getElementById('themeToggleBtn');
+      if (themeBtn) {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.body.classList.add('dark');
+          themeBtn.innerHTML = '<span class="toggle-icon">☀️</span><span class="toggle-text">Modo Claro</span>';
+        }
+        themeBtn.addEventListener('click', function () {
+          document.body.classList.toggle('dark');
+          const isDark = document.body.classList.contains('dark');
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          themeBtn.innerHTML = isDark ? '<span class="toggle-icon">☀️</span><span class="toggle-text">Modo Claro</span>' : '<span class="toggle-icon">🌙</span><span class="toggle-text">Modo Escuro</span>';
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

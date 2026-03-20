@@ -1,10 +1,8 @@
-nao-desista-dev/
-│
-├── index.html                 # Página principal
-├── style.css                  # Estilos principais
+tutoriais/
+├── index.html                 # Página principal com cards
+├── style.css                  # Estilos globais
 ├── script.js                  # JavaScript principal
-│
-├── pages/                     # Páginas de tutoriais
+├── pages/                     # Tutoriais existentes (9)
 │   ├── css-grid.html
 │   ├── javascript-async.html
 │   ├── dark-mode.html
@@ -15,8 +13,45 @@ nao-desista-dev/
 │   ├── vite-webpack.html
 │   └── accessibility.html
 │
-├── assets/                    # Recursos estáticos
-│   ├── images/               # (pasta para imagens futuras)
-│   └── icons/                # (pasta para ícones)
+├── pages/novos/               # 👈 NOVOS TUTORIAIS
+│   ├── security/              # Segurança
+│   │   ├── xss.html
+│   │   ├── csrf.html
+│   │   ├── sql-injection.html
+│   │   └── jwt-security.html
+│   │
+│   ├── languages/             # Linguagens
+│   │   ├── php-basico.html
+│   │   ├── php-poo.html
+│   │   ├── cpp-basico.html
+│   │   ├── cpp-avancado.html
+│   │   ├── delphi-basico.html
+│   │   ├── python-avancado.html
+│   │   └── rust-basico.html
+│   │
+│   ├── backend/               # Backend
+│   │   ├── nodejs-express.html
+│   │   ├── django-basico.html
+│   │   ├── flask-api.html
+│   │   └── graphql.html
+│   │
+│   ├── database/              # Bancos de Dados
+│   │   ├── sql-basico.html
+│   │   ├── sql-avancado.html
+│   │   ├── mongodb.html
+│   │   └── postgresql.html
+│   │
+│   └── devops/                # DevOps
+│       ├── docker-basico.html
+│       ├── kubernetes.html
+│       ├── ci-cd.html
+│       └── linux-server.html
 │
-└── README.md                  # Documentação do projeto
+├── assets/
+│   └── images/                # Imagens dos tutoriais
+│       └── tutorials/
+│
+└── data/
+    └── tutorials-data.js      # 👈 Arquivo de dados centralizado
+
+----------------------------------------------------------------------------------------------

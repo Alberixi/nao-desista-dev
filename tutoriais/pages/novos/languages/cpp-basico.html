@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C/C++ Fundamentos | Não Desista Dev</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .error-box {
+            background: rgba(220,38,38,0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .success-box {
+            background: rgba(34,197,94,0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-button:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../../../index.html" class="back-button">← Voltar</a>
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../../../index.html" class="back-button">← Voltar para tutoriais</a>
+
+            <div class="tutorial-header">
+                <h1>⚙️ C/C++: Fundamentos</h1>
+                <div class="tutorial-meta">
+                    <span>📖 45 min de leitura</span>
+                    <span>🎯 Nível: Iniciante</span>
+                    <span>💻 C/C++</span>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>C e C++ são linguagens poderosas para programação de sistemas, jogos e aplicações de alta performance. Neste tutorial, vamos aprender os fundamentos essenciais para começar.</p>
+            </div>
+
+            <div class="tutorial-section">
+                <h2>📌 Hello World</h2>
+                <div class="code-block">
+                    <pre>#include &lt;iostream&gt;
+
+int main() {
+    std::cout << "Hello World!" << std::endl;
+    return 0;
+}</pre>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum: Esquecer std::</h2>
+                <div class="error-box">
+                    <strong>❌ Erro:</strong>
+                    <div class="code-block">
+                        <pre>cout << "teste";  // Erro! 'cout' não foi declarado</pre>
+                    </div>
+                    <p><strong>Problema:</strong> O compilador não reconhece 'cout' sem o namespace std.</p>
+                </div>
+                <div class="success-box">
+                    <strong>✅ Correção:</strong>
+                    <div class="code-block">
+                        <pre>// Opção 1: Usar std::
+std::cout << "teste";
+
+// Opção 2: Adicionar using namespace std
+using namespace std;
+cout << "teste";</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h2>📝 Ponteiros</h2>
+                <p>Ponteiros armazenam endereços de memória. São fundamentais em C/C++.</p>
+                <div class="code-block">
+                    <pre>int x = 10;
+int* ptr = &x;    // ptr armazena o endereço de x
+*ptr = 20;        // x agora é 20
+
+// Ponteiro para ponteiro
+int** ptr2 = &ptr;
+**ptr2 = 30;      // x agora é 30</pre>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Crie uma função que troca os valores de duas variáveis usando ponteiros.</p>
+                <div class="success-box">
+                    <strong>🎯 Solução:</strong>
+                    <div class="code-block">
+                        <pre>void trocar(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 5, y = 10;
+    trocar(&x, &y);
+    // x = 10, y = 5
+    return 0;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://www.learncpp.com/" target="_blank">Learn C++ - Tutorial completo</a></li>
+                    <li><a href="https://en.cppreference.com/" target="_blank">cppreference.com - Documentação oficial</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=vLnPwxZdW4Y" target="_blank">C++ Programming Course - freeCodeCamp</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>Domine os fundamentos de C/C++ para programação de sistemas e alta performance.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajude outros devs a aprenderem C/C++!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="../languages/python-avancado.html">Python Avançado →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../../assets/js/script.js"></script>
+</body>
+</html>

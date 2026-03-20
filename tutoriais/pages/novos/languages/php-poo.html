@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head><meta charset="UTF-8">
+    <title>PHP POO | Não Desista Dev</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <style>.tutorial-container{max-width:900px;margin:2rem auto;}.tutorial-section{background:var(--bg-card);border-radius:1rem;padding:2rem;margin-bottom:2rem;border:1px solid var(--border);}.code-block{background:var(--bg-body);border-left:4px solid var(--accent);padding:1rem;border-radius:0.5rem;margin:1rem 0;}.code-block pre{font-family:monospace;}.back-button{color:var(--accent);}</style></head>
+<body>
+    <header class="site-header">
+    <div class="container header-content">
+<div class="logo-area">
+<a href="../../../index.html"><h1>🚀 não desista.<span class="accent">dev</span>
+</h1></a></div><div class="header-actions">
+    <button class="theme-toggle" id="themeToggleBtn">🌙</button>
+</div>
+</div>
+</header>
+<main><div class="container tutorial-container"><a href="../../../index.html" class="back-button">← Voltar</a>
+    <div class="tutorial-header">
+    <h1>🐘 PHP: Programação Orientada a Objetos</h1>
+    <div class="tutorial-meta"><span>35 min</span>
+    <span>Intermediário</span>
+    </div>
+    </div>
+    <div class="tutorial-section">
+    <h2>📌 Classe e Objeto</h2>
+    <div class="code-block"><pre>class Usuario {
+    private $nome;
+    private $email;
+    
+    public function __construct($nome, $email) {
+        $this->nome = $nome;
+        $this->email = $email;
+    }
+    
+    public function getNome() {
+        return $this->nome;
+    }
+}
+
+$usuario = new Usuario("João", "joao@email.com");
+echo $usuario->getNome();</pre>
+</div>
+</div>
+<div class="tutorial-section"><h2>⚠️ Erro: Esquecer $this</h2>
+    <div class="error-box">❌ $nome = "teste"; // Erro! Usar $this->nome<div class="code-block">
+        <pre>function setNome($nome) { nome = $nome; } // Erro!</pre>
+    </div>
+</div>
+</div>
+<div class="tutorial-section"><h2>✅ Herança</h2>
+    <div class="code-block"><pre>class UsuarioAdmin extends Usuario {
+    public function promover() {
+        return "Usuário promovido a admin!";
+    }
+}
+</pre>
+</div>
+</div>
+<div class="tutorial-section">
+    <h2>📝 Exercício</h2>
+    <p>Crie uma classe Produto com propriedades nome, preço e método calcularDesconto().</p>
+</div>
+</div>
+</main>
+<footer>
+<div class="container">
+    <div class="footer-bottom"><p>✨ Não Desista Dev ✨</p>
+    </div>
+</div>
+</footer>
+<script src="../../../script.js"></script>
+</body>
+</html>

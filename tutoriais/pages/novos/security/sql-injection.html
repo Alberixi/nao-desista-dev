@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>SQL Injection | Não Desista Dev</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        .tutorial-container { max-width: 900px; margin: 2rem auto; }
+        .tutorial-header { text-align: center; }
+        .tutorial-header h1 { font-size: 2.5rem; color: var(--accent); }
+        .tutorial-meta { display: flex; justify-content: center; gap: 2rem; color: var(--text-muted); }
+        .tutorial-section { background: var(--bg-card); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid var(--border); }
+        .code-block { background: var(--bg-body); border-left: 4px solid var(--accent); padding: 1rem; margin: 1rem 0; }
+        .error-box { background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1rem; }
+        .success-box { background: rgba(34,197,94,0.1); border-left: 4px solid #22c55e; padding: 1rem; }
+        .back-button { color: var(--accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+<header class="site-header"><div class="container header-content"><div class="logo-area"><a href="../../../index.html">
+ <h1>🚀 não desista.<span class="accent">dev</span>
+</h1></a></div><div class="header-actions">
+<button class="theme-toggle" id="themeToggleBtn">🌙</button>
+</div>
+</div>
+</header>
+<main>
+<div class="container tutorial-container">
+<a href="../../../index.html" class="back-button">← Voltar</a>
+<div class="tutorial-header"><h1>🗄️ SQL Injection</h1>
+<div class="tutorial-meta"><span>30 min</span>
+<span>Intermediário</span></div></div>
+<div class="tutorial-section"><h2>📌 O que é?</h2>
+<p>Injeção de código SQL malicioso que pode expor ou deletar dados.</p></div>
+<div class="tutorial-section"><h2>⚠️ Vulnerável</h2>
+<div class="error-box"><strong>❌ Concatenação:</strong>
+<div class="code-block"><pre>$sql = "SELECT * FROM users WHERE user = '" . $_POST['user'] . "'";</pre>
+</div>
+<p>Ataque: <code>' OR '1'='1' --</code>
+</p>
+</div>
+<div class="success-box"><strong>✅ Correção:</strong>
+<div class="code-block"><pre>$stmt = $pdo->prepare("SELECT * FROM users WHERE user = ?");
+$stmt->execute([$_POST['user']]);</pre>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer><div class="container"><div class="footer-bottom"><p>✨ Não Desista Dev ✨</p>
+</div></div>
+</footer>
+<script src="../../../assets/js/script.js"></script>
+</body>
+</html>

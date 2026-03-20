@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>CSRF | Não Desista Dev</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        .tutorial-container { max-width: 900px; margin: 2rem auto; }
+        .tutorial-header { text-align: center; }
+        .tutorial-header h1 { font-size: 2.5rem; color: var(--accent); }
+        .tutorial-meta { display: flex; justify-content: center; gap: 2rem; color: var(--text-muted); }
+        .tutorial-section { background: var(--bg-card); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid var(--border); }
+        .tutorial-section h2 { color: var(--accent); }
+        .code-block { background: var(--bg-body); border-left: 4px solid var(--accent); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .error-box { background: rgba(220,38,38,0.1); border-left: 4px solid #dc2626; padding: 1rem; }
+        .success-box { background: rgba(34,197,94,0.1); border-left: 4px solid #22c55e; padding: 1rem; }
+        .back-button { color: var(--accent); text-decoration: none; }
+    </style></head> 
+    <body>
+    <header class="site-header"><div class="container header-content">
+    <div class="logo-area"><a href="../../../index.html">
+    <h1>🚀 não desista.<span class="accent">dev</span></h1></a>
+    </div>
+    <div class="header-actions"><button class="theme-toggle" id="themeToggleBtn">🌙</button>
+    </div></div>
+    </header>
+    <main>
+    <div class="container tutorial-container"> 
+    <a href="../../../index.html" class="back-button">← Voltar</a>
+    <div class="tutorial-header"><h1>🔐 CSRF</h1>
+    <div class="tutorial-meta"><span>20 min</span><span>Intermediário</span></div></div>
+    <div class="tutorial-section"><h2>📌 O que é CSRF?</h2>
+     <p>Ataque onde um site malicioso faz requisições em nome do usuário autenticado.</p>
+    </div>
+    <div class="tutorial-section"><h2>⚠️ Ataque</h2>
+    <div class="error-box"><strong>❌ Site malicioso:</strong>
+   <div class="code-block">
+    <pre>&lt;img src="https://site.com/transferir?valor=1000&destino=hacker"&gt;</pre>
+    </div></div>
+    <div class="success-box"><strong>✅ Prevenção:</strong><div class="code-block">
+    <pre>&lt;input type="hidden" name="csrf_token" value="{{ token }}"&gt;</pre></div>
+    </div></div></div></main>
+    <footer><div class="container">
+    <div class="footer-bottom"><p>✨ Não Desista Dev ✨</p></div></div>
+    </footer>
+    <script src="../../../assets/js/script.js"></script>
+</body>
+</html>
