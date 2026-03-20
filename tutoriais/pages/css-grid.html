@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid: Layouts Modernos - Tutorial Completo | Não Desista Dev</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Estilos específicos para tutorial */
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .tutorial-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .error-box {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .evolution-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tutorial-container {
+                padding: 0 1rem;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>🎨 CSS Grid: Layouts Modernos</h1>
+                <div class="tutorial-meta">
+                    <span>📖 15 min de leitura</span>
+                    <span>🎯 Nível: Intermediário</span>
+                    <span>💻 Código prático</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>CSS Grid é um dos sistemas de layout mais poderosos do CSS moderno. Ele permite criar layouts bidimensionais complexos com poucas linhas de código. Neste tutorial, vamos aprender desde o básico até técnicas avançadas, incluindo erros comuns e como corrigi-los.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🎯 Objetivos</h2>
+                <ul>
+                    <li>Entender os conceitos fundamentais do CSS Grid</li>
+                    <li>Criar layouts responsivos com Grid</li>
+                    <li>Identificar e corrigir erros comuns</li>
+                    <li>Aplicar técnicas de evolução e otimização</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Não definir o container como grid</h2>
+                <div class="error-box">
+                    <strong>❌ Erro:</strong>
+                    <div class="code-block">
+                        <pre>.container {
+    /* Esqueceu de definir display: grid */
+    grid-template-columns: 1fr 1fr;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> As propriedades do Grid não funcionam porque o container não foi definido como grid.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção:</strong>
+                    <div class="code-block">
+                        <pre>.container {
+    display: grid; /* ESSENCIAL! */
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Unidades fixas sem responsividade</h2>
+                <div class="error-box">
+                    <strong>❌ Erro:</strong>
+                    <div class="code-block">
+                        <pre>.grid {
+    display: grid;
+    grid-template-columns: 300px 300px 300px; /* Fixo, quebra em telas menores */
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Layout quebra em dispositivos móveis e não se adapta.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção:</strong>
+                    <div class="code-block">
+                        <pre>.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}</pre>
+                    </div>
+                    <p><strong>Explicação:</strong> <code>auto-fit</code> e <code>minmax()</code> criam colunas flexíveis que se ajustam automaticamente.</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Não usar gap corretamente</h2>
+                <div class="error-box">
+                    <strong>❌ Erro:</strong>
+                    <div class="code-block">
+                        <pre>.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: -0.5rem; /* Hack antigo para espaçamento */
+}
+.grid-item {
+    margin: 0.5rem;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Usar margin para espaçamento entre itens do grid causa problemas de alinhamento e overflow.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção:</strong>
+                    <div class="code-block">
+                        <pre>.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem; /* Propriedade moderna e correta! */
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Evolução: Do básico ao avançado</h2>
+                
+                <h3>1. Layout básico</h3>
+                <div class="code-block">
+                    <pre>.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}</pre>
+                </div>
+                
+                <h3>2. Layout responsivo com media queries</h3>
+                <div class="code-block">
+                    <pre>.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}</pre>
+                </div>
+                
+                <h3>3. Layout avançado com Grid Areas</h3>
+                <div class="code-block">
+                    <pre>.container {
+    display: grid;
+    grid-template-areas: 
+        "header header header"
+        "sidebar main main"
+        "footer footer footer";
+    grid-template-columns: 250px 1fr 1fr;
+    gap: 1rem;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Evolução:</strong>
+                    <p>Comece com layouts simples e vá adicionando complexidade gradualmente. Sempre priorize a responsividade desde o início!</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Dicas Avançadas</h2>
+                <ul>
+                    <li><strong>Grid implícito vs explícito:</strong> Use <code>grid-auto-rows</code> para controlar linhas adicionais</li>
+                    <li><strong>Alinhamento:</strong> <code>place-items</code> centraliza itens facilmente</li>
+                    <li><strong>Performance:</strong> Grid é mais performático que Flexbox para layouts 2D</li>
+                    <li><strong>Subgrid:</strong> (CSS Grid Level 2) Permite que itens herdem a grade do pai</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Crie um portfólio responsivo com as seguintes características:</p>
+                <ul>
+                    <li>Header com navegação</li>
+                    <li>Grid de projetos (3 colunas no desktop, 2 no tablet, 1 no mobile)</li>
+                    <li>Footer com informações</li>
+                    <li>Utilize <code>grid-template-areas</code> para organizar</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Desafio extra:</strong> Adicione animações suaves nos cards ao hover usando transitions.
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">CSS Tricks - Guia Completo do Grid</a></li>
+                    <li><a href="https://gridbyexample.com/" target="_blank">Grid by Example - Rachel Andrew</a></li>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS/CSS_grid_layout" target="_blank">MDN Web Docs - CSS Grid Layout</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>CSS Grid é essencial para qualquer desenvolvedor front-end moderno. Pratique e domine!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajudou você? Compartilhe com outros devs que estão aprendendo!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="javascript-async.html">JavaScript Assíncrono →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+nao-desista-dev/
+│
+├── index.html                 # Página principal
+├── style.css                  # Estilos principais
+├── script.js                  # JavaScript principal
+│
+├── pages/                     # Páginas de tutoriais
+│   ├── css-grid.html
+│   ├── javascript-async.html
+│   ├── dark-mode.html
+│   ├── react-hooks.html
+│   ├── python-automation.html
+│   ├── git-workflow.html
+│   ├── data-structures.html
+│   ├── vite-webpack.html
+│   └── accessibility.html
+│
+├── assets/                    # Recursos estáticos
+│   ├── images/               # (pasta para imagens futuras)
+│   └── icons/                # (pasta para ícones)
+│
+└── README.md                  # Documentação do projeto

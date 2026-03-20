@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrutura de Dados: Linked List | Não Desista Dev</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .tutorial-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .error-box {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .evolution-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .visualization {
+            background: var(--bg-body);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tutorial-container {
+                padding: 0 1rem;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>🔗 Estrutura de Dados: Linked List (Lista Encadeada)</h1>
+                <div class="tutorial-meta">
+                    <span>📖 25 min de leitura</span>
+                    <span>🎯 Nível: Intermediário</span>
+                    <span>💻 JavaScript • Algoritmos</span>
+                    <span>📊 Complexidade O(n)</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>Listas encadeadas são uma das estruturas de dados fundamentais na ciência da computação. Diferente dos arrays, que armazenam elementos em posições contíguas de memória, as listas encadeadas armazenam elementos em nós independentes, cada um apontando para o próximo. Isso oferece flexibilidade para inserções e remoções, mas com trade-offs em acesso aleatório.</p>
+                <p>Neste tutorial, vamos implementar do zero uma lista encadeada em JavaScript, entender seus pontos fortes e fracos, e aprender com erros comuns.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🎯 Objetivos</h2>
+                <ul>
+                    <li>Entender o conceito de nós e referências</li>
+                    <li>Implementar operações básicas: inserção, remoção, busca</li>
+                    <li>Comparar listas encadeadas com arrays</li>
+                    <li>Resolver problemas clássicos com listas encadeadas</li>
+                    <li>Analisar complexidade de tempo e espaço</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📊 Visualização da Lista Encadeada</h2>
+                <div class="visualization">
+                    <pre>
+[Head] → [10] → [20] → [30] → [40] → null
+          ↑       ↑       ↑       ↑
+        Node    Node    Node    Node
+      (value) (value) (value) (value)</pre>
+                </div>
+                <p>Cada nó contém um valor e uma referência (ponteiro) para o próximo nó. O último nó aponta para null, indicando o fim da lista.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Perder a referência da cabeça da lista</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Manipular a lista sem manter referência ao head</strong>
+                    <div class="code-block">
+                        <pre>class LinkedList {
+    constructor() {
+        this.head = null;
+    }
+    
+    // ERRO: Perde a referência original
+    addToFront(value) {
+        let current = this.head;  // Guarda referência
+        let newNode = new Node(value);
+        newNode.next = current;
+        current = newNode;  // Isso não altera this.head!
+    }
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> A lista parece funcionar dentro do método, mas a propriedade head não é atualizada.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Atualizar this.head diretamente</strong>
+                    <div class="code-block">
+                        <pre>class LinkedList {
+    constructor() {
+        this.head = null;
+    }
+    
+    addToFront(value) {
+        const newNode = new Node(value);
+        newNode.next = this.head;
+        this.head = newNode;  // Atualiza a cabeça da lista
+    }
+    
+    // Para visualizar
+    print() {
+        let current = this.head;
+        const values = [];
+        while (current) {
+            values.push(current.value);
+            current = current.next;
+        }
+        console.log(values.join(' → '));
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Esquecer de lidar com casos extremos</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Assumir que a lista sempre tem elementos</strong>
+                    <div class="code-block">
+                        <pre>removeFromEnd() {
+    let current = this.head;
+    // Se a lista estiver vazia, this.head é null
+    while (current.next.next) {  // TypeError: cannot read property 'next' of null
+        current = current.next;
+    }
+    current.next = null;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> O código quebra quando a lista está vazia ou tem apenas um elemento.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Validar casos extremos</strong>
+                    <div class="code-block">
+                        <pre>removeFromEnd() {
+    // Caso 1: Lista vazia
+    if (!this.head) {
+        return null;
+    }
+    
+    // Caso 2: Apenas um elemento
+    if (!this.head.next) {
+        const removed = this.head.value;
+        this.head = null;
+        return removed;
+    }
+    
+    // Caso 3: Múltiplos elementos
+    let current = this.head;
+    while (current.next.next) {
+        current = current.next;
+    }
+    const removed = current.next.value;
+    current.next = null;
+    return removed;
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Complexidade desnecessária em buscas</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Percorrer a lista múltiplas vezes</strong>
+                    <div class="code-block">
+                        <pre>// Buscar um elemento e depois removê-lo
+find(value) {
+    let current = this.head;
+    let index = 0;
+    while (current) {
+        if (current.value === value) {
+            return index;
+        }
+        current = current.next;
+        index++;
+    }
+    return -1;
+}
+
+removeByValue(value) {
+    const index = this.find(value);  // Primeira busca O(n)
+    if (index === 0) {
+        this.head = this.head.next;
+    } else if (index > 0) {
+        let current = this.head;
+        for (let i = 0; i < index - 1; i++) {  // Segunda busca O(n)
+            current = current.next;
+        }
+        current.next = current.next.next;
+    }
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Duas passadas pela lista, complexidade O(2n) = O(n), mas ineficiente na prática.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Remover em uma única passada</strong>
+                    <div class="code-block">
+                        <pre>removeByValue(value) {
+    if (!this.head) return false;
+    
+    // Remover da cabeça
+    if (this.head.value === value) {
+        this.head = this.head.next;
+        return true;
+    }
+    
+    // Remover do meio/fim
+    let current = this.head;
+    while (current.next) {
+        if (current.next.value === value) {
+            current.next = current.next.next;
+            return true;
+        }
+        current = current.next;
+    }
+    
+    return false; // Elemento não encontrado
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Evolução: Implementação completa de Linked List</h2>
+                
+                <h3>1. Estrutura do Nó e Lista Básica</h3>
+                <div class="code-block">
+                    <pre>class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null;
+        this.size = 0;
+    }
+    
+    // Adicionar ao final
+    append(value) {
+        const newNode = new Node(value);
+        
+        if (!this.head) {
+            this.head = newNode;
+        } else {
+            let current = this.head;
+            while (current.next) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+        this.size++;
+        return this;
+    }
+    
+    // Adicionar ao início
+    prepend(value) {
+        const newNode = new Node(value);
+        newNode.next = this.head;
+        this.head = newNode;
+        this.size++;
+        return this;
+    }
+    
+    // Inserir em posição específica
+    insertAt(value, index) {
+        if (index < 0 || index > this.size) {
+            throw new Error('Índice inválido');
+        }
+        
+        if (index === 0) {
+            return this.prepend(value);
+        }
+        
+        const newNode = new Node(value);
+        let current = this.head;
+        for (let i = 0; i < index - 1; i++) {
+            current = current.next;
+        }
+        
+        newNode.next = current.next;
+        current.next = newNode;
+        this.size++;
+        return this;
+    }
+    
+    // Remover por índice
+    removeAt(index) {
+        if (index < 0 || index >= this.size || !this.head) {
+            return null;
+        }
+        
+        let removed;
+        
+        if (index === 0) {
+            removed = this.head.value;
+            this.head = this.head.next;
+        } else {
+            let current = this.head;
+            for (let i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
+            removed = current.next.value;
+            current.next = current.next.next;
+        }
+        
+        this.size--;
+        return removed;
+    }
+    
+    // Buscar valor
+    find(value) {
+        let current = this.head;
+        let index = 0;
+        
+        while (current) {
+            if (current.value === value) {
+                return index;
+            }
+            current = current.next;
+            index++;
+        }
+        
+        return -1;
+    }
+    
+    // Acessar por índice
+    get(index) {
+        if (index < 0 || index >= this.size) {
+            return null;
+        }
+        
+        let current = this.head;
+        for (let i = 0; i < index; i++) {
+            current = current.next;
+        }
+        
+        return current.value;
+    }
+    
+    // Converter para array
+    toArray() {
+        const result = [];
+        let current = this.head;
+        while (current) {
+            result.push(current.value);
+            current = current.next;
+        }
+        return result;
+    }
+    
+    // Inverter lista
+    reverse() {
+        let prev = null;
+        let current = this.head;
+        let next = null;
+        
+        while (current) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        
+        this.head = prev;
+        return this;
+    }
+    
+    // Verificar se está vazia
+    isEmpty() {
+        return this.size === 0;
+    }
+    
+    // Tamanho da lista
+    getSize() {
+        return this.size;
+    }
+    
+    // Limpar lista
+    clear() {
+        this.head = null;
+        this.size = 0;
+        return this;
+    }
+    
+    // Print formatado
+    print() {
+        console.log(this.toArray().join(' → '));
+        return this;
+    }
+}
+
+// Testes
+const list = new LinkedList();
+list.append(10).append(20).append(30);
+list.prepend(5);
+list.insertAt(15, 2);
+list.print(); // 5 → 10 → 15 → 20 → 30
+console.log(list.find(20)); // 3
+console.log(list.get(2)); // 15
+list.removeAt(1);
+list.print(); // 5 → 15 → 20 → 30
+list.reverse();
+list.print(); // 30 → 20 → 15 → 5</pre>
+                </div>
+                
+                <h3>2. Lista Duplamente Encadeada (Avançado)</h3>
+                <div class="code-block">
+                    <pre>class DoublyNode {
+    constructor(value) {
+        this.value = value;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class DoublyLinkedList {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+    
+    append(value) {
+        const newNode = new DoublyNode(value);
+        
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            newNode.prev = this.tail;
+            this.tail.next = newNode;
+            this.tail = newNode;
+        }
+        
+        this.size++;
+        return this;
+    }
+    
+    prepend(value) {
+        const newNode = new DoublyNode(value);
+        
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            newNode.next = this.head;
+            this.head.prev = newNode;
+            this.head = newNode;
+        }
+        
+        this.size++;
+        return this;
+    }
+    
+    removeFromEnd() {
+        if (!this.tail) return null;
+        
+        const removed = this.tail.value;
+        
+        if (this.tail === this.head) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+        }
+        
+        this.size--;
+        return removed;
+    }
+    
+    printForward() {
+        const values = [];
+        let current = this.head;
+        while (current) {
+            values.push(current.value);
+            current = current.next;
+        }
+        console.log(values.join(' ↔ '));
+    }
+    
+    printBackward() {
+        const values = [];
+        let current = this.tail;
+        while (current) {
+            values.push(current.value);
+            current = current.prev;
+        }
+        console.log(values.join(' ↔ '));
+    }
+}
+
+// Teste
+const doublyList = new DoublyLinkedList();
+doublyList.append(1).append(2).append(3);
+doublyList.prepend(0);
+doublyList.printForward();  // 0 ↔ 1 ↔ 2 ↔ 3
+doublyList.printBackward(); // 3 ↔ 2 ↔ 1 ↔ 0</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Evolução:</strong>
+                    <p>Comece com listas simplesmente encadeadas, depois evolua para duplamente encadeadas para navegação bidirecional. Domine as operações básicas antes de implementar estruturas mais complexas.</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Comparação: Linked List vs Array</h2>
+                <div class="code-block">
+                    <pre>
+┌───────────────────┬──────────────────┬────────────────────┐
+│    Operação       │    Array         │  Linked List       │
+├───────────────────┼──────────────────┼────────────────────┤
+│ Acesso por índice │ O(1) ✓           │ O(n) ✗            │
+│ Inserção no fim   │ O(1) ✓           │ O(1) ✓            │
+│ Inserção no início│ O(n) ✗           │ O(1) ✓            │
+│ Remoção no início │ O(n) ✗           │ O(1) ✓            │
+│ Inserção no meio  │ O(n)             │ O(n) (busca + O(1))│
+│ Busca por valor   │ O(n)             │ O(n)               │
+│ Uso de memória    │ Menor (contíguo) │ Maior (ponteiros)  │
+└───────────────────┴──────────────────┴────────────────────┘
+</pre>
+                </div>
+                <p><strong>Quando usar Linked List:</strong> Inserções/remoções frequentes no início/meio, quando o tamanho é dinâmico e imprevisível.</p>
+                <p><strong>Quando usar Array:</strong> Acesso aleatório frequente, quando o tamanho é conhecido e estável.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Dicas Avançadas</h2>
+                <ul>
+                    <li><strong>Detecção de ciclo:</strong> Use algoritmo de Floyd (tartaruga e lebre) para detectar loops</li>
+                    <li><strong>Merge de listas ordenadas:</strong> Intercale duas listas mantendo a ordenação</li>
+                    <li><strong>Encontrar elemento do meio:</strong> Use dois ponteiros (um anda 1 passo, outro 2 passos)</li>
+                    <li><strong>Skip List:</strong> Estrutura mais avançada que combina linked lists com busca binária</li>
+                </ul>
+                
+                <h3>Exemplo: Detecção de ciclo (Floyd's Cycle Detection)</h3>
+                <div class="code-block">
+                    <pre>hasCycle() {
+    if (!this.head) return false;
+    
+    let slow = this.head;
+    let fast = this.head;
+    
+    while (fast && fast.next) {
+        slow = slow.next;      // 1 passo
+        fast = fast.next.next; // 2 passos
+        
+        if (slow === fast) {
+            return true; // Ciclo detectado
+        }
+    }
+    
+    return false;
+}</pre>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Implemente uma lista encadeada com as seguintes funcionalidades adicionais:</p>
+                <ul>
+                    <li>Método <code>findMiddle()</code> que retorna o valor do meio (para número par, retorne o primeiro do meio)</li>
+                    <li>Método <code>hasCycle()</code> que detecta se a lista tem um ciclo</li>
+                    <li>Método <code>merge(anotherList)</code> que combina duas listas ordenadas em uma nova lista ordenada</li>
+                    <li>Método <code>removeDuplicates()</code> que remove valores duplicados</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Desafio extra:</strong> Implemente um "LRU Cache" (Least Recently Used) usando uma combinação de HashMap e Doubly Linked List. Essa é uma pergunta comum em entrevistas técnicas!
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://visualgo.net/en/list" target="_blank">Visualgo - Visualização de Linked List</a></li>
+                    <li><a href="https://leetcode.com/tag/linked-list/" target="_blank">LeetCode - Problemas de Linked List</a></li>
+                    <li><a href="https://www.geeksforgeeks.org/data-structures/linked-list/" target="_blank">GeeksforGeeks - Linked List</a></li>
+                    <li><a href="https://github.com/trekhleb/javascript-algorithms/tree/master/src/data-structures/linked-list" target="_blank">JavaScript Algorithms - Linked List</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>Entender estruturas de dados é fundamental para resolver problemas complexos de forma eficiente!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajude outros devs a dominarem estruturas de dados!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="vite-webpack.html">Vite vs Webpack →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

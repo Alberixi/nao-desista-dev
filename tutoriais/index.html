@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal de tutoriais para desenvolvedores - Não Desista Dev">
+    <title>Não Desista Dev | Tutoriais e Aprendizado</title>
+    
+    <!-- Favicon para Tutoriais -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e293b'/%3E%3Ctext x='50' y='70' font-size='55' text-anchor='middle' fill='%23f97316' font-weight='bold'%3E📚%3C/text%3E%3C/svg%3E">
+    <link rel="alternate icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e293b'/%3E%3Ctext x='50' y='70' font-size='55' text-anchor='middle' fill='%23f97316'%3E📚%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e293b'/%3E%3Ctext x='50' y='70' font-size='55' text-anchor='middle' fill='%23f97316'%3E📚%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo adicional para o botão de navegação */
+        .nav-investigation {
+            background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(30,41,59,0.9) 100%);
+            border: 1px solid var(--accent, #38bdf8);
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .nav-investigation a {
+            background: var(--accent, #38bdf8);
+            color: #000;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .nav-investigation a:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+        .nav-investigation .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Banner de navegação para o projeto de investigação -->
+            <div class="nav-investigation">
+                <div class="badge">
+                    <i class="fas fa-code" style="font-size: 1.2rem;"></i>
+                    <span>📘 Modo: Aprendizado Ativo</span>
+                </div>
+                <a href="../index.html">
+                    <i class="fas fa-skull"></i>
+                    🕵️ VOLTAR PARA INVESTIGAÇÃO
+                </a>
+            </div>
+
+            <div class="hero-section">
+                <h2>Aprenda com <span class="highlight">erros reais</span> e evolua seu código</h2>
+                <p>Tutoriais completos com problemas comuns, soluções e melhores práticas</p>
+            </div>
+            
+            <div class="cards-grid" id="cardsContainer">
+                <!-- Cards serão gerados via JavaScript -->
+            </div>
+            
+            <div class="oldest-badge">
+                📚 Conteúdo curado • Atualizado constantemente • Comunidade Não Desista Dev
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Projeto</h4>
+                    <p>Criado para ajudar desenvolvedores a superar desafios com tutoriais práticos e exemplos reais.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="https://github.com/alberixi/nao-desista-dev" target="_blank">GitHub</a></li>
+                        <li><a href="../docs/guias/como-comecar.html">Comunidade</a></li>
+                        <li><a href="../CONTRIBUTING.html">Contribuir</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tecnologias</h4>
+                    <p>HTML5 • CSS3 • JavaScript • React • Python • Git</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Projeto colaborativo para <strong>Não Desista Dev</strong> — Aprenda, erre, corrija, evolua! ✨</p>
+                <p style="margin-top: 0.5rem;">Código aberto • Sinta-se à vontade para contribuir</p>
+                <p style="margin-top: 1rem; color: var(--accent);">
+                    <i class="fas fa-flag"></i> <a href="../index.html" style="color: var(--accent);">🔍 Voltar para investigação digital</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

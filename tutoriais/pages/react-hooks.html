@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Hooks: useMemo e useCallback | Não Desista Dev</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .tutorial-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        .error-box {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .evolution-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tutorial-container {
+                padding: 0 1rem;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>⚛️ React Hooks: useMemo e useCallback</h1>
+                <div class="tutorial-meta">
+                    <span>📖 18 min de leitura</span>
+                    <span>🎯 Nível: Intermediário</span>
+                    <span>💻 Otimização de performance</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>React é conhecido por sua performance, mas componentes mal otimizados podem causar renderizações desnecessárias e lentidão. useMemo e useCallback são hooks essenciais para memorizar valores e funções, evitando recálculos e re-renderizações desnecessárias.</p>
+                <p>Neste tutorial, vamos entender quando e como usar cada um deles, além de identificar erros comuns que prejudicam a performance.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🎯 Objetivos</h2>
+                <ul>
+                    <li>Entender a diferença entre useMemo e useCallback</li>
+                    <li>Identificar quando usar cada hook</li>
+                    <li>Evitar renderizações desnecessárias em componentes filhos</li>
+                    <li>Otimizar cálculos pesados com useMemo</li>
+                    <li>Compreender o array de dependências</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Cálculos pesados em toda renderização</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Calcular valores pesados sem memoização</strong>
+                    <div class="code-block">
+                        <pre>function ProductList({ products, filter }) {
+    // Este cálculo roda em TODA renderização, mesmo se products/filter não mudaram
+    const filteredProducts = products.filter(p => 
+        p.name.toLowerCase().includes(filter.toLowerCase())
+    ).sort((a, b) => a.price - b.price);
+    
+    return (
+        &lt;ul&gt;
+            {filteredProducts.map(p => &lt;li key={p.id}&gt;{p.name}&lt;/li&gt;)}
+        &lt;/ul&gt;
+    );
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Se products tiver 1000+ itens, esse filtro e ordenação rodam a cada re-renderização, causando lentidão.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar useMemo</strong>
+                    <div class="code-block">
+                        <pre>function ProductList({ products, filter }) {
+    const filteredProducts = useMemo(() => {
+        console.log('Calculando filtro...');
+        return products
+            .filter(p => p.name.toLowerCase().includes(filter.toLowerCase()))
+            .sort((a, b) => a.price - b.price);
+    }, [products, filter]); // Só recalcula quando products ou filter mudam
+    
+    return (
+        &lt;ul&gt;
+            {filteredProducts.map(p => &lt;li key={p.id}&gt;{p.name}&lt;/li&gt;)}
+        &lt;/ul&gt;
+    );
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Funções recriadas a cada renderização</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Passar função nova para componente filho</strong>
+                    <div class="code-block">
+                        <pre>function Parent() {
+    const [count, setCount] = useState(0);
+    
+    // Esta função é recriada em TODA renderização do Parent
+    const handleClick = () => {
+        console.log('Clicou!');
+    };
+    
+    return (
+        &lt;div&gt;
+            &lt;button onClick={() => setCount(c => c + 1)}&gt;Count: {count}&lt;/button&gt;
+            &lt;ExpensiveComponent onClick={handleClick} /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// ExpensiveComponent vai re-renderizar mesmo se nada mudou,
+// porque a prop onClick é uma nova função a cada renderização</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Componentes filhos otimizados com React.memo re-renderizam desnecessariamente porque a função é sempre uma nova referência.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar useCallback</strong>
+                    <div class="code-block">
+                        <pre>function Parent() {
+    const [count, setCount] = useState(0);
+    
+    // useCallback mantém a mesma referência da função
+    const handleClick = useCallback(() => {
+        console.log('Clicou!');
+    }, []); // Array vazio = função nunca muda
+    
+    return (
+        &lt;div&gt;
+            &lt;button onClick={() => setCount(c => c + 1)}&gt;Count: {count}&lt;/button&gt;
+            &lt;ExpensiveComponent onClick={handleClick} /&gt;
+        &lt;/div&gt;
+    );
+}
+
+const ExpensiveComponent = React.memo(({ onClick }) => {
+    console.log('Renderizou ExpensiveComponent');
+    return &lt;button onClick={onClick}&gt;Clique&lt;/button&gt;
+});</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Array de dependências vazio ou incorreto</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Dependências incompletas ou desnecessárias</strong>
+                    <div class="code-block">
+                        <pre>function SearchComponent({ searchTerm }) {
+    // Erro: dependência vazia, mas usa searchTerm
+    const results = useMemo(() => {
+        return performExpensiveSearch(searchTerm);
+    }, []); // Nunca atualiza quando searchTerm muda!
+    
+    // Erro: dependência completa, mas a função nunca muda
+    const handleSearch = useCallback(() => {
+        console.log(searchTerm);
+    }, [searchTerm, someOtherState, anotherState]); // Dependências demais
+    
+    return &lt;div&gt;...&lt;/div&gt;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> O useMemo nunca recalcula (dependências faltando) ou recalcula desnecessariamente (dependências demais).</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Dependências corretas</strong>
+                    <div class="code-block">
+                        <pre>function SearchComponent({ searchTerm }) {
+    // Correto: inclui searchTerm como dependência
+    const results = useMemo(() => {
+        return performExpensiveSearch(searchTerm);
+    }, [searchTerm]); // Recalcula apenas quando searchTerm muda
+    
+    // Correto: inclui apenas as dependências usadas
+    const handleSearch = useCallback(() => {
+        console.log(searchTerm);
+    }, [searchTerm]); // Atualiza quando searchTerm muda
+    
+    return &lt;div&gt;...&lt;/div&gt;
+}
+
+// Dica: use eslint-plugin-react-hooks para verificar dependências automaticamente</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Evolução: Do componente simples à otimização completa</h2>
+                
+                <h3>1. Componente sem otimização</h3>
+                <div class="code-block">
+                    <pre>function TodoList({ todos, filter }) {
+    const filteredTodos = todos.filter(t => t.text.includes(filter));
+    
+    return (
+        &lt;ul&gt;
+            {filteredTodos.map(todo => &lt;TodoItem key={todo.id} todo={todo} /&gt;)}
+        &lt;/ul&gt;
+    );
+}</pre>
+                </div>
+                
+                <h3>2. Com useMemo e React.memo</h3>
+                <div class="code-block">
+                    <pre>const TodoItem = React.memo(({ todo }) => {
+    return &lt;li&gt;{todo.text}&lt;/li&gt;
+});
+
+function TodoList({ todos, filter }) {
+    const filteredTodos = useMemo(() => {
+        return todos.filter(t => t.text.includes(filter));
+    }, [todos, filter]);
+    
+    return (
+        &lt;ul&gt;
+            {filteredTodos.map(todo => &lt;TodoItem key={todo.id} todo={todo} /&gt;)}
+        &lt;/ul&gt;
+    );
+}</pre>
+                </div>
+                
+                <h3>3. Otimização avançada com useCallback</h3>
+                <div class="code-block">
+                    <pre>const TodoItem = React.memo(({ todo, onToggle }) => {
+    return (
+        &lt;li&gt;
+            &lt;input 
+                type="checkbox" 
+                checked={todo.completed}
+                onChange={() => onToggle(todo.id)}
+            /&gt;
+            {todo.text}
+        &lt;/li&gt;
+    );
+});
+
+function TodoList({ todos, filter, onToggle }) {
+    const filteredTodos = useMemo(() => {
+        return todos.filter(t => t.text.includes(filter));
+    }, [todos, filter]);
+    
+    const handleToggle = useCallback((id) => {
+        onToggle(id);
+    }, [onToggle]);
+    
+    return (
+        &lt;ul&gt;
+            {filteredTodos.map(todo => (
+                &lt;TodoItem 
+                    key={todo.id} 
+                    todo={todo} 
+                    onToggle={handleToggle}
+                /&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Evolução:</strong>
+                    <p>Comece com componentes simples, adicione memoização em cálculos pesados, depois otimize callbacks e use React.memo para componentes que não precisam re-renderizar frequentemente.</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Dicas Avançadas</h2>
+                <ul>
+                    <li><strong>useMemo vs useCallback:</strong> useMemo memoriza o valor retornado, useCallback memoriza a função em si</li>
+                    <li><strong>useReducer:</strong> Alternativa ao useState para estados complexos, muitas vezes elimina necessidade de useCallback</li>
+                    <li><strong>React DevTools:</strong> Use a ferramenta "Highlight updates" para identificar componentes que re-renderizam desnecessariamente</li>
+                    <li><strong>Context API:</strong> Cuidado com Context que muda frequentemente, pode causar re-renderizações em massa</li>
+                </ul>
+                
+                <h3>Exemplo de uso com useReducer</h3>
+                <div class="code-block">
+                    <pre>const initialState = { count: 0 };
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'increment':
+            return { count: state.count + 1 };
+        case 'decrement':
+            return { count: state.count - 1 };
+        default:
+            return state;
+    }
+}
+
+function Counter() {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    
+    // dispatch é estável, não precisa de useCallback!
+    return (
+        &lt;div&gt;
+            Count: {state.count}
+            &lt;button onClick={() => dispatch({ type: 'increment' })}&gt;+&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</pre>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Crie um aplicativo de lista de tarefas com as seguintes características:</p>
+                <ul>
+                    <li>Lista com 1000+ itens</li>
+                    <li>Filtro por texto (useMemo para filtrar)</li>
+                    <li>Botão para marcar todos como concluídos (useCallback)</li>
+                    <li>Contador de tarefas pendentes (useMemo)</li>
+                    <li>Cada item deve ser um componente memoizado</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Desafio extra:</strong> Meça a performance antes e depois das otimizações usando React DevTools ou console.time.
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://react.dev/reference/react/useMemo" target="_blank">React Docs - useMemo</a></li>
+                    <li><a href="https://react.dev/reference/react/useCallback" target="_blank">React Docs - useCallback</a></li>
+                    <li><a href="https://react.dev/reference/react/memo" target="_blank">React Docs - React.memo</a></li>
+                    <li><a href="https://overreacted.io/a-complete-guide-to-useeffect/" target="_blank">A Complete Guide to useEffect (inclui useMemo/useCallback)</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>Otimização em React não é sobre micro-otimização, é sobre evitar trabalho desnecessário!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajudou você? Compartilhe com outros devs React!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="python-automation.html">Python Automação →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

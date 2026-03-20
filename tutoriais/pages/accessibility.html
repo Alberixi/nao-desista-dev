@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acessibilidade Web: Guia Prático WCAG | Não Desista Dev</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .tutorial-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .error-box {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .evolution-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .checklist {
+            background: var(--bg-body);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .checklist li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tutorial-container {
+                padding: 0 1rem;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>♿ Acessibilidade Web: WCAG e Práticas Inclusivas</h1>
+                <div class="tutorial-meta">
+                    <span>📖 20 min de leitura</span>
+                    <span>🎯 Nível: Iniciante/Intermediário</span>
+                    <span>💻 HTML Semântico • ARIA</span>
+                    <span>🌍 Inclusão Digital</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>Acessibilidade web não é apenas uma boa prática - é um direito. Milhões de pessoas com deficiências visuais, motoras, auditivas ou cognitivas dependem de sites acessíveis para participar da sociedade digital. As diretrizes WCAG (Web Content Accessibility Guidelines) fornecem um padrão internacional para tornar o conteúdo web mais acessível.</p>
+                <p>Neste tutorial, vamos aprender os princípios fundamentais da acessibilidade e como implementá-los em seus projetos.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🎯 Objetivos</h2>
+                <ul>
+                    <li>Entender os 4 princípios do WCAG (Perceptível, Operável, Compreensível, Robusto)</li>
+                    <li>Aprender a usar HTML semântico corretamente</li>
+                    <li>Implementar atributos ARIA quando necessário</li>
+                    <li>Garantir contraste e legibilidade adequados</li>
+                    <li>Tornar componentes interativos acessíveis por teclado</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Usar divs para tudo</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Estrutura semântica pobre</strong>
+                    <div class="code-block">
+                        <pre>&lt;div class="header"&gt;
+    &lt;div class="nav"&gt;
+        &lt;div class="nav-item"&gt;Home&lt;/div&gt;
+        &lt;div class="nav-item"&gt;Sobre&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="main"&gt;
+    &lt;div class="article"&gt;
+        &lt;div class="title"&gt;Título&lt;/div&gt;
+        &lt;div class="content"&gt;Conteúdo...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footer"&gt;Rodapé&lt;/div&gt;</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Leitores de tela não conseguem entender a estrutura. Navegação por teclado é limitada.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar HTML semântico</strong>
+                    <div class="code-block">
+                        <pre>&lt;header&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/sobre"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h1&gt;Título&lt;/h1&gt;
+        &lt;p&gt;Conteúdo...&lt;/p&gt;
+    &lt;/article&gt;
+&lt;/main&gt;
+&lt;footer&gt;Rodapé&lt;/footer&gt;
+
+<!-- Elementos semânticos importantes:
+     <header>, <nav>, <main>, <article>, <section>, 
+     <aside>, <footer>, <h1>-<h6>, <ul>/<ol>, <button></button> --></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Contraste de cores insuficiente</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Cores com baixo contraste</strong>
+                    <div class="code-block">
+                        <pre>/* Contraste insuficiente (ratio ~2.5:1) */
+body {
+    background-color: #ffffff;
+    color: #cccccc;  /* Cinza claro */
+}
+
+.button {
+    background-color: #f0f0f0;
+    color: #a0a0a0;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Texto difícil de ler para pessoas com baixa visão ou daltonismo.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Garantir contraste mínimo (4.5:1 para texto normal)</strong>
+                    <div class="code-block">
+                        <pre>/* Contraste adequado (ratio > 4.5:1) */
+body {
+    background-color: #ffffff;
+    color: #1a1a1a;  /* Preto/cinza escuro */
+}
+
+.button {
+    background-color: #0066cc;  /* Azul escuro */
+    color: #ffffff;  /* Branco */
+}
+
+/* Ferramentas para verificar contraste:
+   - Chrome DevTools
+   - WebAIM Contrast Checker
+   - Contrast Ratio (a11y)</pre>
+                    </div>
+                    <div class="warning-box">
+                        <strong>📊 Padrões WCAG:</strong>
+                        <p>Nível AA: contraste 4.5:1 para texto normal, 3:1 para texto grande<br>
+                        Nível AAA: contraste 7:1 para texto normal, 4.5:1 para texto grande</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Elementos interativos sem foco visível</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Remover outline sem alternativa</strong>
+                    <div class="code-block">
+                        <pre>/* Isso é um ERRO GRAVE! */
+:focus {
+    outline: none;
+}
+
+/* Ou pior - esconder o foco sem alternativa */
+button:focus {
+    outline: none;
+    opacity: 0.8;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Usuários de teclado perdem a noção de onde estão na página.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Manter ou estilizar o foco adequadamente</strong>
+                    <div class="code-block">
+                        <pre>/* Opção 1: Manter outline padrão */
+:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+}
+
+/* Opção 2: Estilizar com box-shadow */
+:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.4);
+    border-radius: 4px;
+}
+
+/* Opção 3: Para elementos específicos */
+button:focus-visible {
+    outline: none;
+    background-color: #004999;
+    transform: scale(1.02);
+}
+
+/* Nunca remova o foco sem uma alternativa visual clara! */</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #4: Falta de labels em formulários</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Placeholder como único label</strong>
+                    <div class="code-block">
+                        <pre>&lt;input type="text" placeholder="Digite seu nome"&gt;
+&lt;input type="email" placeholder="Email"&gt;
+
+&lt;div class="checkbox"&gt;
+    &lt;input type="checkbox"&gt; Aceito termos
+&lt;/div&gt;</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Leitores de tela não associam labels aos campos. Placeholder desaparece ao digitar.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar labels associadas</strong>
+                    <div class="code-block">
+                        <pre>&lt;label for="nome"&gt;Nome completo:&lt;/label&gt;
+&lt;input type="text" id="nome" name="nome" required&gt;
+
+&lt;label for="email"&gt;E-mail:&lt;/label&gt;
+&lt;input type="email" id="email" name="email"&gt;
+
+&lt;div class="checkbox"&gt;
+    &lt;input type="checkbox" id="termos" name="termos"&gt;
+    &lt;label for="termos"&gt;Aceito os termos e condições&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;fieldset&gt;
+    &lt;legend&gt;Preferência de contato:&lt;/legend&gt;
+    &lt;input type="radio" id="email_contato" name="contato" value="email"&gt;
+    &lt;label for="email_contato"&gt;E-mail&lt;/label&gt;
+    &lt;input type="radio" id="telefone" name="contato" value="telefone"&gt;
+    &lt;label for="telefone"&gt;Telefone&lt;/label&gt;
+&lt;/fieldset&gt;</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Evolução: Componentes acessíveis</h2>
+                
+                <h3>1. Modal/Dialog Acessível</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- HTML --&gt;
+&lt;button id="openModal" aria-haspopup="dialog"&gt;Abrir Modal&lt;/button&gt;
+
+&lt;div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden&gt;
+    &lt;div class="modal-content"&gt;
+        &lt;h2 id="modalTitle"&gt;Título do Modal&lt;/h2&gt;
+        &lt;p&gt;Conteúdo do modal...&lt;/p&gt;
+        &lt;button id="closeModal"&gt;Fechar&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const modal = document.getElementById('modal');
+const openBtn = document.getElementById('openModal');
+const closeBtn = document.getElementById('closeModal');
+
+function openModal() {
+    modal.hidden = false;
+    // Foco vai para o modal
+    modal.querySelector('h2').focus();
+    // Armazenar elemento que abriu
+    openBtn.setAttribute('aria-expanded', 'true');
+    // Travar scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    modal.hidden = true;
+    openBtn.focus();
+    openBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+}
+
+// Fechar com ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.hidden) {
+        closeModal();
+    }
+});
+
+openBtn.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
+&lt;/script&gt;</pre>
+                </div>
+                
+                <h3>2. Menu Dropdown Acessível</h3>
+                <div class="code-block">
+                    <pre>&lt;nav&gt;
+    &lt;button id="menuButton" 
+            aria-haspopup="true" 
+            aria-expanded="false"
+            aria-controls="dropdownMenu"&gt;
+        Menu
+    &lt;/button&gt;
+    &lt;ul id="dropdownMenu" 
+        role="menu" 
+        aria-labelledby="menuButton"
+        hidden&gt;
+        &lt;li role="menuitem"&gt;&lt;a href="#"&gt;Opção 1&lt;/a&gt;&lt;/li&gt;
+        &lt;li role="menuitem"&gt;&lt;a href="#"&gt;Opção 2&lt;/a&gt;&lt;/li&gt;
+        &lt;li role="menuitem"&gt;&lt;a href="#"&gt;Opção 3&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;script&gt;
+const menuButton = document.getElementById('menuButton');
+const dropdown = document.getElementById('dropdownMenu');
+let isOpen = false;
+
+function toggleMenu() {
+    isOpen = !isOpen;
+    dropdown.hidden = !isOpen;
+    menuButton.setAttribute('aria-expanded', isOpen);
+    
+    if (isOpen) {
+        const firstItem = dropdown.querySelector('a');
+        firstItem.focus();
+    }
+}
+
+// Navegação por teclado
+function handleKeyDown(e) {
+    const items = Array.from(dropdown.querySelectorAll('a'));
+    const currentIndex = items.indexOf(document.activeElement);
+    
+    switch(e.key) {
+        case 'ArrowDown':
+            e.preventDefault();
+            const nextIndex = (currentIndex + 1) % items.length;
+            items[nextIndex].focus();
+            break;
+        case 'ArrowUp':
+            e.preventDefault();
+            const prevIndex = (currentIndex - 1 + items.length) % items.length;
+            items[prevIndex].focus();
+            break;
+        case 'Escape':
+            toggleMenu();
+            menuButton.focus();
+            break;
+    }
+}
+
+menuButton.addEventListener('click', toggleMenu);
+dropdown.addEventListener('keydown', handleKeyDown);
+&lt;/script&gt;</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Evolução:</strong>
+                    <p>Comece com HTML semântico, depois adicione ARIA quando necessário, e evolua para componentes interativos totalmente acessíveis com suporte a teclado e leitores de tela.</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📋 Checklist de Acessibilidade</h2>
+                <div class="checklist">
+                    <ul>
+                        <li>✅ [ ] Usar HTML semântico (header, nav, main, article, etc)</li>
+                        <li>✅ [ ] Todos os inputs têm labels associados</li>
+                        <li>✅ [ ] Contraste de cores ≥ 4.5:1 (texto normal)</li>
+                        <li>✅ [ ] Foco visível em todos os elementos interativos</li>
+                        <li>✅ [ ] Navegação por teclado funcional (Tab, Enter, Esc)</li>
+                        <li>✅ [ ] Imagens têm alt text descritivo</li>
+                        <li>✅ [ ] Vídeos têm legendas ou transcrição</li>
+                        <li>✅ [ ] Páginas têm títulos descritivos (&lt;title&gt;)</li>
+                        <li>✅ [ ] Headings usados em ordem hierárquica (h1, h2, h3...)</li>
+                        <li>✅ [ ] Links têm texto descritivo (não "clique aqui")</li>
+                        <li>✅ [ ] ARIA usado apenas quando necessário</li>
+                        <li>✅ [ ] Testado com leitor de tela (NVDA, VoiceOver)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Dicas Avançadas</h2>
+                <ul>
+                    <li><strong>Live Regions:</strong> Use <code>aria-live="polite"</code> para anúncios dinâmicos</li>
+                    <li><strong>Skip Links:</strong> Adicione link "Pular para conteúdo" no topo da página</li>
+                    <li><strong>Reduzir movimento:</strong> Respeite <code>prefers-reduced-motion</code></li>
+                    <li><strong>Ferramentas de teste:</strong> Lighthouse, axe DevTools, WAVE</li>
+                </ul>
+                
+                <h3>Exemplo: Skip Link</h3>
+                <div class="code-block">
+                    <pre>&lt;body&gt;
+    &lt;a href="#main-content" class="skip-link"&gt;Pular para conteúdo principal&lt;/a&gt;
+    &lt;header&gt;...&lt;/header&gt;
+    &lt;main id="main-content" tabindex="-1"&gt;...&lt;/main&gt;
+&lt;/body&gt;
+
+&lt;style&gt;
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #0066cc;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+&lt;/style&gt;</pre>
+                </div>
+                
+                <h3>Respeitando prefers-reduced-motion</h3>
+                <div class="code-block">
+                    <pre>@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}</pre>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Transforme um site não acessível em um site acessível:</p>
+                <ul>
+                    <li>Pegue um componente comum (carrossel, modal, formulário) que não é acessível</li>
+                    <li>Adicione HTML semântico apropriado</li>
+                    <li>Implemente navegação por teclado completa</li>
+                    <li>Adicione atributos ARIA necessários</li>
+                    <li>Teste com leitor de tela (NVDA no Windows, VoiceOver no Mac)</li>
+                    <li>Verifique contraste e foco visível</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Desafio extra:</strong> Implemente um componente de "Dark Mode" que também respeita <code>prefers-color-scheme</code> e mantenha contraste adequado em ambos os temas.
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank">WCAG 2.1 Quick Reference</a></li>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/Accessibility" target="_blank">MDN - Acessibilidade</a></li>
+                    <li><a href="https://a11yproject.com/" target="_blank">The A11Y Project</a></li>
+                    <li><a href="https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd" target="_blank">axe DevTools - Extensão Chrome</a></li>
+                    <li><a href="https://webaim.org/resources/contrastchecker/" target="_blank">WebAIM Contrast Checker</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>Acessibilidade não é um recurso, é um direito. Construa para todos!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajude a tornar a web mais inclusiva compartilhando este conhecimento!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Projeto Completo</h4>
+                    <p><a href="../index.html">Voltar para o início</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

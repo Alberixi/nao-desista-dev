@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Automação: Scripts Poderosos | Não Desista Dev</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .tutorial-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .error-box {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .evolution-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tutorial-container {
+                padding: 0 1rem;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+            }
+            
+            .tutorial-meta {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>🐍 Python Automação: Scripts que Trabalham por Você</h1>
+                <div class="tutorial-meta">
+                    <span>📖 25 min de leitura</span>
+                    <span>🎯 Nível: Iniciante/Intermediário</span>
+                    <span>💻 Automação real</span>
+                    <span>🐍 Python 3.8+</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>Python é a linguagem perfeita para automação de tarefas repetitivas. Com poucas linhas de código, você pode organizar arquivos, enviar emails, fazer web scraping, automatizar planilhas e muito mais. Neste tutorial, vamos explorar os principais módulos e criar scripts úteis para o dia a dia.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🎯 Objetivos</h2>
+                <ul>
+                    <li>Dominar os módulos os, shutil, glob para manipulação de arquivos</li>
+                    <li>Criar scripts para organizar pastas automaticamente</li>
+                    <li>Automatizar envio de emails e relatórios</li>
+                    <li>Fazer web scraping com requests e BeautifulSoup</li>
+                    <li>Agendar tarefas automáticas com schedule ou cron</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Caminhos de arquivo incorretos</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Usar caminhos fixos com barras</strong>
+                    <div class="code-block">
+                        <pre># Código quebradiço - só funciona no Windows
+with open('C:\Users\joao\Documents\arquivo.txt', 'r') as f:
+    conteudo = f.read()
+
+# Problema: \n, \t são interpretados como caracteres especiais
+# O código quebra em Linux/Mac e com nomes de usuário diferentes</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Código não é portável e usa caracteres de escape incorretamente.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar pathlib ou os.path</strong>
+                    <div class="code-block">
+                        <pre>from pathlib import Path
+import os
+
+# Método 1: pathlib (recomendado)
+caminho = Path.home() / 'Documents' / 'arquivo.txt'
+
+# Método 2: os.path
+caminho = os.path.join(os.path.expanduser('~'), 'Documents', 'arquivo.txt')
+
+with open(caminho, 'r') as f:
+    conteudo = f.read()
+
+# pathlib também oferece métodos úteis:
+if caminho.exists():
+    print(f"Arquivo existe: {caminho.stat().st_size} bytes")</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Não tratar erros em operações de arquivo</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Assumir que o arquivo sempre existe</strong>
+                    <div class="code-block">
+                        <pre>import shutil
+
+# Se o arquivo não existir, o programa quebra
+shutil.move('origem.txt', 'destino/')  # FileNotFoundError</pre>
+                    </div>
+                    <p><strong>Problema:</strong> O script falha silenciosamente ou interrompe a execução.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Verificar existência e tratar exceções</strong>
+                    <div class="code-block">
+                        <pre>import shutil
+from pathlib import Path
+
+def mover_arquivo_seguro(origem, destino):
+    """
+    Move arquivo de forma segura, criando diretórios se necessário
+    """
+    origem_path = Path(origem)
+    destino_path = Path(destino)
+    
+    if not origem_path.exists():
+        print(f"Erro: Arquivo {origem} não encontrado")
+        return False
+    
+    try:
+        # Criar diretório de destino se não existir
+        destino_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Mover arquivo
+        shutil.move(str(origem_path), str(destino_path))
+        print(f"Arquivo movido com sucesso para {destino_path}")
+        return True
+    except Exception as e:
+        print(f"Erro ao mover arquivo: {e}")
+        return False
+
+# Uso seguro
+mover_arquivo_seguro('origem.txt', 'destino/backup/origem.txt')</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Web scraping sem respeitar o robots.txt</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Fazer scraping agressivo sem limites</strong>
+                    <div class="code-block">
+                        <pre>import requests
+from bs4 import BeautifulSoup
+
+# Scraping sem controle - pode sobrecarregar o servidor
+for i in range(1000):
+    response = requests.get(f'https://site.com/page/{i}')
+    # Processar dados...
+    # Sem delay, sem verificar robots.txt</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Pode causar sobrecarga no servidor, ser bloqueado ou até mesmo ser ilegal.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Implementar boas práticas de scraping</strong>
+                    <div class="code-block">
+                        <pre>import requests
+import time
+from bs4 import BeautifulSoup
+from urllib.robotparser import RobotFileParser
+
+class ScraperRespeitoso:
+    def __init__(self, base_url, delay=1):
+        self.base_url = base_url
+        self.delay = delay
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'MeuBot-Aprendizado/1.0'
+        })
+        self.verificar_robots()
+    
+    def verificar_robots(self):
+        """Verifica se o scraping é permitido"""
+        rp = RobotFileParser()
+        rp.set_url(f"{self.base_url}/robots.txt")
+        rp.read()
+        self.robot_parser = rp
+    
+    def pode_scraping(self, url):
+        """Verifica se a URL pode ser acessada"""
+        return self.robot_parser.can_fetch('*', url)
+    
+    def get_page(self, url):
+        """Busca página com delay respeitoso"""
+        if not self.pode_scraping(url):
+            print(f"Scraping não permitido para: {url}")
+            return None
+        
+        time.sleep(self.delay)  # Delay respeitoso
+        try:
+            response = self.session.get(url)
+            response.raise_for_status()
+            return response.text
+        except requests.RequestException as e:
+            print(f"Erro ao acessar {url}: {e}")
+            return None
+
+# Uso
+scraper = ScraperRespeitoso('https://exemplo.com', delay=2)
+html = scraper.get_page('https://exemplo.com/pagina')</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Evolução: Scripts de automação do básico ao avançado</h2>
+                
+                <h3>1. Organizador de Downloads (Básico)</h3>
+                <div class="code-block">
+                    <pre>import os
+import shutil
+from pathlib import Path
+
+def organizar_downloads():
+    """Organiza arquivos da pasta Downloads por tipo"""
+    pasta_downloads = Path.home() / 'Downloads'
+    
+    # Mapeamento de extensões para pastas
+    categorias = {
+        'imagens': ['.jpg', '.jpeg', '.png', '.gif', '.bmp'],
+        'documentos': ['.pdf', '.docx', '.txt', '.xlsx', '.pptx'],
+        'programas': ['.exe', '.msi', '.dmg', '.deb'],
+        'compactados': ['.zip', '.rar', '.7z', '.tar.gz'],
+        'codigo': ['.py', '.js', '.html', '.css', '.json']
+    }
+    
+    for arquivo in pasta_downloads.iterdir():
+        if arquivo.is_file():
+            extensao = arquivo.suffix.lower()
+            
+            for categoria, extensoes in categorias.items():
+                if extensao in extensoes:
+                    pasta_destino = pasta_downloads / categoria
+                    pasta_destino.mkdir(exist_ok=True)
+                    
+                    destino = pasta_destino / arquivo.name
+                    shutil.move(str(arquivo), str(destino))
+                    print(f"Movido: {arquivo.name} -> {categoria}/")
+                    break
+
+if __name__ == "__main__":
+    organizar_downloads()</pre>
+                </div>
+                
+                <h3>2. Envio automático de relatórios (Intermediário)</h3>
+                <div class="code-block">
+                    <pre>import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+import pandas as pd
+from datetime import datetime
+
+def enviar_relatorio_email(destinatario, assunto, corpo, anexo=None):
+    """
+    Envia email com relatório usando SMTP (Gmail)
+    """
+    # Configurações (use variáveis de ambiente para senhas!)
+    remetente = "seuemail@gmail.com"
+    senha = "sua_senha_app"  # Use senha de app do Gmail
+    
+    # Criar mensagem
+    msg = MIMEMultipart()
+    msg['From'] = remetente
+    msg['To'] = destinatario
+    msg['Subject'] = assunto
+    
+    # Corpo do email
+    msg.attach(MIMEText(corpo, 'html'))
+    
+    # Anexo
+    if anexo:
+        with open(anexo, 'rb') as f:
+            part = MIMEBase('application', 'octet-stream')
+            part.set_payload(f.read())
+            encoders.encode_base64(part)
+            part.add_header(
+                'Content-Disposition',
+                f'attachment; filename={anexo.split("/")[-1]}'
+            )
+            msg.attach(part)
+    
+    # Enviar
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(remetente, senha)
+        server.send_message(msg)
+        server.quit()
+        print("Email enviado com sucesso!")
+        return True
+    except Exception as e:
+        print(f"Erro ao enviar email: {e}")
+        return False
+
+def gerar_relatorio_vendas():
+    """Gera relatório em HTML a partir de dados"""
+    # Dados de exemplo
+    dados = {
+        'produto': ['Notebook', 'Mouse', 'Teclado'],
+        'vendas': [150, 300, 200],
+        'receita': [45000, 15000, 10000]
+    }
+    
+    df = pd.DataFrame(dados)
+    
+    html = f"""
+    <html>
+    <head>
+        <style>
+            table {{ border-collapse: collapse; width: 100%; }}
+            th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+            th {{ background-color: #f97316; color: white; }}
+        </style>
+    </head>
+    <body>
+        <h2>Relatório de Vendas - {datetime.now().strftime('%d/%m/%Y')}</h2>
+        {df.to_html(index=False)}
+        <p><strong>Total de Vendas:</strong> {df['vendas'].sum()}</p>
+        <p><strong>Receita Total:</strong> R$ {df['receita'].sum():,.2f}</p>
+    </body>
+    </html>
+    """
+    
+    with open('relatorio_vendas.html', 'w') as f:
+        f.write(html)
+    
+    return 'relatorio_vendas.html'
+
+# Uso
+arquivo_relatorio = gerar_relatorio_vendas()
+enviar_relatorio_email(
+    'gestor@empresa.com',
+    'Relatório Diário de Vendas',
+    'Segue em anexo o relatório de vendas do dia.',
+    arquivo_relatorio
+)</pre>
+                </div>
+                
+                <h3>3. Bot de monitoramento de preços (Avançado)</h3>
+                <div class="code-block">
+                    <pre>import requests
+from bs4 import BeautifulSoup
+import time
+import json
+from datetime import datetime
+import smtplib
+from email.mime.text import MIMEText
+
+class MonitorPrecos:
+    def __init__(self, config_file='config.json'):
+        with open(config_file) as f:
+            self.config = json.load(f)
+        self.historico = {}
+    
+    def verificar_preco(self, url, seletor):
+        """Verifica preço de um produto"""
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+            response = requests.get(url, headers=headers, timeout=10)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            elemento = soup.select_one(seletor)
+            if elemento:
+                preco_texto = elemento.text.strip()
+                # Limpar texto para extrair número
+                import re
+                numeros = re.findall(r'[\d.,]+', preco_texto)
+                if numeros:
+                    preco = float(numeros[0].replace('.', '').replace(',', '.'))
+                    return preco
+        except Exception as e:
+            print(f"Erro ao verificar {url}: {e}")
+        return None
+    
+    def salvar_historico(self, produto, preco):
+        """Salva histórico de preços"""
+        if produto not in self.historico:
+            self.historico[produto] = []
+        
+        self.historico[produto].append({
+            'data': datetime.now().isoformat(),
+            'preco': preco
+        })
+        
+        with open('historico_precos.json', 'w') as f:
+            json.dump(self.historico, f, indent=2)
+    
+    def enviar_alerta(self, produto, preco_atual, preco_alvo):
+        """Envia alerta por email quando preço atinge meta"""
+        assunto = f"ALERTA: {produto} atingiu R$ {preco_atual:.2f}"
+        corpo = f"""
+        O produto {produto} atingiu o preço alvo!
+        
+        Preço atual: R$ {preco_atual:.2f}
+        Preço alvo: R$ {preco_alvo:.2f}
+        
+        Acesse: {self.config['produtos'][produto]['url']}
+        """
+        
+        # Configurar email (use variáveis de ambiente)
+        # ... código de envio de email ...
+        print(f"Alerta enviado para {produto}!")
+    
+    def monitorar(self):
+        """Executa monitoramento contínuo"""
+        while True:
+            for produto, info in self.config['produtos'].items():
+                preco = self.verificar_preco(info['url'], info['seletor'])
+                
+                if preco:
+                    self.salvar_historico(produto, preco)
+                    print(f"{produto}: R$ {preco:.2f}")
+                    
+                    if preco <= info['preco_alvo']:
+                        self.enviar_alerta(produto, preco, info['preco_alvo'])
+            
+            # Aguardar antes da próxima verificação
+            time.sleep(self.config.get('intervalo_horas', 24) * 3600)
+
+# Arquivo config.json:
+"""
+{
+    "intervalo_horas": 6,
+    "produtos": {
+        "Notebook Gamer": {
+            "url": "https://exemplo.com/produto/123",
+            "seletor": ".preco-promocional",
+            "preco_alvo": 3500.00
+        }
+    }
+}
+"""
+
+if __name__ == "__main__":
+    monitor = MonitorPrecos()
+    monitor.monitorar()</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Evolução:</strong>
+                    <p>Comece organizando arquivos, depois automatize emails e relatórios, e finalmente crie bots inteligentes para tarefas complexas. Sempre priorize tratamento de erros e boas práticas!</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Dicas Avançadas</h2>
+                <ul>
+                    <li><strong>Agendamento:</strong> Use <code>schedule</code> para scripts Python ou cron (Linux/Mac) / Task Scheduler (Windows)</li>
+                    <li><strong>Variáveis de ambiente:</strong> Nunca coloque senhas no código, use <code>os.getenv()</code></li>
+                    <li><strong>Logging:</strong> Use o módulo <code>logging</code> em vez de print para scripts em produção</li>
+                    <li><strong>Paralelismo:</strong> Use <code>concurrent.futures</code> para executar múltiplas tarefas simultaneamente</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Atenção Legal:</strong>
+                    <p>Sempre verifique os termos de serviço dos sites antes de fazer web scraping. Respeite robots.txt e não sobrecarregue servidores.</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Crie um script completo de automação que:</p>
+                <ul>
+                    <li>Monitore uma pasta específica por novos arquivos</li>
+                    <li>Quando um novo arquivo CSV aparecer, processe os dados</li>
+                    <li>Gere um relatório em PDF com gráficos usando matplotlib</li>
+                    <li>Envie o relatório por email automaticamente</li>
+                    <li>Mova o arquivo processado para uma pasta "arquivado"</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Desafio extra:</strong> Adicione um sistema de logs que registre todas as operações e erros em um arquivo separado.
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📦 Bibliotecas Essenciais</h2>
+                <div class="code-block">
+                    <pre># Instalação das principais bibliotecas
+pip install requests beautifulsoup4 pandas openpyxl
+pip install schedule watchdog  # Agendamento e monitoramento
+pip install matplotlib seaborn  # Gráficos
+pip install python-dotenv  # Variáveis de ambiente</pre>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://docs.python.org/3/library/os.html" target="_blank">Documentação oficial - módulo os</a></li>
+                    <li><a href="https://docs.python.org/3/library/pathlib.html" target="_blank">pathlib - Manipulação moderna de caminhos</a></li>
+                    <li><a href="https://www.crummy.com/software/BeautifulSoup/" target="_blank">BeautifulSoup - Web scraping</a></li>
+                    <li><a href="https://automatetheboringstuff.com/" target="_blank">Automate the Boring Stuff with Python</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>Automatize tarefas repetitivas e tenha mais tempo para o que realmente importa!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajude outros devs a descobrirem o poder da automação com Python!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="git-workflow.html">Git Workflow →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

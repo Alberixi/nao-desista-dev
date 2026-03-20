@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Assíncrono: Promises e Async/Await | Não Desista Dev</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .tutorial-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        .error-box {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .evolution-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tutorial-container {
+                padding: 0 1rem;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>⚡ JavaScript Assíncrono: Promises e Async/Await</h1>
+                <div class="tutorial-meta">
+                    <span>📖 20 min de leitura</span>
+                    <span>🎯 Nível: Avançado</span>
+                    <span>💻 Código prático</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>JavaScript é single-threaded, mas isso não significa que não possamos executar operações assíncronas! Neste tutorial, vamos dominar Promises, Async/Await, tratamento de erros e como evitar o temido callback hell.</p>
+                <p>Entender programação assíncrona é essencial para trabalhar com APIs, bancos de dados, arquivos e qualquer operação que demande tempo.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🎯 Objetivos</h2>
+                <ul>
+                    <li>Compreender o que é assincronicidade no JavaScript</li>
+                    <li>Dominar Promises e seus métodos (then, catch, finally)</li>
+                    <li>Aprender Async/Await de forma prática</li>
+                    <li>Tratar erros corretamente em operações assíncronas</li>
+                    <li>Executar múltiplas operações em paralelo vs sequencial</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Callback Hell</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Aninhamento excessivo de callbacks</strong>
+                    <div class="code-block">
+                        <pre>// Código difícil de ler e manter
+getUserData(userId, (user) => {
+    getPosts(user.id, (posts) => {
+        getComments(posts[0].id, (comments) => {
+            getAuthor(comments[0].authorId, (author) => {
+                console.log(author.name);
+                // Mais callbacks aninhados...
+            });
+        });
+    });
+});</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Código espaguete, difícil de debugar, sem tratamento adequado de erros.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar Promises encadeadas</strong>
+                    <div class="code-block">
+                        <pre>getUserData(userId)
+    .then(user => getPosts(user.id))
+    .then(posts => getComments(posts[0].id))
+    .then(comments => getAuthor(comments[0].authorId))
+    .then(author => console.log(author.name))
+    .catch(error => console.error('Erro:', error));</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Esquecer o await em funções assíncronas</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Chamar função assíncrona sem await</strong>
+                    <div class="code-block">
+                        <pre>async function fetchUserData() {
+    const response = fetch('https://api.example.com/user'); // Esqueceu o await!
+    const data = response.json(); // Isso retorna uma Promise, não os dados
+    console.log(data); // Promise {&lt;pending&gt;}
+    return data;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> A função retorna uma Promise pendente, não os dados esperados.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Adicionar await</strong>
+                    <div class="code-block">
+                        <pre>async function fetchUserData() {
+    const response = await fetch('https://api.example.com/user');
+    const data = await response.json();
+    console.log(data); // Dados reais!
+    return data;
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Não tratar erros adequadamente</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Ignorar tratamento de erros</strong>
+                    <div class="code-block">
+                        <pre>async function getData() {
+    const response = await fetch('https://api.invalida.com');
+    const data = await response.json(); // Se a API falhar, o app quebra!
+    return data;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Qualquer erro na requisição faz a aplicação parar de funcionar.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar try/catch</strong>
+                    <div class="code-block">
+                        <pre>async function getData() {
+    try {
+        const response = await fetch('https://api.invalida.com');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao buscar dados:', error.message);
+        // Retornar um valor padrão ou relançar o erro
+        return null;
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #4: Execução sequencial desnecessária</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Esperar uma requisição para começar outra</strong>
+                    <div class="code-block">
+                        <pre>async function fetchAll() {
+    const user = await fetchUser(); // Espera 1s
+    const posts = await fetchPosts(); // Espera mais 1s (já 2s total)
+    const comments = await fetchComments(); // Espera mais 1s (3s total)
+    return { user, posts, comments };
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Operações independentes executam sequencialmente, desperdiçando tempo.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Execução paralela com Promise.all</strong>
+                    <div class="code-block">
+                        <pre>async function fetchAll() {
+    const [user, posts, comments] = await Promise.all([
+        fetchUser(),
+        fetchPosts(),
+        fetchComments()
+    ]);
+    return { user, posts, comments };
+}
+// Tempo total: apenas 1 segundo (as mais lentas das três)</pre>
+                    </div>
+                    <div class="warning-box">
+                        <strong>💡 Dica:</strong> Use <code>Promise.allSettled()</code> quando não quiser que uma falha interrompa as outras operações.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Evolução: Do callback ao Async/Await moderno</h2>
+                
+                <h3>1. Callback (Código antigo)</h3>
+                <div class="code-block">
+                    <pre>function getUser(id, callback) {
+    setTimeout(() => {
+        callback({ id: id, name: 'João' });
+    }, 1000);
+}
+
+getUser(1, (user) => {
+    console.log(user);
+});</pre>
+                </div>
+                
+                <h3>2. Promise (Melhor, mas ainda verboso)</h3>
+                <div class="code-block">
+                    <pre>function getUser(id) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({ id: id, name: 'João' });
+        }, 1000);
+    });
+}
+
+getUser(1)
+    .then(user => console.log(user))
+    .catch(error => console.error(error));</pre>
+                </div>
+                
+                <h3>3. Async/Await (Moderno e elegante)</h3>
+                <div class="code-block">
+                    <pre>async function getUser(id) {
+    // Simula operação assíncrona
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ id: id, name: 'João' });
+        }, 1000);
+    });
+}
+
+async function displayUser() {
+    try {
+        const user = await getUser(1);
+        console.log(user);
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+}</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Evolução:</strong>
+                    <p>Comece entendendo callbacks, depois migre para Promises e finalmente domine Async/Await. Cada etapa traz mais legibilidade e controle de erros!</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Dicas Avançadas</h2>
+                <ul>
+                    <li><strong>Promise.race():</strong> Retorna a primeira Promise que resolver ou rejeitar</li>
+                    <li><strong>Promise.any():</strong> Retorna a primeira Promise que resolver (ignora rejeições)</li>
+                    <li><strong>Top-level await:</strong> Em módulos ES, você pode usar await fora de funções async</li>
+                    <li><strong>AbortController:</strong> Cancelar requisições fetch em andamento</li>
+                    <li><strong>Debounce e Throttle:</strong> Controlar a taxa de chamadas de funções assíncronas</li>
+                </ul>
+                
+                <h3>Exemplo com AbortController</h3>
+                <div class="code-block">
+                    <pre>const controller = new AbortController();
+const signal = controller.signal;
+
+fetch('https://api.example.com/data', { signal })
+    .then(response => response.json())
+    .catch(err => {
+        if (err.name === 'AbortError') {
+            console.log('Requisição cancelada');
+        }
+    });
+
+// Cancelar a requisição após 3 segundos
+setTimeout(() => controller.abort(), 3000);</pre>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Crie uma aplicação que:</p>
+                <ul>
+                    <li>Busque dados de usuários de uma API pública (JSONPlaceholder)</li>
+                    <li>Busque os posts de cada usuário em paralelo</li>
+                    <li>Calcule o tempo total de execução</li>
+                    <li>Implemente tratamento de erros completo</li>
+                    <li>Adicione um timeout de 5 segundos para cada requisição</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Desafio extra:</strong> Implemente um sistema de cache para evitar requisições repetidas aos mesmos dados.
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">MDN - Promise</a></li>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/async_function" target="_blank">MDN - Async Function</a></li>
+                    <li><a href="https://javascript.info/async" target="_blank">JavaScript.info - Async/Await</a></li>
+                    <li><a href="https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/async-performance/README.md" target="_blank">You Don't Know JS - Async & Performance</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>Domine JavaScript assíncrono e construa aplicações mais eficientes e robustas!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajude outros devs a entenderem programação assíncrona!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="dark-mode.html">Dark Mode com CSS →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

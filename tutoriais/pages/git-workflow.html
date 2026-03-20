@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Workflow: Colaboração em Equipe | Não Desista Dev</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .tutorial-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .error-box {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .evolution-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        .git-branch-diagram {
+            background: var(--bg-body);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .tutorial-container {
+                padding: 0 1rem;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>🔀 Git Workflow: Colaboração em Equipe</h1>
+                <div class="tutorial-meta">
+                    <span>📖 20 min de leitura</span>
+                    <span>🎯 Nível: Intermediário</span>
+                    <span>💻 Git Flow • PRs • Code Review</span>
+                    <span>🔧 Ferramentas essenciais</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>Trabalhar em equipe com Git pode ser desafiador. Conflitos de merge, branches desorganizadas e commits confusos são problemas comuns. Neste tutorial, vamos dominar os workflows mais eficientes para colaboração, desde o Git Flow tradicional até estratégias modernas como GitHub Flow e trunk-based development.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🎯 Objetivos</h2>
+                <ul>
+                    <li>Entender diferentes estratégias de branching</li>
+                    <li>Dominar o Git Flow e suas branches (develop, feature, release, hotfix)</li>
+                    <li>Aprender a resolver conflitos de merge como um profissional</li>
+                    <li>Praticar code review e pull requests</li>
+                    <li>Escrever commits semânticos e mensagens significativas</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Commits sem descrição ou descrições ruins</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Mensagens de commit inúteis</strong>
+                    <div class="code-block">
+                        <pre>git commit -m "fix"
+git commit -m "atualizacao"
+git commit -m "teste"
+git commit -m "mudanças"
+git commit -m "final"</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Impossível saber o que foi alterado, dificulta revisão, debugging e geração de changelogs.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Commits semânticos (Conventional Commits)</strong>
+                    <div class="code-block">
+                        <pre># Estrutura: &lt;tipo&gt;(escopo): &lt;descrição&gt;
+
+git commit -m "feat(auth): adiciona login com Google"
+git commit -m "fix(cart): corrige cálculo de frete"
+git commit -m "docs(readme): atualiza instruções de instalação"
+git commit -m "style(header): ajusta espaçamento do menu"
+git commit -m "refactor(api): extrai validação para serviço separado"
+git commit -m "test(unit): adiciona testes para função de cálculo"
+git commit -m "chore(deps): atualiza dependências de segurança"
+git commit -m "perf(image): otimiza carregamento de imagens"
+
+# Tipos comuns:
+# feat: nova funcionalidade
+# fix: correção de bug
+# docs: documentação
+# style: formatação, espaçamento, etc (sem mudança de código)
+# refactor: refatoração que não altera funcionalidade
+# test: adiciona ou corrige testes
+# chore: tarefas de manutenção, builds, etc
+# perf: melhoria de performance</pre>
+                    </div>
+                    <div class="warning-box">
+                        <strong>💡 Dica:</strong> Use <code>git commit -m "tipo: descrição" -m "Descrição detalhada"</code> para mensagens mais completas.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Trabalhar diretamente na branch main/master</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Commits diretos na main</strong>
+                    <div class="code-block">
+                        <pre>git checkout main
+git add .
+git commit -m "feature nova"
+git push origin main</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Sem code review, risco de quebrar produção, histórico linear e confuso, difícil reverter.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar branches de feature e Pull Requests</strong>
+                    <div class="code-block">
+                        <pre># 1. Criar branch para a feature
+git checkout -b feature/login-google
+
+# 2. Trabalhar na branch
+git add .
+git commit -m "feat(auth): implementa login com Google"
+
+# 3. Atualizar com a main (evita conflitos)
+git fetch origin
+git rebase origin/main
+
+# 4. Enviar branch para o repositório remoto
+git push origin feature/login-google
+
+# 5. Abrir Pull Request no GitHub/GitLab
+# 6. Após aprovação e merge, deletar a branch</pre>
+                    </div>
+                    <div class="git-branch-diagram">
+                        <pre>
+main        ●─────────●─────────●─────────●
+              \         \         \         \
+feature       ●───●─────●         ●───●─────●
+(hotfix)                        /
+release       ●─────────────────●</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Resolver conflitos de forma incorreta</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Ignorar ou resolver conflitos sem entender</strong>
+                    <div class="code-block">
+                        <pre># Conflito no arquivo app.js
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+function saudacao() {
+    return "Olá, usuário!";
+}
+=======
+function saudacao() {
+    return "Welcome, user!";
+}
+>>>>>>> feature/internacionalizacao
+
+# Resposta errada: simplesmente escolher um lado sem analisar
+git checkout --ours app.js  # Ignora as mudanças da outra branch</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Pode perder funcionalidades importantes ou introduzir bugs silenciosos.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Resolver conflitos com cuidado e testar</strong>
+                    <div class="code-block">
+                        <pre># 1. Identificar o conflito
+git status
+
+# 2. Abrir arquivo com conflito e resolver manualmente
+# Manter o melhor de cada versão ou combinar ambas
+function saudacao(idioma = 'pt') {
+    if (idioma === 'pt') {
+        return "Olá, usuário!";
+    }
+    return "Welcome, user!";
+}
+
+# 3. Marcar como resolvido
+git add app.js
+
+# 4. Continuar o merge/rebase
+git commit  # Para merge
+# ou
+git rebase --continue  # Para rebase
+
+# 5. Testar a aplicação após resolver conflitos!</pre>
+                    </div>
+                    <div class="success-box">
+                        <strong>🛠️ Ferramentas úteis:</strong>
+                        <p>Use <code>git mergetool</code> para abrir uma interface visual de resolução de conflitos. Ferramentas como VS Code, GitKraken e Sourcetree têm ótimos resolvers.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #4: Não usar .gitignore corretamente</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Commitar arquivos desnecessários</strong>
+                    <div class="code-block">
+                        <pre># Commitar node_modules, .env, arquivos de build
+git add .
+git commit -m "commit gigante"
+# Resultado: repositório enorme, arquivos sensíveis expostos</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Repositório lento, arquivos de ambiente vazam, conflitos frequentes em arquivos gerados.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Configurar .gitignore adequado</strong>
+                    <div class="code-block">
+                        <pre># .gitignore - Exemplo para projeto Node.js/React
+node_modules/
+dist/
+build/
+.env
+.env.local
+*.log
+.DS_Store
+coverage/
+.vscode/
+.idea/
+
+# Remover arquivos já commitados acidentalmente
+git rm --cached node_modules/ -r
+git rm --cached .env
+git commit -m "chore: remove arquivos desnecessários do git"</pre>
+                    </div>
+                    <div class="warning-box">
+                        <strong>💡 Dica:</strong> Use <a href="https://www.toptal.com/developers/gitignore" target="_blank">gitignore.io</a> para gerar .gitignore específico para seu stack.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Evolução: Workflows de colaboração</h2>
+                
+                <h3>1. Git Flow (Tradicional)</h3>
+                <div class="code-block">
+                    <pre># Estrutura de branches
+main           # produção
+develop        # desenvolvimento
+feature/*      # novas funcionalidades
+release/*      # preparação para produção
+hotfix/*       # correções urgentes
+
+# Fluxo:
+git checkout develop
+git checkout -b feature/nova-funcionalidade
+# trabalhar...
+git checkout develop
+git merge --no-ff feature/nova-funcionalidade
+git branch -d feature/nova-funcionalidade
+
+# Para release:
+git checkout -b release/1.0.0 develop
+# ajustes finais...
+git checkout main
+git merge --no-ff release/1.0.0
+git tag -a 1.0.0 -m "Versão 1.0.0"
+git checkout develop
+git merge --no-ff release/1.0.0</pre>
+                </div>
+                
+                <h3>2. GitHub Flow (Simplificado)</h3>
+                <div class="code-block">
+                    <pre># Mais simples, ideal para deploy contínuo
+main           # sempre pronta para deploy
+feature/*      # branches curtas
+
+# Fluxo:
+git checkout -b feature/nova-feature
+# trabalhar e commitar
+git push origin feature/nova-feature
+# Abrir Pull Request
+# Após aprovação, merge para main
+git checkout main
+git pull origin main
+git branch -d feature/nova-feature
+
+# Deploy automático após merge na main</pre>
+                </div>
+                
+                <h3>3. Trunk-Based Development (Avançado)</h3>
+                <div class="code-block">
+                    <pre># Para times maduros e CI/CD forte
+trunk (main)   # única branch ativa
+# branches de curta duração (menos de 1 dia)
+
+# Fluxo:
+git checkout -b short-lived-branch
+# trabalhar rapidamente
+git commit -m "feat: pequena mudança"
+git pull origin trunk --rebase
+git push origin short-lived-branch
+# PR rápido e merge
+git checkout trunk
+git pull origin trunk
+
+# Características:
+# - Feature flags para controlar lançamentos
+# - Deploys frequentes (múltiplos por dia)
+# - CI/CD robusto</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Evolução:</strong>
+                    <p>Comece com GitHub Flow (mais simples), evolua para Git Flow quando precisar de releases programadas, e adote Trunk-Based Development quando tiver CI/CD maduro e times experientes.</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Dicas Avançadas</h2>
+                <ul>
+                    <li><strong>Rebase vs Merge:</strong> Use <code>git rebase</code> para manter histórico linear, <code>git merge</code> para preservar contexto de branches</li>
+                    <li><strong>Interactive Rebase:</strong> <code>git rebase -i HEAD~3</code> para squash, reorder e editar commits antes do PR</li>
+                    <li><strong>Git Hooks:</strong> Use husky (Node.js) ou pre-commit hooks para validar código antes do commit</li>
+                    <li><strong>Signed Commits:</strong> Configure GPG para assinar commits e garantir autenticidade</li>
+                    <li><strong>Git Aliases:</strong> Crie aliases para comandos frequentes</li>
+                </ul>
+                
+                <h3>Git Aliases úteis</h3>
+                <div class="code-block">
+                    <pre># Configurar aliases
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.tree 'log --graph --oneline --all'
+
+# Uso:
+git co feature/nova
+git st
+git ci -m "mensagem"
+git tree  # visualização gráfica do histórico</pre>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Simule um fluxo de trabalho em equipe:</p>
+                <ul>
+                    <li>Crie um repositório e convide um colega (ou simule com branches)</li>
+                    <li>Crie uma branch <code>feature/login</code> e implemente um formulário de login</li>
+                    <li>Outro dev cria <code>feature/header</code> e modifica o mesmo arquivo</li>
+                    <li>Abra PRs, faça code review com comentários construtivos</li>
+                    <li>Resolva conflitos de merge que surgirem</li>
+                    <li>Faça squash dos commits antes do merge</li>
+                    <li>Deploy da main e crie uma tag de versão</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Desafio extra:</strong> Implemente um hook de pre-commit que verifica se as mensagens seguem o padrão Conventional Commits.
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank">Atlassian - Git Workflows</a></li>
+                    <li><a href="https://www.conventionalcommits.org/" target="_blank">Conventional Commits</a></li>
+                    <li><a href="https://github.com/git-guides/" target="_blank">GitHub Guides</a></li>
+                    <li><a href="https://learngitbranching.js.org/" target="_blank">Learn Git Branching (interativo)</a></li>
+                    <li><a href="https://ohmygit.org/" target="_blank">Oh My Git! (jogo para aprender Git)</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>Git é uma ferramenta poderosa - use-a com sabedoria para colaborar de forma eficiente!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajudou você? Compartilhe estas práticas com seu time!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="data-structures.html">Estrutura de Dados →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

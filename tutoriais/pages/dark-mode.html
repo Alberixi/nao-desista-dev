@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode com Variáveis CSS | Não Desista Dev</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Mesmos estilos dos tutoriais anteriores */
+        .tutorial-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        
+        .tutorial-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .tutorial-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .tutorial-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .tutorial-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .code-block {
+            background: var(--bg-body);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        .error-box {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .evolution-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .demo-box {
+            background: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tutorial-container {
+                padding: 0 1rem;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <a href="../index.html" class="logo-link">
+                    <h1>🚀 não desista.<span class="accent">dev</span></h1>
+                </a>
+                <p>tutoriais práticos • comunidade • evolução contínua</p>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar tema">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-text">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container tutorial-container">
+            <a href="../index.html" class="back-button">← Voltar para tutoriais</a>
+            
+            <div class="tutorial-header">
+                <h1>🌓 Dark Mode com Variáveis CSS</h1>
+                <div class="tutorial-meta">
+                    <span>📖 15 min de leitura</span>
+                    <span>🎯 Nível: Iniciante</span>
+                    <span>💻 Projeto prático</span>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📌 Introdução</h2>
+                <p>Dark mode se tornou um recurso essencial em aplicações modernas. Além de melhorar a experiência do usuário, pode reduzir o consumo de bateria em dispositivos OLED. Neste tutorial, vamos implementar um sistema de temas completo usando apenas CSS e JavaScript puro.</p>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🎯 Objetivos</h2>
+                <ul>
+                    <li>Entender variáveis CSS e como usá-las para temas</li>
+                    <li>Implementar alternância de tema com JavaScript</li>
+                    <li>Persistir a preferência do usuário com localStorage</li>
+                    <li>Respeitar a preferência do sistema (prefers-color-scheme)</li>
+                    <li>Criar transições suaves entre temas</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #1: Hardcoded de cores</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Definir cores fixas no CSS</strong>
+                    <div class="code-block">
+                        <pre>body {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.dark-mode {
+    background-color: #000000;
+    color: #ffffff;
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> Para cada elemento, você precisaria criar regras específicas para o dark mode, gerando código repetitivo e difícil de manter.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Usar variáveis CSS</strong>
+                    <div class="code-block">
+                        <pre>:root {
+    --bg-primary: #ffffff;
+    --text-primary: #000000;
+    --accent: #f97316;
+}
+
+body.dark {
+    --bg-primary: #000000;
+    --text-primary: #ffffff;
+    --accent: #38bdf8;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.button {
+    background-color: var(--accent);
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #2: Não persistir a preferência</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Tema volta ao padrão ao recarregar</strong>
+                    <div class="code-block">
+                        <pre>// O tema é perdido quando a página é recarregada
+function toggleTheme() {
+    document.body.classList.toggle('dark');
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> O usuário perde a preferência ao navegar entre páginas ou recarregar.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Salvar no localStorage</strong>
+                    <div class="code-block">
+                        <pre>function toggleTheme() {
+    const isDark = document.body.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.body.classList.add('dark');
+    }
+}
+
+loadTheme();</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>⚠️ Erro Comum #3: Transições abruptas</h2>
+                <div class="error-box">
+                    <strong>❌ Erro: Mudança instantânea de cores</strong>
+                    <div class="code-block">
+                        <pre>// Sem transição, a mudança é abrupta
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}</pre>
+                    </div>
+                    <p><strong>Problema:</strong> A mudança de tema acontece instantaneamente, sem fluidez.</p>
+                </div>
+                
+                <div class="success-box">
+                    <strong>✅ Correção: Adicionar transições</strong>
+                    <div class="code-block">
+                        <pre>body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.2s ease;
+}
+
+/* Otimização para performance */
+* {
+    transition: background-color 0.3s ease, border-color 0.2s ease;
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🚀 Evolução: Do básico ao avançado</h2>
+                
+                <h3>1. Versão básica (apenas CSS)</h3>
+                <div class="code-block">
+                    <pre>@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #000;
+        color: #fff;
+    }
+}</pre>
+                </div>
+                
+                <h3>2. Com toggle manual (JavaScript)</h3>
+                <div class="code-block">
+                    <pre>const toggle = document.getElementById('theme-toggle');
+toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+});</pre>
+                </div>
+                
+                <h3>3. Versão completa com persistência e preferência do sistema</h3>
+                <div class="code-block">
+                    <pre>// Detectar preferência do sistema
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+// Função para aplicar tema
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+}
+
+// Carregar tema salvo ou detectar sistema
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    applyTheme(savedTheme);
+} else {
+    applyTheme(prefersDark.matches ? 'dark' : 'light');
+}
+
+// Ouvir mudanças no sistema
+prefersDark.addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+    }
+});</pre>
+                </div>
+                
+                <div class="evolution-box">
+                    <strong>🎯 Evolução:</strong>
+                    <p>Comece com um simples media query, evolua para um toggle manual e finalize com um sistema completo que respeita a preferência do usuário e do sistema!</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>💡 Dicas Avançadas</h2>
+                <ul>
+                    <li><strong>CSS-in-JS:</strong> Em frameworks como React, use Context API para gerenciar temas globalmente</li>
+                    <li><strong>Imagens adaptativas:</strong> Use <code>&lt;picture&gt;</code> com media queries para carregar imagens específicas para dark mode</li>
+                    <li><strong>Performance:</strong> Evite transições em propriedades que causam repaint (evite box-shadow)</li>
+                    <li><strong>Subtemas:</strong> Crie múltiplas variações de cores (azul, verde, roxo) além do claro/escuro</li>
+                </ul>
+                
+                <h3>Exemplo com múltiplos temas</h3>
+                <div class="code-block">
+                    <pre>body[data-theme="light"] {
+    --bg: #fff;
+    --text: #000;
+}
+
+body[data-theme="dark"] {
+    --bg: #000;
+    --text: #fff;
+}
+
+body[data-theme="blue"] {
+    --bg: #1e3a8a;
+    --text: #e0f2fe;
+}
+
+function setTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+}</pre>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>📝 Exercício Prático</h2>
+                <p>Crie um sistema de temas com as seguintes funcionalidades:</p>
+                <ul>
+                    <li>Três temas: Claro, Escuro e Azul</li>
+                    <li>Botões para alternar entre os temas</li>
+                    <li>Persistência com localStorage</li>
+                    <li>Detecção de preferência do sistema no primeiro acesso</li>
+                    <li>Transições suaves entre temas</li>
+                </ul>
+                <div class="success-box">
+                    <strong>🎯 Desafio extra:</strong> Adicione um efeito de "flash" animado quando o tema mudar, como se a tela estivesse se transformando.
+                </div>
+                
+                <div class="demo-box">
+                    <h3>🎨 Demonstração</h3>
+                    <p>Este próprio site usa o sistema que acabamos de aprender! Clique no botão de tema no cabeçalho para ver a mudança em ação.</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h2>🔗 Recursos Adicionais</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS/Using_CSS_custom_properties" target="_blank">MDN - Variáveis CSS</a></li>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS/@media/prefers-color-scheme" target="_blank">MDN - prefers-color-scheme</a></li>
+                    <li><a href="https://web.dev/prefers-color-scheme/" target="_blank">Web.dev - prefers-color-scheme</a></li>
+                    <li><a href="https://css-tricks.com/dark-modes-with-css/" target="_blank">CSS Tricks - Dark Modes</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre o Tutorial</h4>
+                    <p>Dark mode não é apenas uma tendência, é uma questão de acessibilidade e conforto visual!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Compartilhe</h4>
+                    <p>Ajudou você? Compartilhe com outros devs!</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Próximo Tutorial</h4>
+                    <p><a href="react-hooks.html">React Hooks →</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>✨ Não Desista Dev - Aprenda com erros, evolua com prática! ✨</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>
